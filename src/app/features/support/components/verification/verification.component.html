@@ -1,0 +1,156 @@
+<div class="g-app-dimensions l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleBack()"
+        />
+        <p class="g-text-h2-dark m-0">Verification</p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content -->
+
+    <div class="l-content">
+        <ng-container *ngIf="!isUserVerified; else showVerificationDetails">
+            <p class="g-text-p l-left my-5">
+                By Subscribing to Match Exchange you indicate to the market that you are a trusted party to transact
+                with. A symbol of verification is displayed to matching counterparties on your Lots.
+            </p>
+
+            <!-- #region Verification Subscriptions -->
+
+            <h2 class="g-text-h2 l-left mt-4 mb-3"><b>Available Verification Types:</b></h2>
+            <div class="g-text-p-small-grey" *ngIf="!isWeb">
+                <p>Select a Yearly or Monthly subscription below</p>
+            </div>
+
+            <div
+                *ngFor="let verificationSubscription of baseVerificationSubscriptions | keyvalue"
+                class="l-verification-container"
+            >
+                <app-verification-card
+                    [verificationSubscription]="verificationSubscription"
+                    [isWeb]="isWeb"
+                ></app-verification-card>
+            </div>
+
+            <div *ngIf="isWeb" class="g-text-p-small-grey">
+                <p>*VAT Excluded</p>
+            </div>
+            <h2 class="g-text-h2 l-left mt-4 mb-3"><b>Grain SA</b></h2>
+
+            <div
+                *ngFor="let verificationSubscription of promotionVerificationSubscriptions | keyvalue"
+                class="l-verification-container"
+            >
+                <app-verification-card
+                    [verificationSubscription]="verificationSubscription"
+                    [isWeb]="isWeb"
+                    [isGrainSAVerified]="isGrainSAVerified"
+                ></app-verification-card>
+            </div>
+            <div class="g-text-p-small-grey mb-2" *ngIf="!isWeb">
+                <p>
+                    Your monthly or annual subscription automatically renews for the same term unless cancelled at least
+                    24 hours prior to the end of the current term. Cancel at any time in the
+                    <span>{{ platform === 'ios' ? 'App Store' : 'Google Play store' }}</span> at no additional cost;
+                    your subscription will then cease at the end of the current term.
+                </p>
+                <a
+                    class="l-document-link"
+                    *ngIf="platform === 'ios'"
+                    href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+                >
+                    Apple EULA, </a
+                ><a class="l-document-link" href="https://app.matchmx.com/assets/files/ToS.html"
+                    (click)="handleRouteToDocumentViewer('ToS.pdf')"> Terms Of Service</a>,
+                <a class="l-document-link"
+                   (click)="handleRouteToDocumentViewer('privacyPolicy.pdf')"
+                    >Privacy Policy</a
+                >,
+                <a class="l-document-link"
+                   (click)="handleRouteToDocumentViewer('Skudu_Acceptable.pdf')"
+                    >Website Terms of Use</a
+                >.
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region How To Verify -->
+
+            <h2 class="g-text-h2 l-left my-4">
+                <b> To verify your company you can download the application form or request it by email below: </b>
+            </h2>
+
+            <div class="l-button-container">
+                <a
+                    class="g-primary-button l-button-link"
+                    mat-ripple
+                    [href]="
+                        isWeb
+                            ? './assets/files/The Match Exchange - Client Subscription Form.docx'
+                            : 'https://match.skudu.co.za/assets/files/The Match Exchange - Client Subscription Form.docx'
+                    "
+                    download="The Match Exchange - Client Subscription Form"
+                    >Download Form</a
+                >
+                <button class="g-primary-button mt-3" mat-flat-button (click)="handleRequestByEmail()">
+                    <mat-progress-spinner
+                        *ngIf="isActionLoading; else showRequestByEmail"
+                        class="g-mat-progress-spinner-white mx-auto"
+                        mode="indeterminate"
+                        [diameter]="30"
+                    ></mat-progress-spinner>
+                    <ng-template #showRequestByEmail> Request By Email </ng-template>
+                </button>
+            </div>
+            <!-- #endregion -->
+
+            <!-- #region Contact Information -->
+            <div class="l-contacts mt-4">
+                <img class="l-verification-icon" src="./assets/images/blue-phone.svg" alt="Blue phone" />
+                <p class="g-text-p l-left m-0">Call: 021 870 3960</p>
+            </div>
+            <div class="l-contacts">
+                <img class="l-verification-icon" src="./assets/images/blue-at-symbol.svg" alt="Commercial at sign" />
+                <p class="g-text-p l-left m-0">Email: info@matchmx.com</p>
+            </div>
+
+            <!-- #endregion -->
+        </ng-container>
+        <ng-template #showVerificationDetails>
+            <div class="l-user-verified">
+                <p class="m-0">You are verified as a</p>
+                <h2>
+                    {{ userVerification.name }}
+                </h2>
+                <img class="l-verification-icon-verified" [src]="userVerification.source" alt="verification-icon" />
+                <div class="mt-1">
+                    <p class="g-text-h2 d-inline mr-1">Subscription Start Date:</p>
+                    <span class="d-inline" id="months">{{ verificationDate.toLocaleDateString() }}</span>
+                </div>
+
+                <div class="g-text-p-small-grey mt-4" *ngIf="!isWeb">
+                    <p>
+                        Your monthly or annual subscription automatically renews for the same term unless cancelled at
+                        least 24 hours prior to the end of the current term. Cancel at any time in your store at no
+                        additional cost; your subscription will then cease at the end of the current term.
+                    </p>
+                </div>
+
+                <p class="l-incorrect-verification-contact">
+                    If your verification is displaying incorrectly, or you wish to change your verification type, please
+                    email
+                    <a href="mailto:info@matchmx.com">info@matchmx.com.</a>
+                </p>
+            </div>
+        </ng-template>
+    </div>
+
+    <!-- #endregion -->
+</div>

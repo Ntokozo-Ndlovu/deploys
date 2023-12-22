@@ -1,0 +1,65 @@
+<div class="l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleClose()"
+        />
+        <div class="g-text-input-container l-location-input">
+            <img class="g-input-text-icon" src="./assets/icons/location-icon.svg" alt="Grey location pin" />
+            <input
+                class="g-input-text"
+                type="text"
+                [(ngModel)]="town"
+                name="town"
+                ngx-gp-autocomplete
+                [options]="options"
+                (onAddressChange)="handleSelectLocation($event)"
+                placeholder="Location"
+                autocomplete="off"
+                required
+            />
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Map -->
+
+    <div *ngIf="apiLoaded|async" class="l-map-container">
+        <google-map
+            class="l-map"
+            [zoom]="zoom"
+            [center]="{lat:gpsCoordinates.lat, lng:gpsCoordinates.lng}"
+            [options]="{mapTypeId:'hybrid',gestureHandling:'cooperative'}"
+        >
+            <map-marker
+                [position]="{lat:gpsCoordinates.lat,lng:gpsCoordinates.lng}"
+                [options]="{draggable: false}"
+                (dragend)="handleDragEnd($event)"
+            ></map-marker>
+        </google-map>
+
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Button -->
+
+    <div class="l-button-container">
+        <button
+            class="g-primary-button"
+            [class.g-disabled-button]="!locationHasBeenSelected || !gpsCoordinates"
+            [disabled]="!locationHasBeenSelected || !gpsCoordinates"
+            mat-flat-button
+            (click)="handleCloseWithGPSCoordinates()"
+        >
+            Apply Pin Location
+        </button>
+    </div>
+
+    <!-- #endregion -->
+</div>

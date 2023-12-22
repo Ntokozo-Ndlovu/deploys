@@ -1,0 +1,59 @@
+<div class="d-flex flex-column">
+  <!-- #region Header -->
+
+  <div class="d-flex flex-column">
+    <div class="d-flex flex-row justify-content-end w-100">
+      <img
+        class="g-modal-close-icon"
+        src="./assets/icons/close-icon-dark.svg"
+        alt="close"
+        (click)="handleCloseModal()" />
+    </div>
+    <h1 class="g-text-h1-dark mb-3 w-100">
+      <b>Client Email</b>
+    </h1>
+  </div>
+
+  <!-- #endregion -->
+
+  <!-- #region Modal Content -->
+
+  <div class="g-text-p-dark">
+    <p>
+      Please enter the client's email to send them a pairing request.
+    </p>
+  </div>
+
+  <div class="g-text-input-container">
+    <input
+      #email="ngModel"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      class="g-input-text-no-icon"
+      type="text"
+      name="email"
+      placeholder="Client Email"
+      [(ngModel)]="clientEmail"
+      [disabled]="emailValidationLoading"
+      required
+    />
+  </div>
+  <!-- #endregion -->
+
+  <!-- #region Buttons -->
+
+  <button
+    [disabled]="email.errors?.pattern || email.pristine || emailValidationLoading"
+    [class.g-disabled-button]="email.errors?.pattern || email.pristine"
+    class="g-primary-button my-2"
+    (click)="handleValidateClientEmail()">
+    <mat-progress-spinner
+      *ngIf="emailValidationLoading; else showButtonText"
+      class="g-mat-progress-spinner-white mx-auto"
+      mode="indeterminate"
+      [diameter]="30"
+    ></mat-progress-spinner>
+    <ng-template #showButtonText>Send Request</ng-template>
+  </button>
+
+  <!-- #endregion -->
+</div>

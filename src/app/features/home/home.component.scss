@@ -1,0 +1,103 @@
+@import 'src/variables.scss';
+
+.l-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: $app-bg-color;
+    overflow: auto;
+}
+
+.l-notification-dropdown-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding: 62px 16px 0 16px;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 3;
+    opacity: 1;
+    transition: 0.3s ease-in-out;
+}
+.l-hide-notification-dropdown-container {
+    opacity: 0;
+}
+
+.l-header {
+    width: 100%;
+    height: fit-content;
+    padding: 16px;
+    background-color: $background-color;
+    display: flex;
+    align-items: center;
+}
+
+.l-header-img-container {
+    width: 120px;
+    height: fit-content;
+    margin: 0 auto;
+}
+
+.l-header-img {
+    width: 100%;
+    height: auto;
+}
+
+.l-notification-container {
+    position: relative;
+}
+
+.l-profile-img {
+    width: 24px;
+    height: auto;
+}
+
+.l-cards-container {
+    width: 100%;
+    height: fit-content;
+    padding: 16px;
+}
+
+.l-card {
+    position: relative;
+    width: 100%;
+    height: 96px;
+    display: flex;
+    background-color: $background-color;
+    margin-top: 16px;
+    border-radius: $border-radius;
+    cursor: pointer;
+}
+.l-card:first-child {
+    margin: 0;
+}
+
+.l-card-img-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 25px;
+    margin-left: 34px;
+}
+
+.l-card-img {
+    height: 24px;
+    width: 24px;
+}
+
+.l-card-title-container {
+    width: calc(100% - 140px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.l-info-icon {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+}

@@ -1,0 +1,94 @@
+<div class="g-app-dimensions l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleNavigateToHomePage()"
+        />
+        <p class="g-text-h2-dark m-auto">Clearing</p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Loading Spinner -->
+
+    <div *ngIf="isLoading; else completedLoaded" class="l-spinner-holder">
+        <mat-progress-spinner
+            class="g-mat-progress-spinner"
+            mode="indeterminate"
+            [diameter]="40"
+        ></mat-progress-spinner>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Completed Content -->
+
+    <ng-template #completedLoaded>
+        <div *ngIf="completedCards && completedCards.length; else noCompletedCards" class="l-content-container">
+            <!-- # Clearing -->
+
+            <div class="l-clearing-content">
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-column align-items-center">
+                        <div>
+                            <img
+                                src="../../../../../assets/images/clearing-blue-icon.svg"
+                                class="l-icon"
+                                alt="Clearing"
+                            />
+                        </div>
+
+                        <h2 class="g-text-h1-dark mt-2">Clearing</h2>
+                        <p class="mt-3 g-text-p-dark l-text">
+                            MX will walk you through the process to clear your contract in the safest way possible.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="g-text-input-container">
+                        <img class="g-input-text-icon" src="./assets/icons/search-grey-icon.svg" alt="search-icon" />
+                        <input
+                            class="g-input-text"
+                            [(ngModel)]="searchInput"
+                            (ngModelChange)="handleSearchInput(searchInput)"
+                            name="search"
+                            type="text"
+                            placeholder="Search..."
+                        />
+                    </div>
+                </div>
+                <div class="l-info">
+                    <img class="l-info-icon-img" src="./assets/icons/info-icon-blue.svg" alt="info-icon" />
+                    <p class="g-text-p-small-dark pl-2">Select a completed negotiation to clear</p>
+                </div>
+            </div>
+            <!-- #endregion -->
+
+            <!-- #region Completed Clearing Cards -->
+
+            <div
+                *ngFor="let completedCard of filteredCompletedCards"
+                class="l-card-container"
+                [class.g-fade-in]="animateIn"
+                (click)="handleClearingEmailModal(completedCard)"
+            >
+                <app-completed-clearing-card [negotiationCard]="completedCard"></app-completed-clearing-card>
+            </div>
+
+            <!-- #endregion -->
+        </div>
+
+        <ng-template #noCompletedCards>
+            <div class="l-no-content-container">
+                <h1 class="g-text-h2-dark mx-2 mb-3">You currently have no completed deals...</h1>
+                <p class="g-text-p-dark mx-5">Create a Lot, negotiate and get a Match!</p>
+            </div>
+        </ng-template>
+    </ng-template>
+
+    <!-- #endregion -->
+</div>

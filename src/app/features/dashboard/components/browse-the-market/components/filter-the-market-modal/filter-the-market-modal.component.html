@@ -1,0 +1,200 @@
+<div class="l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleClose()"
+        />
+        <p class="g-text-h2-dark">Filter Lots</p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Loading Spinner -->
+
+    <div *ngIf="isLoading; else showForm" class="l-loading-container">
+        <mat-progress-spinner
+            class="g-mat-progress-spinner-blue"
+            mode="indeterminate"
+            [diameter]="30"
+        ></mat-progress-spinner>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Form -->
+
+    <ng-template #showForm>
+        <form class="l-form">
+            <div>
+                <!-- #region Type -->
+
+                <div class="d-flex">
+                    <div
+                        class="l-option mr-2"
+                        [class.l-active-buy]="filters.cardType === 'Buy'"
+                        (click)="handleToggleLotType('Buy')"
+                    >
+                        <p class="g-text-p">Buy</p>
+                        <img
+                            class="l-option-icon"
+                            [src]="
+                                filters.cardType === 'Buy'
+                                    ? './assets/icons/buy-selected-icon.svg'
+                                    : './assets/icons/unselected-icon.svg'
+                            "
+                            alt="White tick with red background or grey circle"
+                        />
+                    </div>
+                    <div
+                        class="l-option ml-2"
+                        [class.l-active-sell]="filters.cardType === 'Sell'"
+                        (click)="handleToggleLotType('Sell')"
+                    >
+                        <p class="g-text-p">Sell</p>
+                        <img
+                            class="l-option-icon"
+                            [src]="
+                                filters.cardType === 'Sell'
+                                    ? './assets/icons/sell-selected-icon.svg'
+                                    : './assets/icons/unselected-icon.svg'
+                            "
+                            alt="White tick with green background or grey circle"
+                        />
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Location Autocomplete Input -->
+
+                <div class="g-text-input-container l-location-input" (click)="handleOpenLocationModal()">
+                    <img class="g-input-text-icon" src="./assets/icons/location-icon.svg" alt="Grey location pin" />
+                    <input
+                        class="g-input-text g-clickable"
+                        type="text"
+                        [(ngModel)]="filters.town"
+                        name="town"
+                        placeholder="Location"
+                        readonly
+                    />
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Radius -->
+
+                <div class="mt-4">
+                    <mat-select
+                        class="g-input-select"
+                        name="radius"
+                        placeholder="Radius Around Location"
+                        [(ngModel)]="filters.radius"
+                    >
+                        <mat-option *ngFor="let radius of radii" [value]="+radius">{{ radius }} km</mat-option>
+                    </mat-select>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Crop Category  -->
+
+                <div class="mt-4">
+                    <mat-select
+                        class="g-input-select"
+                        [(ngModel)]="filters.cropCategory"
+                        name="cropCategory"
+                        placeholder="Crop Category"
+                        (selectionChange)="handleChangeCropCategory($event.value.id)"
+                        [compareWith]="compareSelectionsHelper"
+                        required
+                    >
+                        <mat-option *ngFor="let cropCategory of cropCategories" [value]="cropCategory">{{
+                            cropCategory.name
+                        }}</mat-option>
+                    </mat-select>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Crop  -->
+
+                <div class="mt-4">
+                    <mat-select
+                        class="g-input-select"
+                        [(ngModel)]="filters.crop"
+                        name="crop"
+                        placeholder="Crop"
+                        [compareWith]="compareSelectionsHelper"
+                        required
+                    >
+                        <mat-option *ngFor="let crop of crops" [value]="crop">{{ crop.name }}</mat-option>
+                    </mat-select>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Period -->
+
+                <div class="mt-4">
+                    <div class="d-flex">
+                        <div class="g-text-input-container mr-2 g-clickable" (click)="pickerStart.open()">
+                            <img class="g-input-text-icon" src="./assets/icons/calendar.svg" alt="Grey calendar" />
+                            <input
+                                class="g-input-text g-clickable"
+                                [(ngModel)]="filters.dateFrom"
+                                name="dateFrom"
+                                placeholder="Start Date"
+                                (dateChange)="handlePeriodChange()"
+                                [matDatepicker]="pickerStart"
+                            />
+                            <mat-datepicker #pickerStart></mat-datepicker>
+                        </div>
+
+                        <div class="g-text-input-container ml-2 g-clickable" (click)="pickerEnd.open()">
+                            <img class="g-input-text-icon" src="./assets/icons/calendar.svg" alt="Grey calendar" />
+                            <input
+                                class="g-input-text g-clickable"
+                                [(ngModel)]="filters.dateTo"
+                                name="dateTo"
+                                placeholder="End Date"
+                                (dateChange)="handlePeriodChange()"
+                                [matDatepicker]="pickerEnd"
+                            />
+                            <mat-datepicker #pickerEnd></mat-datepicker>
+                        </div>
+                    </div>
+                    <mat-error class="l-period-error" *ngIf="periodHadBeenEdited && !isPeriodValid">
+                        Invalid Period: Start Date Should Be Before End Date AND End Date Should Be After Today's Date
+                    </mat-error>
+                </div>
+
+                <!-- #endregion -->
+            </div>
+
+            <!-- #region Buttons -->
+
+            <div class="mt-4 mb-3">
+                <button
+                    *ngIf="filtersExistHelper()"
+                    class="g-secondary-button mb-3"
+                    mat-flat-button
+                    (click)="handleClearFilters()"
+                >
+                    Clear Filters
+                </button>
+
+                <button class="g-primary-button" mat-flat-button (click)="handleCloseAndApplyFilters()">
+                    Apply Filters
+                </button>
+            </div>
+
+            <!-- #endregion -->
+        </form>
+    </ng-template>
+
+    <!-- #endregion -->
+</div>

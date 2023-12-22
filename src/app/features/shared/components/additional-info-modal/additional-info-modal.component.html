@@ -1,0 +1,104 @@
+<div class="l-container">
+    <p class="g-text-h2-dark mb-3">Just a few more important details</p>
+    <form>
+        <!-- #region Ex Farm Toggle -->
+        <div class="l-content-holder">
+            <div class="g-text-input-container">
+                <img class="g-input-text-icon" src="../../../assets/icons/user-blue-icon.svg" alt="" />
+                <input
+                    class="g-input-text"
+                    type="text"
+                    name="fullName"
+                    placeholder="Legal Entity Name"
+                    [(ngModel)]="additionalEntityDetails.legalEntityName"
+                    required
+                    maxlength="30"
+                />
+            </div>
+
+            <div class="g-text-input-container mt-3">
+                <img class="g-input-text-icon" src="../../../assets/icons/mail-icon.svg" alt="" />
+                <input
+                    class="g-input-text"
+                    type="email"
+                    placeholder="Entity Email"
+                    [(ngModel)]="additionalEntityDetails.email"
+                    name="email"
+                    required
+                />
+            </div>
+
+            <form>
+                <!-- #region Ex Farm Toggle -->
+
+                <label class="g-form-label mt-3">Do you have the ability to deliver Ex-Farm?</label>
+                <div class="l-toggle-container">
+                    <button
+                        class="l-option"
+                        [class.l-active]="additionalEntityDetails.exFarm"
+                        (click)="handleToggleExFarm(true)"
+                    >
+                        Yes<img
+                            class="l-icon"
+                            src="./assets/icons/unselected-icon.svg"
+                            [src]="
+                                additionalEntityDetails.exFarm
+                                    ? './assets/icons/selected-blue-icon.svg'
+                                    : './assets/icons/unselected-icon.svg'
+                            "
+                            alt="selected-icon"
+                        />
+                    </button>
+                    <button
+                        class="l-option"
+                        [class.l-active]="!additionalEntityDetails.exFarm"
+                        (click)="handleToggleExFarm(false)"
+                    >
+                        No
+                        <img
+                            class="l-icon"
+                            [src]="
+                                !additionalEntityDetails.exFarm
+                                    ? './assets/icons/selected-blue-icon.svg'
+                                    : './assets/icons/unselected-icon.svg'
+                            "
+                            alt="selected-icon"
+                        />
+                    </button>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region B-BBEE Rating -->
+
+                <label class="g-form-label mt-3">Scout for farmers that have a B-BBEE rating better than:</label>
+                <mat-select
+                    class="g-form-select l-select"
+                    [(ngModel)]="additionalEntityDetails.bbbeeRating"
+                    name="bbbeeRating"
+                >
+                    <mat-option *ngFor="let rating of ratingData" [value]="ratingData.indexOf(rating)">
+                        {{ rating }}
+                    </mat-option>
+                </mat-select>
+
+                <!-- #endregion -->
+
+                <div class="d-flex align-items-start">
+                    <img class="g-form-info-icon mt-1" src="./assets/icons/info-icon.svg" alt="info-icon-grey" />
+                    <p class="g-text-p-small-grey">
+                        If your turnover is less than R10 Million, you can choose level 4.
+                    </p>
+                </div>
+            </form>
+
+            <button
+                mat-flat-button
+                class="g-primary-button mb-3"
+                (click)="handleSaveDetails(additionalEntityDetails.email)"
+            >
+                Save Details
+            </button>
+        </div>
+    </form>
+</div>

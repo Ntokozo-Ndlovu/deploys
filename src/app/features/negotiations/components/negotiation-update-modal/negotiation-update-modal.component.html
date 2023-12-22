@@ -1,0 +1,12 @@
+<div class="l-container">
+    <div class="g-text-h2-dark mb-3">Sync up with your Counterparty:</div>
+    <div class="g-text-p-dark mb-3" *ngIf="!data.completePage else showCompletePageMessage">
+        Please resubmit your Match after we sync you with the counterparty to ensure the details are up-to-date!
+    </div>
+    <ng-template #showCompletePageMessage>
+      <div class="g-text-p-dark mb-3">
+        Please sync all your completed negotiations to ensure the details are up-to-date!
+      </div>
+    </ng-template>
+    <button class="g-primary-button" (click)="handleCloseDialog()">Accept</button>
+</div>

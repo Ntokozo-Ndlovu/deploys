@@ -1,0 +1,16 @@
+<div class="l-container">
+    <div class="l-content">
+        <h1 class="g-text-h1-dark my-4">{{ stepperContents[stepperIndex].title }}</h1>
+        <h2 class="g-text-p-dark l-step-index mb-3">Step {{ stepperIndex + 1 }}</h2>
+        <p class="g-text-p-dark mb-3">{{ stepperContents[stepperIndex].info }}</p>
+
+        <img src="{{ stepperContents[stepperIndex].imagePath }}" alt="step-img" class="l-img my-auto" />
+    </div>
+    <div class="l-progress-container my-3">
+        <div
+            *ngFor="let step of stepperContents; let i = index"
+            class="l-progress-step mx-1"
+            [class.l-step-active]="stepperIndex === i"
+        ></div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+@import '../../../variables.scss';
+
+.l-landing-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: $background-color;
+    padding: 16px;
+    overflow: auto;
+}
+
+.l-landing-content {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.l-img {
+    height: 220px;
+    margin-bottom: 24px;
+}

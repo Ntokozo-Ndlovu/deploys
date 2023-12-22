@@ -1,0 +1,218 @@
+<div class="l-container g-fade-in">
+    <div class="l-card">
+        <!-- #region Table Header -->
+
+        <div class="l-header" [ngClass]="isSeller ? 'l-banner-sell' : 'l-banner-buy'">
+            <h2 class="g-text-h2-dark" [ngClass]="isSeller ? 'l-sell-text' : 'l-buy-text'">
+                You Are {{ _lotMatch.userType + 'ing' }}
+            </h2>
+            <span *ngIf="hasAgent" class="l-agent-tag" (click)="handleOpenAgentModal()">BROKER</span>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Table Content -->
+
+        <div class="l-content">
+            <div *ngFor="let matchItem of matchItems" class="l-row" (click)="handleOpenEditModal(matchItem)">
+                <img [src]="'./assets/icons/' + getCorrectIconNameHelper(matchItem).toLowerCase() + '-icon-grey.svg'" alt="location-icon" />
+
+                <!-- #region Card Text -->
+
+                <div class="l-item-container">
+                    <p class="g-text-p-small-grey mb-1">{{ getCorrectMatchItemNameHelper(matchItem)}}</p>
+
+                    <ng-container [ngSwitch]="matchItem">
+                        <!-- #region Product -->
+
+                        <ng-container *ngSwitchCase="'Product'">
+                            <h2 class="l-match-item">
+                                {{ isSeller ? sellerProduct : buyerProduct }}
+                            </h2>
+                            <div *ngIf="!isMatch['Product']" class="l-info-container">
+                                <p class="g-form-info-p l-info-text">
+                                    {{ isSeller ? 'Buyer wants ' + buyerProduct : 'Seller wants ' + sellerProduct }}
+                                </p>
+                            </div>
+                        </ng-container>
+
+                        <!-- #endregion -->
+
+                        <!-- #region Position -->
+
+                        <ng-container *ngSwitchCase="'Position'">
+                            <h2 class="l-match-item">
+                                {{
+                                    isSeller
+                                        ? _lotMatch.sellerDetails.incoTerm.name + ' - ' + usableSellerDeliveryPointName
+                                        : _lotMatch.buyerDetails.incoTerm.name + ' - ' + usableBuyerDeliveryPointName
+                                }}
+                            </h2>
+                            <div *ngIf="!isMatch['Position']" class="l-info-container">
+                                <p class="g-form-info-p l-info-text">
+                                    {{ isSeller ? buyerDeliveryPoint : sellerDeliveryPoint }}
+                                </p>
+                            </div>
+                        </ng-container>
+
+                        <!-- #endregion -->
+
+                        <!-- #region Period -->
+
+                        <ng-container *ngSwitchCase="'Period'">
+                            <h2 class="l-match-item">
+                                {{
+                                    isSeller
+                                        ? (_lotMatch.sellerDetails.dateFrom | date: 'd/MM/yy') +
+                                          ' - ' +
+                                          (_lotMatch.sellerDetails.dateTo | date: 'd/MM/yy')
+                                        : (_lotMatch.buyerDetails.dateFrom | date: 'd/MM/yy') +
+                                          ' - ' +
+                                          (_lotMatch.buyerDetails.dateTo | date: 'd/MM/yy')
+                                }}
+                            </h2>
+                            <div *ngIf="!isMatch['Period']" class="l-info-container">
+                                <p class="g-form-info-p l-info-text">
+                                    {{
+                                        isSeller
+                                            ? 'Buyer wants ' +
+                                              (_lotMatch.buyerDetails.dateFrom | date: 'd/MM/yy') +
+                                              ' - ' +
+                                              (_lotMatch.buyerDetails.dateTo | date: 'd/MM/yy')
+                                            : 'Seller wants ' +
+                                              (_lotMatch.sellerDetails.dateFrom | date: 'd/MM/yy') +
+                                              ' - ' +
+                                              (_lotMatch.sellerDetails.dateTo | date: 'd/MM/yy')
+                                    }}
+                                </p>
+                            </div>
+                        </ng-container>
+
+                        <!-- #endregion -->
+
+                        <!-- #region Price -->
+
+                        <ng-container *ngSwitchCase="'ContractPrice'">
+                            <h2 class="l-match-item">
+                                {{ isSeller ? sellerPrice : buyerPrice }}
+                            </h2>
+                            <div *ngIf="!isMatch['ContractPrice']" class="l-info-container">
+                                <p class="g-form-info-p l-info-text">
+                                    {{ isSeller ? 'Buyer wants ' + buyerPrice : 'Seller wants ' + sellerPrice }}
+                                </p>
+                            </div>
+                        </ng-container>
+
+                        <!-- #endregion -->
+
+                        <!-- #region Payment -->
+
+                        <ng-container *ngSwitchCase="'Payment'">
+                            <h2 class="l-match-item">
+                                {{
+                                    isSeller
+                                        ? _lotMatch.sellerDetails.payment.name
+                                        : _lotMatch.buyerDetails.payment.name
+                                }}
+                            </h2>
+                            <div *ngIf="!isMatch['Payment']" class="l-info-container">
+                                <p class="g-form-info-p l-info-text">
+                                    {{
+                                        isSeller
+                                            ? 'Buyer wants ' + _lotMatch.buyerDetails.payment.name
+                                            : 'Seller wants ' + _lotMatch.sellerDetails.payment.name
+                                    }}
+                                </p>
+                            </div>
+                        </ng-container>
+
+                        <!-- #endregion -->
+
+                        <!-- #region Quantity -->
+
+                        <ng-container *ngSwitchCase="'Quantity'">
+                            <h2 class="l-match-item">
+                                {{
+                                    isSeller
+                                        ? _lotMatch.sellerDetails.quantity +
+                                          ' ' +
+                                          _lotMatch.sellerDetails.unitOfMeasure.name
+                                        : _lotMatch.buyerDetails.quantity +
+                                          ' ' +
+                                          _lotMatch.buyerDetails.unitOfMeasure.name
+                                }}
+                            </h2>
+                            <div *ngIf="!isMatch['Quantity']" class="l-info-container">
+                                <p class="g-form-info-p l-info-text text-truncate">
+                                    {{
+                                        isSeller
+                                            ? 'Buyer wants ' +
+                                              _lotMatch.buyerDetails.quantity +
+                                              ' ' +
+                                              _lotMatch.buyerDetails.unitOfMeasure.name
+                                            : 'Seller wants ' +
+                                              _lotMatch.sellerDetails.quantity +
+                                              ' ' +
+                                              _lotMatch.sellerDetails.unitOfMeasure.name
+                                    }}
+                                </p>
+                            </div>
+                        </ng-container>
+
+                        <!-- #endregion -->
+
+                        <!-- #region Quality -->
+
+                        <ng-container *ngSwitchCase="'Quality'">
+                            <h2 class="l-match-item">
+                                {{ isSeller ? this.sellerGrade : this.buyerGrade }}
+                            </h2>
+                            <div *ngIf="!isMatch['Quality']" class="l-info-container">
+                                <p class="g-form-info-p l-info-text">
+                                    {{ isSeller ? 'Buyer wants ' + buyerGrade : 'Seller wants ' + sellerGrade }}
+                                </p>
+                            </div>
+                        </ng-container>
+
+                        <!-- #endregion -->
+                    </ng-container>
+                </div>
+                <div
+                    *ngIf="
+                        isNegotiation &&
+                        !isLocked &&
+                        !isComplete &&
+                        !isPending &&
+                        matchItem !== 'Payment' &&
+                        !isMatch[matchItem]
+                    "
+                    class="l-match-edit"
+                >
+                    <span *ngIf="!isMatchItemLoading[matchItem.split('-').join('')]; else showSpinner" class="l-edit"> Edit </span>
+                    <ng-template #showSpinner>
+                        <mat-progress-spinner
+                            class="g-mat-progress-spinner-blue"
+                            mode="indeterminate"
+                            [diameter]="16"
+                        ></mat-progress-spinner>
+                    </ng-template>
+                </div>
+
+                <!-- #endregion -->
+
+                <div *ngIf="isMatch[matchItem]" class="l-match-edit">
+                    <span *ngIf="!isMatchItemLoading[matchItem.split('-').join('')]; else showSpinner" class="l-match"> MATCH </span>
+                    <ng-template #showSpinner>
+                        <mat-progress-spinner
+                            class="g-mat-progress-spinner-blue"
+                            mode="indeterminate"
+                            [diameter]="16"
+                        ></mat-progress-spinner>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <!-- #endregion -->
+    </div>
+</div>

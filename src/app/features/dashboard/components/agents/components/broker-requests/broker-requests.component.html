@@ -1,0 +1,51 @@
+<div class="g-app-dimensions l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleBack()"
+        />
+        <p class="g-text-h2-dark text-left ml-5">MX Brokers Requests</p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content -->
+
+    <div class="l-content" *ngIf="!noRequests; else noRequestsText">
+        <div class="l-agents-container" *ngIf="isLoading; else showBrokers">
+            <div class="l-loading-container">
+                <mat-progress-spinner
+                    class="g-mat-progress-spinner-blue mx-auto"
+                    mode="indeterminate"
+                    [diameter]="40"
+                ></mat-progress-spinner>
+                <h1 class="g-text-h1-dark">Fetching Requests...</h1>
+            </div>
+        </div>
+        <ng-template #showBrokers>
+            <div *ngFor="let clientRequest of fromClientRequests" class="l-card-container">
+                <div class="l-pending">Your Request</div>
+                <app-broker-info-card [data]="clientRequest" textLeft="true"></app-broker-info-card>
+                <button class="g-primary-button" (click)="handleViewRequest(clientRequest, false)">
+                    View Your Request
+                </button>
+            </div>
+            <div *ngFor="let brokerRequest of fromBrokerRequests" class="l-card-container">
+                <div class="l-pending">Broker Request</div>
+                <app-broker-info-card [data]="brokerRequest" textLeft="true"></app-broker-info-card>
+                <button class="g-primary-button" (click)="handleViewRequest(brokerRequest, true)">
+                    View Broker Request
+                </button>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #noRequestsText>
+        <h1 class="g-text-h2-dark mt-5">No active Broker Requests</h1>
+    </ng-template>
+
+    <!-- #endregion -->
+</div>

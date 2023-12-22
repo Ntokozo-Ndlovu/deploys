@@ -1,0 +1,26 @@
+<div class="l-main-container">
+  <div class="py-3 px-4 g-clickable l-header-container">
+    <img (click)="handleClose()" src="../../../../assets/icons/black-arrow-back.svg" alt="arrow" height="15px;" />
+  </div>
+  <div
+    *ngIf="!pdfViewerReady"
+    class="d-flex flex-wrap flex-column h-100 w-100 justify-content-center align-content-center"
+  >
+    <div class="spinner-border" role="status"></div>
+  </div>
+
+  <div *ngIf="pdfPageCount === 0" class="d-flex h-100 w-100 justify-content-center">Empty PDF</div>
+
+  <div [class.d-none]="!pdfViewerReady">
+    <ngx-extended-pdf-viewer
+      [src]="pdfUrl"
+      [useBrowserLocale]="true"
+      [mobileFriendlyZoom]="'150%'"
+      [showSecondaryToolbarButton]="false"
+      [showToolbar]="false"
+      [showDownloadButton]="false"
+      (pdfLoadingFailed)="handlePDFLoadFailEvent($event)"
+      (pagesLoaded)="handlePDFLoadingEvent($event)"
+    ></ngx-extended-pdf-viewer>
+  </div>
+</div>

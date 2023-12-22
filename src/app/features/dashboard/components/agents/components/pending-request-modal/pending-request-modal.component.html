@@ -1,0 +1,79 @@
+<div class="g-app-dimensions l-container">
+    <img class="l-close-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleCloseModal()" />
+
+    <div *ngIf="!requestBroker; else showAcceptTerms">
+        <div *ngIf="data.fromBroker; else showClientText">
+            <h1 class="g-text-h1-dark mt-5">Broker Request</h1>
+            <p class="g-text-p-dark my-2">This request is awaiting your response.</p>
+        </div>
+        <ng-template #showClientText>
+            <h1 class="g-text-h1-dark mt-5">Pending Request</h1>
+            <p class="g-text-p-dark my-2">
+                This request is awaiting acceptance from the MX Broker. You may cancel this request before they have
+                accepted.
+            </p>
+        </ng-template>
+        <div class="l-card-container">
+            <app-broker-info-card [data]="data.broker"></app-broker-info-card>
+        </div>
+        <div *ngIf="data.fromBroker; else clientRequest">
+            <button class="g-primary-button" (click)="handleShowTerms()">Accept Request</button>
+            <button class="g-secondary-button mt-2" (click)="handleDeleteRequest()">
+                <mat-progress-spinner
+                    *ngIf="isLoading; else showDeclineText"
+                    class="g-mat-progress-spinner-blue mx-auto"
+                    mode="indeterminate"
+                    [diameter]="30"
+                ></mat-progress-spinner>
+                <ng-template #showDeclineText> Decline Request</ng-template>
+            </button>
+        </div>
+        <ng-template #clientRequest>
+            <button class="g-primary-button" (click)="handleCloseModal()">Keep Request</button>
+            <button class="g-secondary-button mt-2" (click)="handleDeleteRequest()">
+                <mat-progress-spinner
+                    *ngIf="isLoading; else showCancelText"
+                    class="g-mat-progress-spinner-blue mx-auto"
+                    mode="indeterminate"
+                    [diameter]="30"
+                ></mat-progress-spinner>
+                <ng-template #showCancelText> Cancel Request</ng-template>
+            </button>
+        </ng-template>
+    </div>
+    <ng-template #showAcceptTerms>
+        <h1 class="g-text-h1-dark mt-5">T's & C's</h1>
+        <p class="g-text-p-dark my-2 text-left text-center">
+          A Broker Fee (R3/ton) shall be due and payable on all Matches confirmed on your behalf.
+          Where you allow a Broker to negotiate on your behalf, you agree that MatchMX shall not be liable for any
+          actions and/or omissions of the Broker during said negotiations.
+        </p>
+        <h1 class="g-text-h1-dark mt-3">Please Note</h1>
+        <p class="g-text-p-dark my-2 text-left text-center">
+          You will only be able to appoint 1 Broker. The appointment of a Broker will be for a minimum period of 1 year
+          which shall automatically renew, unless either party terminates the appointment.
+        </p>
+        <div class="my-3 ml-1">
+            <mat-checkbox class="g-mat-checkbox" [(ngModel)]="termsAccepted"
+                ><p class="g-text-p-dark">I understand and agree to the above</p></mat-checkbox
+            >
+        </div>
+        <button
+            class="my-2"
+            [ngClass]="{
+                'g-primary-button': termsAccepted,
+                'g-disabled-button': !termsAccepted
+            }"
+            [disabled]="!termsAccepted"
+            (click)="handleAcceptRequest()"
+        >
+            <mat-progress-spinner
+                *ngIf="isLoading; else showAcceptText"
+                class="g-mat-progress-spinner-white mx-auto"
+                mode="indeterminate"
+                [diameter]="30"
+            ></mat-progress-spinner>
+            <ng-template #showAcceptText> Accept Request</ng-template>
+        </button>
+    </ng-template>
+</div>

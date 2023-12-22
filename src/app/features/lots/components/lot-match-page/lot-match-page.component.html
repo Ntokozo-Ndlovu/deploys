@@ -1,0 +1,126 @@
+<div class="l-container g-fade-in">
+    <!-- #region Page Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleBack()"
+        />
+        <h2 class="g-text-h2-dark">Potential Match Details</h2>
+    </div>
+
+    <!-- #endregion -->
+
+    <div class="l-content">
+        <!-- #region Radius -->
+
+        <div *ngIf="isBuyer && lot" class="l-range-container">
+            <mat-select
+                class="g-form-select"
+                name="radius"
+                [(ngModel)]="radius"
+                (selectionChange)="handleChangeRadius()"
+            >
+                <mat-option *ngFor="let radius of radii" [value]="radius">{{ radius }} km</mat-option>
+            </mat-select>
+            <div class="g-info-container">
+                <img class="g-info-icon" src="./assets/icons/info-icon-blue.svg" alt="info-icon-blue" />
+                <p class="g-text-p-small-dark text-left mt-1">
+                    Change the search radius to filter your potential Matches.
+                </p>
+            </div>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Lot Match Table -->
+
+        <div class="l-lotmatch" [class.l-fill]="isLoading || lotMatches.length === 0">
+            <div *ngIf="isLoading; else showLotMatches">
+                <mat-progress-spinner
+                    class="g-mat-progress-spinner-blue"
+                    mode="indeterminate"
+                    [diameter]="40"
+                ></mat-progress-spinner>
+            </div>
+            <ng-template #showLotMatches>
+                <ng-container *ngIf="lotMatches.length > 0; else showNoLotMatches">
+                    <div
+                        class="l-lotmatch-table-container"
+                        [ngClass]="{ 'l-animate-from-left': animateFromLeft, 'l-animate-from-right': animateFromRight }"
+                    >
+                        <app-lot-match-table
+                            [lotMatch]="lotMatches[matchIndex]"
+                            [isNegotiation]="false"
+                            [hasAgent]="hasAgent"
+                        ></app-lot-match-table>
+                    </div>
+                </ng-container>
+                <ng-template #showNoLotMatches>
+                    <div class="l-no-matches g-text-p-dark">
+                        <p *ngIf="isBuyer" class="text-center m-0">
+                            There are currently no matches available within <b>{{ this.radius }} km</b> for your
+                            selected lot. Increase your radius to expand your search.
+                        </p>
+                        <p *ngIf="!isBuyer" class="text-center">There are currently no matches available.</p>
+                    </div>
+                </ng-template>
+            </ng-template>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Verification Badge -->
+
+        <div *ngIf="!isLoading && lotMatches.length" class="l-verification-badge-container">
+            <app-verification-badge
+                [verificationTypes]="verificationTypes"
+                [verificationId]="
+                    isBuyer
+                        ? lotMatches[matchIndex].sellerDetails.userVerificationId
+                        : lotMatches[matchIndex].buyerDetails.userVerificationId
+                "
+            ></app-verification-badge>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Spacer -->
+
+        <div *ngIf="!isLoading" class="l-spacer"></div>
+
+        <!-- #endregion -->
+    </div>
+
+    <!-- #region Page Footer (Toggle / Button) -->
+
+    <div *ngIf="!isLoading && lotMatches.length !== 0" class="l-footer">
+        <p class="g-text-p-small-grey text-center mb-2">
+            <i>{{ matchIndex + 1 }} of {{ lotMatches?.length }} {{ oppositeDetails }}</i>
+        </p>
+        <div class="w-100 d-flex justify-content-between align-items-center">
+            <div class="l-chevron-holder" (click)="handleToggleMatches('previous')">
+                <img class="l-chevron-icon-left" src="./assets/icons/chevron-blue.svg" alt="toggle-left" />
+            </div>
+            <div class="l-button-container">
+                <button mat-flat-button class="g-primary-button" (click)="handleNegotiate()">
+                    <ng-container *ngIf="!isActionLoading; else showLoadingSpinner">Negotiate</ng-container>
+                    <ng-template #showLoadingSpinner>
+                        <mat-progress-spinner
+                            class="g-mat-progress-spinner-white mx-auto"
+                            mode="indeterminate"
+                            [diameter]="30"
+                        ></mat-progress-spinner>
+                    </ng-template>
+                </button>
+            </div>
+            <div class="l-chevron-holder" (click)="handleToggleMatches('next')">
+                <img class="l-chevron-icon-right" src="./assets/icons/chevron-blue.svg" alt="toggle-right" />
+            </div>
+        </div>
+    </div>
+
+    <!-- #endregion -->
+</div>

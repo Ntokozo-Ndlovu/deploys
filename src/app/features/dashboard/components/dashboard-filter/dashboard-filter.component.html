@@ -1,0 +1,58 @@
+<div
+    class="l-dashboard-filter-container d-flex flex-column align-items-center py-5"
+    [class.l-dashboard-filter-container-active]="isFilterActive"
+>
+    <div class="l-dashboard-filter-content d-flex flex-column flex-grow-1">
+        <div class="l-dashboard-filter-header d-flex justify-content-center" (click)="handleToggleFilter()">
+            <img
+                class="l-dashboard-filter-header-back-icon g-clickable"
+                src="./assets/icons/back-arrow-icon.svg"
+                alt="back-arrow-icon"
+            />
+            <h2 class="g-text-h2">Filters</h2>
+        </div>
+        <form #filterForm="ngForm" class="d-flex flex-column mt-5">
+            <div class="g-form-input-group d-flex flex-column">
+                <label class="g-form-label-dark"
+                    >Search {{ _isScout ? 'Scout' : isNegotiationsRoute ? 'Scout' : 'Lot' }}</label
+                >
+                <div class="d-flex flex-row">
+                    <input
+                        type="text"
+                        class="l-dashboard-filter-input g-text-input"
+                        [(ngModel)]="searchTerm"
+                        name="searchTerm"
+                        placeholder="Search for {{ _isScout ? 'Scout' : isNegotiationsRoute ? 'Scout' : 'Lot' }} "
+                    />
+                    <div
+                        class="l-dashboard-filter-search-container g-clickable d-flex justify-content-center align-items-center"
+                    >
+                        <img
+                            class="l-dashboard-filter-search-icon"
+                            (click)="handleSearchIconClick()"
+                            [src]="
+                                searchTerm === ''
+                                    ? './assets/icons/search-white-icon.svg'
+                                    : './assets/icons/close-icon.svg'
+                            "
+                            alt="search-white-icon"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="g-form-input-group d-flex flex-column mt-5">
+                <label class="g-form-label-dark">Display</label>
+                <select ngModel="true" name="isPublic" class="g-form-select l-dashboard-filter-select">
+                    <option *ngFor="let displayChoice of displayChoices" [value]="displayChoice.value">
+                        {{ displayChoice.key }}
+                    </option>
+                </select>
+            </div>
+            <div class="d-flex flex-row align-items-center mt-3">
+                <img class="g-form-info-icon" src="./assets/icons/info-icon-grey.svg" alt="info-icon-grey" />
+                <p class="g-form-info-p m-0">Select the state of the offers displayed.</p>
+            </div>
+        </form>
+    </div>
+    <button class="g-btn-primary" (click)="handleSearch(filterForm.value)">Search</button>
+</div>

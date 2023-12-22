@@ -1,0 +1,23 @@
+<div class="l-container g-fade-in">
+    <!-- #region Page Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleNavigateToDashboard()"
+        />
+        <h2 class="g-text-h2-dark">Select Category</h2>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content -->
+
+    <div class="l-content">
+        <app-crop-categories [cropCategories]="cropCategories"></app-crop-categories>
+    </div>
+
+    <!-- #endregion -->
+</div>

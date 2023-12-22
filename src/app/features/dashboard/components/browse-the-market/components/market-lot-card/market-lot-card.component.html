@@ -1,0 +1,94 @@
+<div class="l-container" [ngClass]="{ 'g-card-border-sell': isSelling, 'g-card-border-buy': !isSelling }">
+    <!-- #region Banner -->
+
+    <!-- #region Selling -->
+
+    <div *ngIf="isSelling; else showBuyingBanner" class="l-banner-sell">
+        <h2 class="g-text-h2 l-sell-text">
+            <b>{{ marketLotCard.lotType.toLocaleUpperCase() }}</b>
+        </h2>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Buying -->
+
+    <ng-template #showBuyingBanner>
+        <div class="l-banner-buy">
+            <h2 class="g-text-h2 l-buy-text">
+                <b>{{ marketLotCard.lotType.toLocaleUpperCase() }}</b>
+            </h2>
+        </div>
+    </ng-template>
+
+    <!-- #endregion -->
+
+    <!-- #endregion -->
+
+    <!-- #region Content (Details) -->
+
+    <div class="p-3">
+        <h2 class="g-text-h2-dark text-left">Anonymous Lot</h2>
+
+        <!-- #region Delivery Point Name -->
+
+        <div class="l-detail">
+            <img class="l-detail-icon" src="./assets/icons/location-icon.svg" alt="delivery-point-icon" />
+            <p class="g-text-card-prop text-left">{{ formattedTownName }}</p>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Crop Name -->
+
+        <div class="l-detail">
+            <img class="l-detail-icon" src="./assets/icons/crop-icon.svg" alt="crop-icon" />
+            <p class="g-text-card-prop">{{ marketLotCard.crop.name }}</p>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Quantity -->
+
+        <div class="l-detail">
+            <img class="l-detail-icon" src="./assets/icons/delivery-box.svg" alt="location-icon" />
+            <p class="g-text-card-prop">{{ marketLotCard.quantity }} Tonnes</p>
+            <p class="g-text-card-prop ml-2">- R{{ marketLotCard.price }}/{{ marketLotCard.unitOfMeasure }}</p>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Period -->
+
+        <div class="l-detail">
+            <img
+                class="l-detail-icon"
+                [src]="marketLotCard.isExpired ? './assets/icons/warning-icon.svg' : './assets/icons/calendar.svg'"
+                alt="location-icon"
+            />
+            <p class="g-text-card-prop">
+                {{ marketLotCard.dateFrom | date: 'd/MM/yy' }} - {{ marketLotCard.dateTo | date: 'd/MM/yy' }}
+            </p>
+        </div>
+
+        <!-- #endregion -->
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Footer -->
+
+    <div class="l-border">
+        <button class="l-button" mat-flat-button (click)="handleCreateScout()">
+            <mat-progress-spinner
+                *ngIf="actionIsBeingDispatched; else showButtonText"
+                class="g-mat-progress-spinner-blue mx-auto"
+                mode="indeterminate"
+                [diameter]="30"
+            ></mat-progress-spinner>
+            <ng-template #showButtonText> Create Scout + </ng-template>
+        </button>
+    </div>
+
+    <!-- #endregion -->
+</div>

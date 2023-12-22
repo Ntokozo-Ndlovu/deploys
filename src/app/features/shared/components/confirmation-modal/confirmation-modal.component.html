@@ -1,0 +1,46 @@
+<div class="l-container">
+    <!-- #region Modal Content -->
+
+    <div class="l-content">
+        <!-- #region Header -->
+
+        <div class="l-header">
+            <img
+                class="l-close-icon"
+                src="./assets/icons/close-icon-dark.svg"
+                alt="close"
+                (click)="handleCloseModal()"
+            />
+            <h2 class="g-text-h2-dark my-3">
+                <b>You are about to {{ currentAction }} a {{ currentItem }}</b>
+            </h2>
+        </div>
+
+        <!-- #endregion -->
+
+        <p class="g-text-p-dark">
+            This will {{ currentAction === 'decline' ? 'remove' : currentAction }} the selected {{ currentItem }} from
+            the list.
+        </p>
+        <p class="g-text-p-dark my-3">Are you sure?</p>
+
+        <!-- #region Buttons -->
+
+        <div class="l-buttons-container">
+            <button class="g-secondary-button mr-1" (click)="handleCloseModal()">Cancel</button>
+            <button mat-flat-button class="g-primary-button ml-1" (click)="handleConfirmAction()">
+                {{ currentAction | titlecase }}
+                <img
+                    *ngIf="currentAction === 'delete'"
+                    class="l-delete-icon"
+                    src="./assets/icons/delete-icon.svg"
+                    alt="delete"
+                />
+            </button>
+        </div>
+
+        <!-- #endregion -->
+    </div>
+
+    <!-- #endregion -->
+</div>

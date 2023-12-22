@@ -1,0 +1,114 @@
+<div class="g-app-dimensions l-container g-fade-in">
+    <!-- #region Notification Dropdown -->
+
+    <div
+        *ngIf="showNotificationDropDown"
+        class="l-notification-dropdown-container"
+        [class.l-hide-notification-dropdown-container]="animateNotificationDropDownOut"
+        (click)="handleRemoveNotificationDropDown()"
+    >
+        <div class="g-fade-in-top">
+            <app-notification-dropdown
+                [notifications]="notifications"
+                [incompleteUserProfileItems]="incompleteUserProfileItems"
+            ></app-notification-dropdown>
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <div class="l-notification-container" (click)="handleShowNotificationDropDown()">
+            <img src="./assets/icons/bell-blue-icon.svg" alt="Blue bell" />
+            <div *ngIf="notificationCounts.total" class="g-notification-dot-protrude">
+                {{ notificationCounts.total }}
+            </div>
+        </div>
+        <div class="l-header-img-container">
+            <img class="l-header-img" src="./assets/images/MX-logo-full.svg" alt="MX Match Logo" />
+        </div>
+
+        <img
+            class="l-profile-img"
+            src="./assets/icons/user-blue-icon.svg"
+            alt="User Icon"
+            (click)="handleRouteToProfile()"
+        />
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content -->
+
+    <div class="l-cards-container">
+        <div
+            *ngFor="let card of cards | keyvalue: handleOrder"
+            class="l-card"
+            (click)="handleNavigate(card.value.routesTo)"
+            matRipple
+        >
+            <div class="d-flex flex-column">
+                <div class="l-card-img-container">
+                    <img class="l-card-img" [src]="card.value.source" [alt]="card.value.sourceAlt" />
+                </div>
+            </div>
+
+            <div class="l-card-title-container">
+                <p class="g-text-p-small-dark">{{ card.value.stepText }}</p>
+                <h2 class="g-text-h2 m-0">{{ card.value.title }}</h2>
+            </div>
+
+            <!-- #region Notification Dot -->
+
+            <ng-container
+                *ngIf="
+                    (card.value.title === 'Negotiate' && notificationCounts.negotiations) ||
+                    (card.value.title === 'Matches' && notificationCounts.completedNegotiations) ||
+                    (card.value.title === 'Profile' && notificationCounts.profile) ||
+                    (card.value.title === 'Brokers' && notificationCounts.brokerRequest)
+                "
+            >
+                <div class="g-notification-dot">
+                    {{
+                        card.value.title === 'Negotiate'
+                            ? notificationCounts.negotiations
+                            : card.value.title === 'Matches'
+                            ? notificationCounts.completedNegotiations
+                            : card.value.title === 'Brokers'
+                            ? notificationCounts.brokerRequest
+                            : notificationCounts.profile
+                    }}
+                </div>
+            </ng-container>
+
+            <!-- #endregion -->
+
+            <!-- #region Info Icon -->
+
+            <ng-container
+                *ngIf="
+                    card.value.title === 'Browse MX Market' ||
+                    card.value.title === 'Clear with MX' ||
+                    card.value.title === 'Scout the Market' ||
+                    card.value.title === 'Lots' ||
+                    card.value.title === 'Negotiate' ||
+                    card.value.title === 'Matches' ||
+                    card.value.title === 'Brokers'
+                "
+            >
+                <img
+                    class="g-card-info-icon"
+                    src="./assets/icons/info-icon-blue.svg"
+                    alt="info icon"
+                    (click)="handleInfoModal(card.key, $event)"
+                />
+            </ng-container>
+
+            <!-- #endregion -->
+        </div>
+    </div>
+
+    <!-- #endregion -->
+</div>

@@ -1,0 +1,29 @@
+<div class="l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img class="l-close-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleClose()" />
+        <h2 class="g-text-h2">
+            <b>Expired Lot Period</b>
+        </h2>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Modal Content -->
+
+    <div class="l-content">
+        <p>The period: {{ dateFrom | date: 'd/MM/yy' }} - {{ dateTo | date: 'd/MM/yy' }}, is no longer valid.</p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Buttons -->
+
+    <div class="l-buttons-container">
+        <button class="g-secondary-button mb-2" (click)="handleCloseWithAction('view')">View Matches</button>
+        <button class="g-primary-button" mat-flat-button (click)="handleCloseWithAction('edit')">Update Lot</button>
+    </div>
+
+    <!-- #endregion -->
+</div>

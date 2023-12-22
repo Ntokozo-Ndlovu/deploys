@@ -1,0 +1,165 @@
+<div *ngIf="deliveryPoint" class="l-container g-fade-in-right">
+    <!-- #region Content -->
+
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleBack()"
+        />
+        <h2 class="g-text-h2-dark pt-3">{{ isView ? 'View Delivery Point' : 'Create Delivery Point' }}</h2>
+    </div>
+
+    <!-- #endregion -->
+
+    <div class="l-content">
+        <div class="l-info-container" *ngIf="isView">
+            <p class="g-form-info-p m-0">
+                Delivery points cannot be edited. To change a delivery point, you need to create a new one.
+            </p>
+        </div>
+
+        <!-- #region Form -->
+
+        <form class="d-flex flex-column" autocomplete="off" #deliveryForm="ngForm">
+            <div class="g-form-input-group mt-3" *ngIf="!isView; else disabledNameInput">
+                <label class="g-form-label">Delivery Point Name</label>
+                <div class="g-text-input-container">
+                    <input
+                        class="g-input-text-no-icon"
+                        type="text"
+                        [(ngModel)]="deliveryPoint.name"
+                        name="name"
+                        autocomplete="no"
+                        required
+                    />
+                </div>
+                <div class="d-flex flex-row mt-1">
+                    <p class="g-form-info-p mb-0">
+                        Name your own delivery point so that you may easily recognise it later.
+                    </p>
+                </div>
+            </div>
+            <ng-template #disabledNameInput>
+                <div class="g-form-input-group">
+                    <label class="g-form-label">Delivery Point Name</label>
+                    <div class="g-text-input-container">
+                        <input
+                            class="g-input-text-no-icon"
+                            type="text"
+                            [(ngModel)]="deliveryPoint.name"
+                            name="name"
+                            autocomplete="no"
+                            required
+                            disabled
+                        />
+                    </div>
+                </div>
+            </ng-template>
+
+            <div class="g-form-input-group mt-3" *ngIf="!isView; else disabledTownInput">
+                <label class="g-form-label">Nearest Town</label>
+                <div class="g-text-input-container">
+                    <input
+                        class="g-input-text-no-icon"
+                        type="text"
+                        [(ngModel)]="deliveryPoint.town"
+                        name="town"
+                        ngx-gp-autocomplete
+                        [options]="options"
+                        (onAddressChange)="handleLocationSelection($event)"
+                        placeholder=""
+                        autocomplete="off"
+                        required
+                    />
+                </div>
+            </div>
+            <ng-template #disabledTownInput>
+                <div class="g-form-input-group mt-3">
+                    <label class="g-form-label">Nearest Town</label>
+                    <div class="g-text-input-container">
+                        <input
+                            class="g-input-text-no-icon"
+                            type="text"
+                            [(ngModel)]="deliveryPoint.town"
+                            name="town"
+                            ngx-gp-autocomplete
+                            [options]="options"
+                            (onAddressChange)="handleLocationSelection($event)"
+                            placeholder=""
+                            autocomplete="off"
+                            required
+                            disabled
+                        />
+                    </div>
+                </div>
+            </ng-template>
+
+            <div class="g-form-input-group mt-3" *ngIf="!isView; else disabledMap">
+                <label class="g-form-label">Location</label>
+                <div *ngIf="apiLoaded |async" class="l-map-holder">
+                    <google-map
+                        class="g-delivery-form-map"
+                        [zoom]="zoom"
+                        [center]="{lat:deliveryPoint.location.lat,lng:deliveryPoint.location.lng}"
+                        [options]="{mapTypeId:'hybrid',gestureHandling:'cooperative'}"
+                    >
+                        <map-marker
+                            [position]="{lat:deliveryPoint.location.lat,lng:deliveryPoint.location.lng}"
+                            [options]="{draggable:true,opacity:markerVisibility}"
+                            (dragend)="handleDragEnd($event)"
+                        ></map-marker>
+                    </google-map>
+                </div>
+            </div>
+            <ng-template #disabledMap>
+                <div class="g-form-input-group mt-3">
+                    <label class="g-form-label">Location</label>
+                    <div *ngIf="apiLoaded | async" class="l-map-holder">
+                        <google-map
+                            class="g-delivery-form-map"
+                            [zoom]="zoom"
+                            [center]="{lat:deliveryPoint.location.lat, lng:deliveryPoint.location.lng}"
+                            [options]="{mapTypeId:'hybrid',gestureHandling:'cooperative'}"
+                        >
+                            <map-marker
+                                [position]="{lat:deliveryPoint.location.lat,lng:deliveryPoint.location.lng}"
+                                [options]="{draggable:false,opacity:markerVisibility}"
+                                (dragend)="handleDragEnd($event)"
+                            ></map-marker>
+                        </google-map>
+                    </div>
+                </div>
+            </ng-template>
+        </form>
+        <button
+            *ngIf="!showDeleteButton; else showDelete"
+            mat-flat-button
+            class="g-primary-button my-3"
+            [class.g-btn-disabled]="deliveryForm.invalid || !deliveryPoint.googlePlaceId"
+            [disabled]="deliveryForm.invalid || !deliveryPoint.googlePlaceId"
+            (click)="handleCreateDeliveryPoint(deliveryForm)"
+        >
+            <ng-container *ngIf="isLoading; else showText">
+                <mat-progress-spinner
+                    class="g-mat-progress-spinner-white mx-auto"
+                    mode="indeterminate"
+                    [diameter]="30"
+                ></mat-progress-spinner>
+            </ng-container>
+            <ng-template #showText> Save Delivery Point </ng-template>
+        </button>
+
+        <ng-template #showDelete>
+            <button class="g-secondary-button mt-3" mat-flat-button (click)="handleDeleteDeliveryPoint()">
+                Delete Delivery Point
+            </button>
+        </ng-template>
+        <!-- #endregion -->
+    </div>
+
+    <!-- #endregion -->
+</div>

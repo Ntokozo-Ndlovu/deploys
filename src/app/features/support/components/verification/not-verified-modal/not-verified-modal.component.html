@@ -1,0 +1,34 @@
+<div class="l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img class="l-close-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleClose()" />
+
+        <img class="l-icon" src="./assets/icons/grainSA-icon.svg" alt="icon" />
+
+        <h1 class="g-text-h1-dark">
+            <b>You are not Verified</b>
+        </h1>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Modal Content -->
+
+    <div class="l-content g-text-p-dark">
+        <p>
+            This verification type is only available to verified Grain SA members. If you are a member of Grain SA you
+            get a <strong>1 year</strong> free Grain SA verification status. To apply for this promotion input your
+            membership number on the profile tab.
+        </p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Buttons -->
+
+    <button class="g-primary-button" (click)="handleClose()">Okay, got it!</button>
+    <button class="g-secondary-button mt-2" (click)="handleRouteToProfile()">Go to Profile</button>
+
+    <!-- #endregion -->
+</div>

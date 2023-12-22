@@ -1,0 +1,158 @@
+<div class="l-container g-fade-in">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-home-img"
+            src="./assets/icons/home-blue-icon.svg"
+            alt="Blue bell"
+            (click)="handleNavigateToHomePage()"
+        />
+        <div class="g-logo-header-container">
+            <img
+                class="g-header-mx-icon"
+                src="./assets/icons/MX-small-logo.svg"
+                alt="home icon"
+                (click)="handleNavigateToHomePage()"
+            />
+            <h2 class="g-text-h2-dark mb-0">Browse</h2>
+        </div>
+        <div class="g-profile-icon-container">
+            <img
+                class="g-profile-icon"
+                src="./assets/icons/profile-icon.svg"
+                alt="home icon"
+                (click)="handleNavigateToProfile()"
+            />
+        </div>
+    </div>
+
+    <!-- #endregion -->
+    <!-- #region Feature Introduction -->
+
+    <div *ngIf="showFeatureIntroduction; else showBrowseTheMarket" class="l-introduction">
+        <h1 class="g-text-h1-dark mb-4">Welcome to Browse MX</h1>
+        <div class="l-introduction-points">
+            <div class="d-flex mb-3">
+                <img class="l-icon" src="./assets/icons/glasses-icon-blue.svg" alt="Blue glasses" />
+                <p class="g-text-p-dark text-left">Browse MX for existing Lots you are interested in.</p>
+            </div>
+            <div class="d-flex mb-3">
+                <img class="l-icon" src="./assets/icons/wallet-icon-blue.svg" alt="Blue glasses" />
+                <p class="g-text-p-dark text-left">See what prices sellers are ready to sell their product for.</p>
+            </div>
+            <div class="d-flex mb-4">
+                <img class="l-icon" src="./assets/icons/wallet-icon-blue.svg" alt="Blue glasses" />
+                <p class="g-text-p-dark text-left">Or see what price buyers are willing to purchase product for.</p>
+            </div>
+        </div>
+        <button class="g-primary-button" mat-flat-button (click)="handleOpenFilterTheMarketModal()">
+            Let's Get Started
+        </button>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Browse The Market -->
+
+    <ng-template #showBrowseTheMarket>
+        <div class="l-content">
+            <!-- #region Filter Header -->
+
+            <div class="l-filter-header">
+                <h2 class="g-text-h2-dark l-fw-400 mb-0">Browse and Filter Lots</h2>
+                <button class="l-filter-button" matRipple (click)="handleOpenFilterTheMarketModal()">
+                    <img class="l-filter-icon" src="./assets/icons/filter-icon-grey.svg" alt="Grey burger menu" />
+                </button>
+            </div>
+
+            <!-- #endregion -->
+            <app-dashboard-header
+                [activeRoute]="'browse'"
+                [showSearchBar]="false"
+                [dontShowTabs]="true"
+                [dontShowSearchBar]="true"
+            ></app-dashboard-header>
+            <!-- #region Market Lot Cards -->
+
+            <div class="l-cards-container g-fade-in">
+                <!-- #region Loading Spinner -->
+
+                <div *ngIf="actionIsLoading; else showMarketLotCards" class="l-spinner-container">
+                    <mat-progress-spinner
+                        class="g-mat-progress-spinner-blue"
+                        mode="indeterminate"
+                        [diameter]="30"
+                    ></mat-progress-spinner>
+                </div>
+
+                <!-- #endregion -->
+                <!-- #region Market Lot Cards -->
+
+                <ng-template #showMarketLotCards>
+                    <!-- #region Cards Returned -->
+
+                    <ng-container *ngIf="marketLotCards.length; else showNoAdvancedFilterModal">
+                        <div *ngFor="let marketLotCard of marketLotCards" class="mb-3">
+                            <app-market-lot-card [marketLotCard]="marketLotCard"></app-market-lot-card>
+                        </div>
+                    </ng-container>
+
+                    <!-- #endregion -->
+
+                    <!-- #region No Cards Returned -->
+
+                    <ng-template #showNoAdvancedFilterModal>
+                        <ng-container
+                            *ngIf="!hasFiltered; else showCreateFirstLotView"
+                            class="l-advanced-filter-container"
+                        >
+                            <div class="l-advanced-filter">
+                                <div class="l-advanced-filter-icon-container">
+                                    <img
+                                        class="l-advanced-filter-icon"
+                                        src="./assets/icons/advanced-filter-icon.svg"
+                                        alt="Blue circle with grey burger menu inside"
+                                    />
+                                </div>
+                                <h1 class="g-text-h1-dark mb-4">Advanced Filter</h1>
+                                <p class="g-text-p-dark mb-4">Filter crop and location to discover your price.</p>
+                                <button
+                                    class="g-primary-button"
+                                    mat-flat-button
+                                    (click)="handleOpenFilterTheMarketModal()"
+                                >
+                                    Get Started
+                                </button>
+                            </div>
+                        </ng-container>
+                        <ng-template #showCreateFirstLotView>
+                            <div class="l-advanced-filter">
+                                <div class="l-advanced-filter-icon-container">
+                                    <img
+                                        class="l-advanced-filter-icon"
+                                        src="./assets/icons/advanced-filter-icon.svg"
+                                        alt="Blue circle with grey burger menu inside"
+                                    />
+                                </div>
+                                <h1 class="g-text-h1-dark mb-4">No Lots Match Your Search Criteria</h1>
+                                <p class="g-text-p-dark mb-4">Be the first to create one</p>
+                                <button class="g-primary-button" mat-flat-button (click)="handleNavigateToCreateLot()">
+                                    Create a Lot
+                                </button>
+                            </div>
+                        </ng-template>
+                    </ng-template>
+
+                    <!-- #endregion -->
+                </ng-template>
+
+                <!-- #endregion -->
+            </div>
+
+            <!-- #endregion -->
+        </div>
+    </ng-template>
+
+    <!-- #endregion -->
+</div>

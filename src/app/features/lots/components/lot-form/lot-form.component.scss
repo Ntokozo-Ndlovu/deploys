@@ -1,0 +1,276 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $background-color-grey;
+}
+
+.l-loading-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.l-back-icon {
+    position: absolute;
+    left: 16px;
+    width: 20.24px;
+    height: 13.5px;
+}
+
+.l-header {
+    position: relative;
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.l-form {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    padding: 0 16px;
+}
+
+.l-public-toggle {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+}
+
+.l-public-card-sell,
+.l-public-card-buy {
+    width: 50%;
+    height: fit-content;
+    min-height: 100%;
+    font-family: $text-font;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: normal;
+    color: $medium-blue;
+    border-radius: $border-radius;
+    border: solid 1px $medium-blue;
+    background-color: #ffffff;
+    transition: 0.1s ease-in-out;
+    text-align: center;
+    padding: 8px 16px;
+    outline: none;
+    white-space: normal;
+}
+
+.l-active {
+    color: #ffffff !important;
+    background-color: $primary-color !important;
+}
+
+.l-no-border {
+    border: none !important;
+}
+
+.l-lot-type-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.l-lot-option {
+    position: relative;
+    width: 47%;
+    height: 56px;
+    padding: 0 16px;
+    text-align: left;
+    font-family: $app-input-font;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 21px;
+    color: $text-dark;
+    border-radius: $border-radius;
+    border: none;
+    background-color: #ffffff;
+    outline: none;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.l-lot-option-icon {
+    position: absolute;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+}
+
+.l-input-group,
+.l-double-input-container {
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 16px;
+}
+
+.l-double-input-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.l-input-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+}
+
+.l-date-input-left,
+.l-date-input-right {
+    width: 50%;
+}
+
+.l-date-input-left {
+    margin-right: 8px;
+}
+
+.l-date-input-right {
+    margin-left: 8px;
+}
+
+.l-double-input-left,
+.l-double-input-right {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+.l-double-input-left {
+    width: 58.5%;
+}
+
+.l-double-input-right {
+    width: 37.5%;
+}
+
+.l-input-icon-holder {
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: $border-radius 0 0 $border-radius;
+    padding-left: 16px;
+}
+.l-period-error {
+    font-size: small;
+    font-weight: 500;
+}
+.l-input-icon {
+    height: 20px;
+    width: auto;
+}
+
+.l-general-toggle {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    font-family: $text-font;
+    font-size: 14px;
+    font-weight: 400;
+    color: $text-dark;
+    border-radius: 0 $border-radius $border-radius 0;
+    background-color: $background-color;
+    transition: 0.1s ease-in-out;
+    outline: none;
+    border: none;
+}
+
+.l-disabled {
+    background-color: rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.24);
+}
+
+.l-toggle-active {
+    border: 1px solid $primary-color !important;
+    border-radius: $border-radius;
+}
+
+.l-active-sell {
+    border: solid 1px $primary-green !important;
+}
+.l-active-buy {
+    border: solid 1px $primary-red !important;
+}
+
+.l-price-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.l-price-type {
+    display: flex;
+    width: 100%;
+    margin-right: 16px;
+}
+
+.l-price-type:last-child {
+    margin-right: 0px;
+    width: 100%;
+}
+
+.l-icon-disabled {
+    background-color: rgba(0, 0, 0, 0.12);
+    height: 56px;
+}
+
+.l-basis-price-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+}
+
+.l-price-input {
+    position: relative;
+    width: calc(100% - 48px);
+    height: fit-content;
+}
+
+.l-price-padding {
+    padding-left: 56px;
+}
+
+.l-price-p {
+    position: absolute;
+    margin: 0;
+    left: 12px;
+    top: 16px;
+}
+
+.l-info-container-payment {
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    align-items: flex-start;
+    margin: 16px 0 0 0;
+}
+
+.l-red {
+    color: $error-message !important;
+}
+
+.l-safex-asterisk {
+    color: red;
+}

@@ -1,0 +1,95 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: 100%;
+    background-color: $background-color-grey;
+    overflow-y: auto;
+}
+
+.l-header {
+    position: relative;
+    width: 100%;
+    min-height: 56px;
+    background-color: white;
+    padding-top: 16px;
+}
+
+.l-back-icon {
+    position: absolute;
+    left: 16px;
+    top: 20px;
+    width: 20.24px;
+    height: 13.5px;
+}
+
+.l-content {
+    width: 100%;
+    padding: 16px;
+    padding-bottom: 32px;
+}
+
+.l-left {
+    text-align: left;
+}
+
+.l-contacts {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.l-user-verified {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.l-verification-container {
+    margin-bottom: 16px;
+}
+.l-verification-container:last-child {
+    margin-bottom: 0;
+}
+
+.l-verification-price {
+    font-weight: 700;
+}
+
+.l-verification-icon {
+    width: 48px;
+    height: auto;
+    margin-right: 24px;
+}
+
+.l-verification-icon-verified {
+    width: 64px;
+    height: auto;
+}
+
+.l-incorrect-verification-contact {
+    margin-top: 60px;
+}
+
+.l-button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.l-button-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none !important;
+    color: #ffffff !important;
+}
+
+.l-document-link {
+    color: $primary-color;
+    text-decoration: underline;
+}

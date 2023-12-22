@@ -1,0 +1,549 @@
+<div class="l-container">
+    <!-- #region Page Loading Spinner -->
+    <div *ngIf="isPageLoading; else showLotForm" class="l-loading-container">
+        <mat-progress-spinner
+            class="g-mat-progress-spinner"
+            mode="indeterminate"
+            [diameter]="40"
+        ></mat-progress-spinner>
+    </div>
+
+    <!-- #endregion -->
+    <ng-template #showLotForm>
+        <div class="l-header">
+            <img
+                class="l-back-icon"
+                src="./assets/icons/back-arrow-icon.svg"
+                alt="back-arrow-icon"
+                (click)="handleBack()"
+            />
+            <h2 class="g-text-h2-dark">{{ !lotId ? 'Create' : 'Edit' }} a Lot</h2>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Form -->
+
+        <form class="l-form g-fade-in" #lotForm="ngForm">
+            <div class="l-public-toggle">
+                <button
+                    class="mr-2"
+                    [ngClass]="{
+                        'l-public-card-sell': lot?.lotType === 'Sell',
+                        'l-public-card-buy': lot?.lotType === 'Buy',
+                        'l-active': !lot.isPublic
+                    }"
+                    (click)="handlePublicToggle(false)"
+                >
+                    Private
+                </button>
+                <button
+                    class="ml-2"
+                    [ngClass]="{
+                        'l-public-card-sell': lot?.lotType === 'Sell',
+                        'l-public-card-buy': lot?.lotType === 'Buy',
+                        'l-active': lot.isPublic
+                    }"
+                    (click)="handlePublicToggle(true)"
+                >
+                    Available to Market
+                </button>
+            </div>
+
+            <!-- #region Lot Type Toggle -->
+
+            <div class="l-input-group">
+                <label class="g-form-label">Lot Type</label>
+
+                <div class="l-lot-type-container">
+                    <button
+                        *ngFor="let lotType of lotTypes"
+                        class="l-lot-option g-text-p-dark"
+                        [ngClass]="{
+                            'l-active-sell': lot.lotType === lotType && lotType === 'Sell',
+                            'l-active-buy': lot.lotType === lotType && lotType === 'Buy'
+                        }"
+                        (click)="handleToggleLotType(lotType)"
+                    >
+                        {{ lotType }}
+                        <img
+                            class="l-lot-option-icon"
+                            [src]="
+                                lot.lotType === lotType && lotType === 'Sell'
+                                    ? './assets/icons/sell-selected-icon.svg'
+                                    : lot.lotType === lotType && lotType === 'Buy'
+                                    ? './assets/icons/buy-selected-icon.svg'
+                                    : './assets/icons/unselected-icon.svg'
+                            "
+                            alt="selected-icon"
+                        />
+                    </button>
+                </div>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Lot Name -->
+
+            <div class="l-input-group">
+                <label class="g-form-label">Lot Name</label>
+                <div class="g-text-input-container l-no-border">
+                    <img class="g-input-text-icon" src="./assets/icons/sellers-icon-grey.svg" alt="" />
+                    <input
+                        class="g-input-text"
+                        type="text"
+                        [(ngModel)]="lot.lotName"
+                        name="lotName"
+                        required
+                        (keydown)="hasBeenEditedHelper()"
+                    />
+                </div>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Crop Category -->
+
+            <div class="l-input-group">
+                <label class="g-form-label">Product Category</label>
+                <div class="g-text-input-container l-no-border">
+                    <img class="g-input-text-icon" src="./assets/icons/crop-icon.svg" alt="" />
+                    <input
+                        class="g-input-text"
+                        type="text"
+                        [(ngModel)]="cropCategory.name"
+                        name="cropCategory"
+                        readonly
+                        required
+                    />
+                </div>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Product / Packaging -->
+
+            <div class="l-double-input-container">
+                <div class="l-double-input-left">
+                    <label class="g-form-label">Product</label>
+                    <div class="l-input-container">
+                        <div class="l-input-icon-holder">
+                            <img class="l-input-icon" src="./assets/icons/crop-icon.svg" alt="" />
+                        </div>
+                        <mat-select
+                            [disabled]="!lotId"
+                            *ngIf="!lotId; else showReadOnlyCrop"
+                            class="g-form-select l-alter-width"
+                            [(ngModel)]="lot.crop"
+                            name="crop"
+                            (selectionChange)="handleCropChange($event.value.id)"
+                            [compareWith]="compareSelectionsHelper"
+                            required
+                        >
+                            <mat-option *ngFor="let crop of crops" [value]="crop">{{ crop.name }}</mat-option>
+                        </mat-select>
+                        <ng-template #showReadOnlyCrop>
+                            <input class="g-form-input l-alter-width" [value]="lot.crop?.name" name="crop" readonly />
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="l-double-input-right">
+                    <label class="g-form-label">Packaging</label>
+                    <div class="l-input-container">
+                        <mat-select
+                            class="g-form-select"
+                            [(ngModel)]="lot.packaging"
+                            name="package"
+                            [compareWith]="compareSelectionsHelper"
+                            required
+                            (selectionChange)="hasBeenEditedHelper()"
+                        >
+                            <mat-option *ngFor="let package of packaging" [value]="package">{{
+                                package.name
+                            }}</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Quality -->
+
+            <div class="l-input-group">
+                <label class="g-form-label">Quality</label>
+                <div class="l-input-container">
+                    <div class="l-input-icon-holder">
+                        <img class="l-input-icon" src="./assets/icons/quantity-icon.svg" alt="" />
+                    </div>
+                    <mat-select
+                        class="g-form-select l-alter-width"
+                        [(ngModel)]="lot.quality"
+                        name="quality"
+                        [compareWith]="compareSelectionsHelper"
+                        required
+                        (selectionChange)="hasBeenEditedHelper()"
+                    >
+                        <mat-option *ngFor="let quality of qualities" [value]="quality">{{ quality.name }}</mat-option>
+                    </mat-select>
+                </div>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Quantity -->
+
+            <div class="l-input-group">
+                <div class="w-100 d-flex justify-content-between align-items-end">
+                    <div class="l-double-input-left">
+                        <label class="g-form-label">Quantity</label>
+                        <div class="l-input-container">
+                            <div class="l-input-icon-holder">
+                                <img class="l-input-icon" src="./assets/icons/quantity-icon.svg" alt="" />
+                            </div>
+                            <input
+                                class="g-form-input l-alter-width"
+                                type="number"
+                                [(ngModel)]="lot.quantity"
+                                (ngModelChange)="handleShowQuantityHint()"
+                                name="quantity"
+                                max="1000000"
+                                min="1"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div class="h-100 l-double-input-right justify-content-end">
+                        <div class="l-input-container">
+                            <mat-select
+                                class="g-form-select"
+                                [(ngModel)]="lot.quantityMeasure"
+                                name="packaging"
+                                [compareWith]="compareSelectionsHelper"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let quantityMeasure of quantityMeasures"
+                                    [value]="quantityMeasure"
+                                    >{{ quantityMeasure.name }}</mat-option
+                                >
+                            </mat-select>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="showQuantityHint" class="l-info-container-payment g-fade-in">
+                    <p class="g-form-info-p l-red m-0">Enter a quantity lower than 1000000.</p>
+                </div>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region INCO Term -->
+
+            <div class="l-input-group">
+                <label class="g-form-label">INCO Term</label>
+                <div class="l-input-container">
+                    <div class="l-input-icon-holder">
+                        <img class="l-input-icon" src="./assets/icons/location-icon.svg" alt="" />
+                    </div>
+                    <mat-select
+                        class="g-form-select l-alter-width"
+                        [(ngModel)]="lot.incoTerm"
+                        name="incoTerm"
+                        [compareWith]="compareSelectionsHelper"
+                        required
+                        (selectionChange)="handleIncoTermChange()"
+                    >
+                        <mat-option *ngFor="let incoTerm of incoTerms" [value]="incoTerm">{{
+                            incoTerm.name
+                        }}</mat-option>
+                    </mat-select>
+                </div>
+            </div>
+
+            <!-- #endregion -->
+            <!-- #region Position -->
+
+            <div class="l-input-group">
+                <label *ngIf="!isSeller" class="g-form-label">Position (Delivery Point)</label>
+                <label *ngIf="isSeller" class="g-form-label">Position (Collection Point)</label>
+                <div class="l-input-container" (click)="handleEditDeliveryPoint()">
+                    <div class="l-input-icon-holder">
+                        <img class="l-input-icon" src="./assets/icons/location-icon.svg" alt="position" />
+                    </div>
+                    <input
+                        type="text"
+                        class="g-form-input l-alter-width-mat-fields"
+                        [(ngModel)]="lot.deliveryPoint.name"
+                        name="deliveryPoint"
+                        readonly
+                        required
+                    />
+                </div>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Period -->
+
+            <div class="l-input-group">
+                <div class="w-100 d-flex justify-content-between align-items-end" id="dateInput">
+                    <div class="l-date-input-left">
+                        <label class="g-form-label">Period Start</label>
+                        <div class="l-input-container" (click)="pickerStart.open()">
+                            <div class="l-input-icon-holder">
+                                <img class="l-input-icon" src="./assets/icons/datepicker-icon.svg" alt="" />
+                            </div>
+                            <input
+                                class="g-form-input l-alter-width-mat-fields"
+                                [(ngModel)]="lot.dateFrom"
+                                name="dateFrom"
+                                (dateChange)="handlePeriodChange()"
+                                [matDatepicker]="pickerStart"
+                            />
+                            <mat-datepicker #pickerStart startView="year"></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="h-100 l-date-input-right justify-content-end" (click)="pickerEnd.open()">
+                        <label class="g-form-label">Period End</label>
+                        <div class="l-input-container">
+                            <div class="l-input-icon-holder">
+                                <img class="l-input-icon" src="./assets/icons/datepicker-icon.svg" alt="" />
+                            </div>
+                            <input
+                                class="g-form-input"
+                                [(ngModel)]="lot.dateTo"
+                                name="dateTo"
+                                (dateChange)="handlePeriodChange()"
+                                [matDatepicker]="pickerEnd"
+                            />
+                            <mat-datepicker #pickerEnd startView="year" [startAt]="lot.dateFrom"></mat-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <mat-error class="l-period-error" *ngIf="periodHadBeenEdited && !isPeriodValid">
+                    Invalid Period: Start Date Should Be Before End Date AND End Date Should Be After Today's Date
+                </mat-error>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Price Type -->
+
+            <div class="l-input-group">
+                <!-- #region Price Toggle -->
+
+                <label class="g-form-label">Price Type</label>
+                <div class="l-input-container">
+                    <div class="l-price-container">
+                        <ng-container *ngFor="let priceType of priceTypes">
+                            <div class="l-price-type" [class.l-toggle-active]="lot.priceType.id === priceType.id">
+                                <div
+                                    class="l-input-icon-holder"
+                                    [class.l-icon-disabled]="!safexMonths?.length && priceType.id === 1"
+                                >
+                                    <img
+                                        class="l-input-icon"
+                                        [src]="
+                                            !safexMonths?.length && priceType.id === 1
+                                                ? './assets/icons/wallet-icon-disabled.svg'
+                                                : './assets/icons/wallet-icon.svg'
+                                        "
+                                        alt=""
+                                    />
+                                </div>
+                                <button
+                                    [disabled]="!safexMonths?.length && priceType.id === 1"
+                                    class="l-general-toggle"
+                                    [class.l-disabled]="!safexMonths?.length && priceType.id === 1"
+                                    (click)="handleTogglePrice(priceType)"
+                                >
+                                    {{ priceType.name }}
+                                </button>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Basis Price -->
+
+                <div *ngIf="lot.priceType.id === 1" class="l-basis-price-container g-fade-in">
+                    <div class="w-100 d-flex">
+                        <img
+                            class="g-form-info-icon mt-1"
+                            src="./assets/icons/info-icon-grey.svg"
+                            alt="info-icon-grey"
+                        />
+                        <p class="g-form-info-p m-0">Select the applicable SAFEX month.</p>
+                    </div>
+
+                    <div class="l-input-container my-3">
+                        <div class="l-input-icon-holder">
+                            <img class="l-input-icon" src="./assets/icons/datepicker-icon.svg" alt="" />
+                        </div>
+                        <mat-select
+                            class="g-form-select l-alter-width"
+                            [(ngModel)]="lot.month"
+                            name="crop"
+                            [compareWith]="compareSelectionsHelper"
+                            required
+                            (selectionChange)="hasBeenEditedHelper()"
+                        >
+                            <mat-option *ngFor="let month of safexMonths" [value]="month">
+                                {{ month.name }}
+                                <span *ngIf="asteriskMonths.includes(month.name)" class="l-safex-asterisk">*</span>
+                            </mat-option>
+                        </mat-select>
+                    </div>
+
+                    <div class="l-input-container">
+                        <div class="l-price-container">
+                            <div class="l-price-type" [class.l-toggle-active]="lot.safexOption === 'PLUS'">
+                                <button
+                                    class="l-general-toggle justify-content-center"
+                                    (click)="handleToggleSafexOption('PLUS')"
+                                >
+                                    SAFEX PLUS
+                                </button>
+                            </div>
+
+                            <div class="l-price-type" [class.l-toggle-active]="lot.safexOption === 'MINUS'">
+                                <button
+                                    class="l-general-toggle justify-content-center"
+                                    (click)="handleToggleSafexOption('MINUS')"
+                                >
+                                    SAFEX MINUS
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Price -->
+
+            <div class="l-input-group">
+                <label class="g-form-label">{{ lot.priceType.id === 1 ? 'Basis' : 'Contract Price' }} / MT</label>
+                <div class="l-input-container">
+                    <div class="l-input-icon-holder">
+                        <img class="l-input-icon" src="./assets/icons/wallet-icon.svg" alt="" />
+                    </div>
+                    <div class="l-price-input">
+                        <input
+                            class="g-form-input l-price-padding"
+                            type="number"
+                            [(ngModel)]="lot.price"
+                            (ngModelChange)="handleShowPriceHint()"
+                            name="price"
+                            min="1"
+                            required
+                        />
+                        <p class="g-text-input l-price-p">ZAR</p>
+                    </div>
+                </div>
+                <div class="w-100 d-flex mt-3" *ngIf="lot.priceType.id === 1">
+                    <img class="g-form-info-icon mt-1" src="./assets/icons/info-icon-grey.svg" alt="info-icon-grey" />
+                    <p class="g-form-info-p m-0">
+                      On Ex Silo-Coop Certificate, Ex Silo-SAFEX Certificate and Ex Silo-Title Transfer,
+                      basis refers to the Premium received above the published SAFEX location differential.
+                      Thus only enter the premium. Final Basis for the Product will be inclusive of the SAFEX Location Differential.
+                    </p>
+                </div>
+                <div *ngIf="showPriceHint" class="l-info-container-payment g-fade-in">
+                    <p class="g-form-info-p l-red m-0">Enter a price greater than 0.</p>
+                </div>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Payment -->
+
+            <div class="l-input-group">
+                <label class="g-form-label">Payment</label>
+                <div class="l-input-container">
+                    <div class="l-input-icon-holder">
+                        <img class="l-input-icon" src="./assets/icons/wallet-icon.svg" alt="" />
+                    </div>
+                    <mat-select
+                        class="g-form-select l-alter-width"
+                        [(ngModel)]="lot.paymentTerm"
+                        name="paymentTerm"
+                        [compareWith]="compareSelectionsHelper"
+                        required
+                        (selectionChange)="hasBeenEditedHelper()"
+                    >
+                        <mat-option *ngFor="let paymentTerm of paymentTerms" [value]="paymentTerm">{{
+                            paymentTerm.name
+                        }}</mat-option>
+                    </mat-select>
+                </div>
+                <div class="l-info-container-payment">
+                    <img class="g-form-info-icon mt-1" src="./assets/icons/info-icon-grey.svg" alt="info-icon-grey" />
+                    <p class="g-form-info-p m-0">Payment terms may be fine-tuned after there is a Match.</p>
+                </div>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Buttons -->
+
+            <div class="w-100 d-flex align-items-center justify-content-center my-3">
+                <!-- #region Create Lot Button -->
+
+                <button
+                    mat-flat-button
+                    *ngIf="!lotId; else showLotEditButtons"
+                    class="g-primary-button"
+                    [class.g-btn-disabled]="!isFormValidHelper(lotForm) || !isPeriodValid"
+                    [disabled]="!isFormValidHelper(lotForm) || !isPeriodValid"
+                    (click)="handleSaveLot(lotForm)"
+                >
+                    <ng-container *ngIf="!isActionLoading; else showLoadingSpinner">Save Lot</ng-container>
+                    <ng-template #showLoadingSpinner>
+                        <mat-progress-spinner
+                            class="g-mat-progress-spinner-white mx-auto"
+                            mode="indeterminate"
+                            [diameter]="30"
+                        ></mat-progress-spinner>
+                    </ng-template>
+                </button>
+
+                <!-- #endregion -->
+
+                <!-- #region Edit Lot Buttons -->
+
+                <ng-template #showLotEditButtons>
+                    <button class="g-primary-button mr-1" mat-flat-button (click)="handleDeleteLot()">Delete</button>
+                    <button
+                        mat-flat-button
+                        class="g-primary-button ml-1"
+                        [class.g-btn-disabled]="!isFormValidHelper(lotForm) || !isPeriodValid || !hasBeenEdited"
+                        [disabled]="!isFormValidHelper(lotForm) || !isPeriodValid || !hasBeenEdited"
+                        (click)="handleEditLot(lotForm)"
+                    >
+                        <ng-container *ngIf="!isActionLoading; else showLoadingSpinner">Save Changes</ng-container>
+                        <ng-template #showLoadingSpinner>
+                            <mat-progress-spinner
+                                class="g-mat-progress-spinner-white mx-auto"
+                                mode="indeterminate"
+                                [diameter]="30"
+                            ></mat-progress-spinner>
+                        </ng-template>
+                    </button>
+                </ng-template>
+
+                <!-- #endregion -->
+            </div>
+            <!-- #endregion -->
+        </form>
+    </ng-template>
+    <!-- #region Header -->
+
+    <!-- #endregion -->
+</div>

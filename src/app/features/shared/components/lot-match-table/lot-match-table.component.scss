@@ -1,0 +1,119 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: fit-content;
+    background-color: transparent;
+}
+
+.l-card {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: $border-radius;
+}
+
+.l-header {
+    width: 100%;
+    padding: 8px 6px 8px 16px;
+    border-radius: $border-radius $border-radius 0px 0px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.l-banner-sell {
+    background-color: $secondary-green;
+}
+
+.l-banner-buy {
+    background-color: $secondary-red;
+}
+
+.l-buy-text {
+    color: $primary-red;
+    text-align: left;
+}
+
+.l-sell-text {
+    color: $primary-green;
+    text-align: left;
+}
+
+.l-content {
+    width: 100%;
+    height: fit-content;
+}
+
+.l-row {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+}
+
+.l-item-container {
+    display: flex;
+    flex-direction: column;
+    padding-right: 8px;
+    margin-left: 16px;
+}
+
+.l-match-item {
+    font-weight: $font-weight-semi-bold;
+    font-family: $text-font;
+    color: $text-dark;
+    font-size: 16px;
+    text-align: left;
+}
+
+.l-info-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 2px;
+}
+
+.l-info-text {
+    color: $error-message !important;
+    font-weight: $font-weight-semi-bold;
+    max-width: 180px;
+    margin: 0;
+}
+
+.l-edit {
+    pointer-events: none !important;
+    color: $primary-red;
+    font-weight: $font-weight-regular;
+    text-decoration: underline;
+}
+
+.l-match {
+    pointer-events: none !important;
+    color: $primary-color;
+    font-weight: $font-weight-regular;
+}
+
+.l-match-edit {
+    margin-left: auto;
+}
+
+.l-agent-tag {
+    padding: 8px 16px 8px 16px;
+    border-radius: $border-radius;
+    height: 28px;
+    width: 62px;
+    background: rgba(54, 89, 166, 0.1);
+    color: $primary-color;
+    margin-left: auto;
+    font-weight: $font-weight-bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}

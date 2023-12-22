@@ -1,0 +1,61 @@
+<div class="l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <h2 class="g-text-h2-dark">{{ isFilter ? 'Filter' : 'Choose' }} Verification Type</h2>
+        <img class="l-header-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleCloseModal()" />
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content -->
+
+    <div class="l-content">
+        <div
+            *ngFor="let verificationType of verificationTypes | keyvalue"
+            class="l-verification-type"
+            [mat-ripple]
+            (click)="handleSelectVerificationType(verificationType.value)"
+        >
+            <div class="l-checkbox-container">
+                <input type="checkbox" [checked]="selectedVerificationType === verificationType.value" />
+            </div>
+            <div class="l-verification-info-container">
+                <h2 class="g-text-h2 l-text-left">
+                    {{ verificationType.value.name }}
+                </h2>
+            </div>
+            <div class="l-verification-icon-container">
+                <img class="l-verification-icon" [src]="verificationType.value.source" alt="verification-icon" />
+            </div>
+        </div>
+
+        <!-- #region Spacer -->
+
+        <div class="l-spacer"></div>
+
+        <!-- #endregion -->
+
+        <!-- #region Warning -->
+
+        <div *ngIf="showWarning" class="l-info-container g-fade-in">
+            <img class="g-form-info-icon mt-1" src="./assets/icons/info-icon-red.svg" alt="info-icon-red" />
+            <p class="g-form-info-p l-red m-0">
+                Please choose a verification type, or choose 'Unverified' if none of the verification types are
+                applicable.
+            </p>
+        </div>
+
+        <!-- #engregion -->
+
+        <!-- #region Content -->
+
+        <button class="g-primary-button mt-3" mat-flat-button (click)="handleCloseModalAndUpdateVerification()">
+            {{ isFilter ? 'Apply Verification Filter' : 'Update Verification Type' }}
+        </button>
+
+        <!-- #endregion -->
+    </div>
+
+    <!-- #endregion -->
+</div>

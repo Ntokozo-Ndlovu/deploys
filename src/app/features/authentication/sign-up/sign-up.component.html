@@ -1,0 +1,368 @@
+<div class="l-container">
+    <div class="l-centered-content">
+        <img src="../../../assets/images/MX-logo.png" alt="Match Exchange" class="g-clickable l-logo" />
+        <h1 class="g-text-h1-dark pt-4">Welcome</h1>
+        <p class="g-text-p-dark pt-3">Sign up to Match Exchange below</p>
+
+        <div class="pt-3 l-form-container">
+            <button class="g-google-button" (click)="googleLogin()">
+                <img src="../../../assets/icons/google-icon-dark.svg" class="mr-2" />
+                <p class="g-text-p-dark">Sign up with Google</p>
+            </button>
+
+            <div class="d-flex justify-content-center my-4">
+                <h5 class="l-or">
+                    <span class="g-text-p-dark"> Or Sign up with </span>
+                </h5>
+            </div>
+
+            <form>
+                <mat-horizontal-stepper class="g-stepper-sign-up" #stepper>
+                    <!-- #region step 1 -->
+
+                    <mat-step>
+                        <div [class.l-validation-error]="name.touched && !name.valid" class="g-text-input-container">
+                            <img
+                                class="g-input-text-icon"
+                                [src]="
+                                    name.touched && !name.valid
+                                        ? '../../../assets/icons/user-red-icon.svg'
+                                        : '../../../assets/icons/user-blue-icon.svg'
+                                "
+                                alt=""
+                            />
+                            <input
+                                class="g-input-text"
+                                type="text"
+                                placeholder="Name"
+                                [(ngModel)]="newUser.name"
+                                #name="ngModel"
+                                name="name"
+                                maxlength="30"
+                                required
+                            />
+                        </div>
+                        <p *ngIf="name.touched && !name.valid" class="g-input-validation-text-error pt-1 text-left">
+                            Required
+                        </p>
+                        <div
+                            [class.l-validation-error]="surname.touched && !surname.valid"
+                            class="g-text-input-container mt-3"
+                        >
+                            <img
+                                class="g-input-text-icon"
+                                [src]="
+                                    surname.touched && !surname.valid
+                                        ? '../../../assets/icons/user-red-icon.svg'
+                                        : '../../../assets/icons/user-blue-icon.svg'
+                                "
+                                alt=""
+                            />
+                            <input
+                                class="g-input-text"
+                                type="text"
+                                placeholder="Surname"
+                                [(ngModel)]="newUser.surname"
+                                #surname="ngModel"
+                                name="surname"
+                                maxlength="30"
+                                required
+                            />
+                        </div>
+                        <p
+                            *ngIf="surname.touched && !surname.valid"
+                            class="g-input-validation-text-error pt-1 text-left"
+                        >
+                            Required
+                        </p>
+                        <div
+                            [class.l-validation-error]="email.touched && !email.valid"
+                            class="g-text-input-container mt-3"
+                        >
+                            <img
+                                class="g-input-text-icon"
+                                [src]="
+                                    email.touched && !email.valid
+                                        ? '../../../assets/icons/mail-red-icon.svg'
+                                        : '../../../assets/icons/mail-icon.svg'
+                                "
+                                alt=""
+                            />
+                            <input
+                                class="g-input-text"
+                                type="email"
+                                placeholder="Email"
+                                [(ngModel)]="newUser.email"
+                                #email="ngModel"
+                                name="email"
+                                [pattern]="emailPattern"
+                                required
+                            />
+                        </div>
+                        <p *ngIf="email.touched && !email.valid" class="g-input-validation-text-error pt-1 text-left">
+                            Enter a valid email address.
+                        </p>
+
+                        <button
+                            [ngClass]="{
+                                'g-primary-button': name.valid && surname.valid && email.valid,
+                                'g-disabled-button': name.invalid || surname.invalid || email.invalid
+                            }"
+                            [disabled]="name.invalid || surname.invalid || email.invalid"
+                            class="mt-3"
+                            mat-flat-button
+                            matStepperNext
+                        >
+                            Next
+                        </button>
+                    </mat-step>
+                    <!-- #endregion -->
+
+                    <!-- #region step 2 -->
+                    <mat-step>
+                        <div [class.l-validation-error]="phone.touched && !phone.valid" class="g-text-input-container">
+                            <img
+                                class="g-input-text-icon"
+                                [src]="
+                                    phone.touched && !phone.valid
+                                        ? '../../../assets/icons/phone-red-icon.svg'
+                                        : '../../../assets/icons/phone-blue-icon.svg'
+                                "
+                                alt=""
+                            />
+                            <input
+                                class="g-input-text"
+                                type="text"
+                                placeholder="Cell"
+                                [(ngModel)]="newUser.phone"
+                                #phone="ngModel"
+                                name="phone"
+                                pattern="^(?:(\+264\d{1,2}\d{6}|\d{6,9})|\+27\d{1,2}\d{7}|\d{9,10})$"
+                                required
+                            />
+                        </div>
+                        <p *ngIf="phone.touched && !phone.valid" class="g-input-validation-text-error pt-1 text-left">
+                            Enter a valid phone number.
+                        </p>
+                        <div
+                            [class.l-validation-error]="location.touched && !location.valid"
+                            class="g-text-input-container mt-3"
+                        >
+                            <img
+                                class="g-input-text-icon"
+                                [src]="
+                                    location.touched && !location.valid
+                                        ? '../../../assets/icons/location-red-icon.svg'
+                                        : '../../../assets/icons/location-blue-icon.svg'
+                                "
+                                alt=""
+                            />
+                            <input
+                                class="g-input-text"
+                                type="text"
+                                placeholder="Nearest Town"
+                                [(ngModel)]="newUser.location"
+                                #location="ngModel"
+                                name="location"
+                                required
+                                ngx-gp-autocomplete
+                                #placesRef="ngx-places"
+                                (onAddressChange)="handleAddressChange($event)"
+                                (click)="handleLocationInfo()"
+                            />
+                        </div>
+                        <p
+                            *ngIf="location.touched && !location.valid"
+                            class="g-input-validation-text-error pt-1 text-left"
+                        >
+                            Required - please select from list.
+                        </p>
+                        <p *ngIf="showLocationTip" class="g-text-p-small-dark pt-1 text-left">
+                            Insert your nearest town and <strong>select</strong> the location from the drop-down list.
+                        </p>
+
+                        <div
+                            [class.l-validation-error]="grainSA.touched && !grainSA.valid"
+                            class="g-text-input-container mt-3"
+                        >
+                            <img
+                                class="g-input-text-icon"
+                                src="../../../assets/icons/grainSA-icon.svg"
+                                alt="Grain SA"
+                            />
+                            <input
+                                class="g-input-text l-overflow"
+                                type="text"
+                                placeholder="Grain SA number (Optional)"
+                                [(ngModel)]="newUser.grainSAId"
+                                #grainSA="ngModel"
+                                name="grainSA"
+                                pattern="GSA[0-9]{4}$"
+                            />
+                            <img
+                                class="l-additional-icon"
+                                (click)="handleGrainSAModal()"
+                                src="../../../assets/icons/info-icon-blue.svg"
+                                alt="Grain SA Info view"
+                            />
+                        </div>
+                        <p class="g-text-p-small-dark pt-1 text-left l-optional">*Optional field</p>
+                        <p
+                            *ngIf="grainSA.touched && !grainSA.valid"
+                            class="g-input-validation-text-error pt-1 text-left"
+                        >
+                            Enter a valid Grain SA ID.
+                        </p>
+                        <button
+                            [ngClass]="{
+                                'g-primary-button': phone.valid && location.valid && grainSA.valid,
+                                'g-disabled-button':
+                                    phone.invalid || location.invalid || !locationIsSelected || grainSA.invalid
+                            }"
+                            [disabled]="phone.invalid || location.invalid || !locationIsSelected || grainSA.invalid"
+                            class="mt-3"
+                            mat-flat-button
+                            matStepperNext
+                        >
+                            Next
+                        </button>
+                    </mat-step>
+                    <!-- #endregion -->
+
+                    <!-- #region step 3 -->
+
+                    <mat-step>
+                        <div class="g-text-input-container mt-3">
+                            <img class="g-input-text-icon" src="../../../assets/icons/lock-icon.svg" alt="" />
+                            <input
+                                class="g-input-text pr-5"
+                                [type]="passwordIsHidden ? 'text' : 'password'"
+                                placeholder="******"
+                                [(ngModel)]="newUser.password"
+                                #password="ngModel"
+                                name="password"
+                                required
+                            />
+                            <img
+                                class="l-additional-icon"
+                                *ngIf="passwordIsHidden; else showPassword"
+                                (click)="togglePassword()"
+                                src="../../../assets/icons/eye-icon.svg"
+                                alt="View"
+                            />
+                            <ng-template #showPassword>
+                                <img
+                                    class="l-additional-icon"
+                                    (click)="togglePassword()"
+                                    src="../../../assets/icons/eye-closed-icon.svg"
+                                    alt="Hide"
+                                />
+                            </ng-template>
+                        </div>
+                        <app-password-validator
+                            class="l-validation-container"
+                            [passwordInput]="newUser.password"
+                            ($passwordValidity)="handlePasswordValidity($event)"
+                        ></app-password-validator>
+                        <div
+                            class="g-text-input-container mt-3"
+                            [class.l-validation-error]="
+                                password.value != confirmPassword.value && confirmPassword.touched
+                            "
+                        >
+                            <img
+                                class="g-input-text-icon"
+                                src="../../../assets/icons/lock-icon.svg"
+                                [src]="
+                                    password.value != confirmPassword.value && confirmPassword.touched
+                                        ? '../../../assets/icons/lock-red-icon.svg'
+                                        : '../../../assets/icons/lock-icon.svg'
+                                "
+                                alt=""
+                            />
+                            <input
+                                class="g-input-text pr-5"
+                                [type]="confirmPasswordIsHidden ? 'text' : 'password'"
+                                placeholder="******"
+                                [(ngModel)]="confirmPasswordInput"
+                                name="confirmPassword"
+                                #confirmPassword="ngModel"
+                                required
+                            />
+                            <img
+                                class="l-additional-icon"
+                                *ngIf="confirmPasswordIsHidden; else showConfirmPassword"
+                                (click)="toggleConfirmPassword()"
+                                src="../../../assets/icons/eye-icon.svg"
+                                alt="View"
+                            />
+                            <ng-template #showConfirmPassword>
+                                <img
+                                    class="l-additional-icon"
+                                    (click)="toggleConfirmPassword()"
+                                    src="../../../assets/icons/eye-closed-icon.svg"
+                                    alt="Hide"
+                                />
+                            </ng-template>
+                        </div>
+
+                        <div *ngIf="password.value != confirmPassword.value && confirmPassword.touched">
+                            <p class="g-input-validation-text-error pt-1 text-left">Passwords do not match.</p>
+                        </div>
+                        <button
+                            [ngClass]="{
+                                'g-primary-button': passwordIsValid && password.value == confirmPassword.value,
+                                'g-disabled-button': !passwordIsValid || password.value != confirmPassword.value
+                            }"
+                            [disabled]="!passwordIsValid || password.value != confirmPassword.value"
+                            class="g-primary-button mt-3"
+                            mat-flat-button
+                            (click)="handleSignUp()"
+                        >
+                            Sign Up
+                        </button>
+                    </mat-step>
+                    <!-- #endregion -->
+                </mat-horizontal-stepper>
+            </form>
+            <div *ngIf="stepper.selectedIndex === 2; else showSignIn">
+                <p class="g-text-p-small-dark pt-3 l-terms">
+                    By using our site, you agree to the
+                    <span class="g-text-blue"
+                        ><a
+                            (click)="handleRouteToDocumentViewer('ToS.pdf')"
+                            target="_blank"
+                            class="terms clickable"
+                            id="TermsOfServiceLink"
+                        >
+                            Terms Of Service</a
+                        >,
+                        <a
+                            (click)="handleRouteToDocumentViewer('privacyPolicy.pdf')"
+                            class="terms clickable"
+                            id="PrivacyPolicyLink"
+                            target="_blank"
+                        >
+                            Privacy Policy
+                        </a></span
+                    >
+                    and
+                    <span class="g-text-blue"
+                        ><a
+                            (click)="handleRouteToDocumentViewer('Skudu_Acceptable.pdf')"
+                            class="terms clickable"
+                            id="WebsiteTermsofUseLink"
+                            target="_blank"
+                        >
+                            Website Terms of Use
+                        </a></span
+                    >
+                </p>
+            </div>
+            <ng-template #showSignIn>
+                <p class="g-text-p-small-dark mt-3">Already have an account?</p>
+                <button class="g-secondary-button mt-2" mat-flat-button (click)="handleRouteToSignIn()">Sign In</button>
+            </ng-template>
+        </div>
+    </div>
+</div>

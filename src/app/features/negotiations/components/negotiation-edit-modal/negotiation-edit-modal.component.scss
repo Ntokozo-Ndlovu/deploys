@@ -1,0 +1,396 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $background-color-grey !important;
+    padding-bottom: 16px;
+}
+
+.l-header {
+    position: relative;
+    width: 100%;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $background-color;
+}
+
+.l-header-extended {
+    @extend .l-header;
+    width: 100% !important;
+}
+
+.l-close-icon {
+    position: absolute;
+    right: 16px;
+    width: 18px;
+    height: auto;
+}
+
+.l-save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.l-content {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+}
+
+.l-content-extended {
+    @extend .l-content;
+    width: 100% !important;
+}
+
+.l-choice-header {
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 16px;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+}
+.l-seller-bg {
+    background-color: $secondary-green;
+}
+.l-buyer-bg {
+    background-color: $secondary-red;
+}
+
+.l-buyer-text {
+    color: $primary-red;
+    text-align: left;
+}
+
+.l-seller-text {
+    color: $primary-green;
+    text-align: left;
+}
+
+.l-choice-content {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    background-color: $background-color;
+}
+
+.l-choice-text {
+    height: auto;
+    text-align: left;
+}
+
+.l-no-padding {
+    padding: 0px !important;
+}
+
+.l-search-container {
+    width: 100%;
+}
+
+.l-no-border {
+    outline: none;
+    border: none !important;
+    background-color: transparent;
+}
+
+.mat-stepper-horizontal {
+    background-color: $background-color-grey !important;
+}
+
+.mat-date-range-input-inner {
+    text-align: start;
+}
+.l-error-text {
+    font-size: small;
+    font-weight: 500;
+}
+
+.l-choice-icon {
+    width: auto;
+    height: auto;
+    color: $primary-color;
+}
+.l-period-icon {
+    background-color: $app-bg-color !important;
+}
+
+.l-separator {
+    width: 100%;
+    height: 51px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.l-separator-line {
+    width: 1px;
+    margin-left: -1px;
+    flex: 1;
+    border: 1px dashed $app-font-black;
+}
+
+.l-no-match-icon {
+    width: 20px;
+    height: auto;
+}
+
+.l-match-icon {
+    width: 30px;
+    height: auto;
+}
+
+.l-info-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 8px;
+}
+
+.l-quantity-holder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.l-quantity {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    outline: none;
+}
+
+.l-alter-width,
+.l-alter-width-mat-fields {
+    width: calc(100% - 48px);
+}
+.l-alter-width-mat-fields {
+    margin-left: 9px;
+}
+
+.l-choice-quantity {
+    width: 65%;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    background-color: $background-color;
+}
+
+.l-choice-measure {
+    width: 30%;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    background-color: $background-color;
+}
+
+.l-map-container {
+    overflow: hidden;
+    border-radius: $border-radius;
+}
+
+.l-input {
+    width: calc(100% - 48px);
+    height: 41px;
+    padding-left: 20px;
+    border: none;
+    border-top-left-radius: $app-border-radius;
+    border-bottom-left-radius: $app-border-radius;
+    background-color: #ffffff;
+    box-shadow: $app-box-shadow;
+    outline: none;
+}
+.l-input::-webkit-input-placeholder,
+.l-input::-moz-placeholder {
+    color: $app-font-input-placeholder !important;
+}
+
+.l-input-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+}
+
+.l-input-icon-holder {
+    width: 39px;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $app-input-bg-color;
+    border-radius: $app-border-radius;
+}
+
+.l-input-icon-holder {
+    width: 39px;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $app-input-bg-color;
+    border-radius: $app-border-radius;
+}
+
+.l-double-input-left,
+.l-double-input-left-period,
+.l-double-input-right,
+.l-double-input-right-period {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+.l-double-input-left {
+    width: 58.5%;
+}
+.l-double-input-left-period {
+    width: 50%;
+    margin-right: 8px;
+}
+.l-double-input-right {
+    width: 37.5%;
+}
+.l-double-input-right-period {
+    width: 50%;
+    margin-left: 8px;
+}
+
+.l-basis-price-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.l-black {
+    color: #000000;
+}
+
+.l-month-toggle-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 24px 0;
+}
+
+.l-chevron-img {
+    width: 12px;
+    height: auto;
+}
+
+.l-month {
+    width: 45%;
+    height: 39px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+    font-family: $app-input-font;
+    font-size: 14px;
+    font-weight: 400;
+    color: $app-font-black;
+    background: $app-input-bg-color;
+    border-radius: $app-border-radius;
+}
+
+.l-price-input {
+    position: relative;
+    width: calc(100% - 48px);
+    height: fit-content;
+    width: 100%;
+}
+
+.l-price-padding {
+    padding-left: 80px;
+}
+
+.l-price-p {
+    display: flex;
+    position: absolute;
+    margin: 0;
+    left: 10px;
+    top: 16px;
+}
+
+.l-general-toggle-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+}
+
+.l-active {
+    background-color: $primary-color !important;
+    color: #ffffff !important;
+}
+
+.l-active-match {
+    background-color: $app-tabs-negotiations-blue !important;
+    color: #ffffff !important;
+}
+
+.l-general-toggle {
+    width: 48.5%;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: $text-font;
+    font-size: 14px;
+    font-weight: 400;
+    color: $text-dark;
+    border-radius: $border-radius;
+    background-color: $app-input-bg-color;
+    transition: 0.1s ease-in-out;
+}
+
+.l-match-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $background-color;
+    color: $primary-color;
+    border: solid 1px $primary-color;
+    width: 100%;
+}
+
+.l-align-left-toggle {
+    @extend.l-general-toggle;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.l-save-holder {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+}

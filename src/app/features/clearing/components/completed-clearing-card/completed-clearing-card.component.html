@@ -1,0 +1,67 @@
+<div
+    class="l-container"
+    [ngClass]="{
+        'g-card-border-sell': negotiationCard.lotType === 'Sell',
+        'g-card-border-buy': negotiationCard.lotType === 'Buy'
+    }"
+>
+    <div class="l-card g-fade-in">
+        <!-- #region Base Content -->
+
+        <div class="l-base-content">
+            <!-- #region Header -->
+
+            <div
+                class="l-header"
+                [ngClass]="{
+                    'l-banner-sell': negotiationCard.lotType === 'Sell',
+                    'l-banner-buy': negotiationCard.lotType === 'Buy'
+                }"
+            >
+                <h2
+                    [ngClass]="{
+                        'l-sell-text': negotiationCard.lotType === 'Sell',
+                        'l-buy-text': negotiationCard.lotType === 'Buy'
+                    }"
+                    class="g-text-h2"
+                >
+                    <b>{{ negotiationCard.lotType.toLocaleUpperCase() }}</b>
+                </h2>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Lot Name / Edit -->
+
+            <h2 class="g-text-h2-dark l-lot-name">
+                {{ negotiationCard.lotName }}
+            </h2>
+
+            <!-- #endregion -->
+
+            <!-- #region Content -->
+
+            <div class="l-detail-container">
+                <div class="l-content-holder">
+                    <img class="l-detail-icon" src="./assets/icons/crop-icon.svg" alt="" />
+                    <p class="g-text-card-prop">{{ negotiationCard.cropName }}</p>
+                </div>
+                <div class="l-content-holder">
+                    <img class="l-detail-icon" src="./assets/icons/delivery-box.svg" alt="" />
+                    <p class="g-text-card-prop">{{ negotiationCard.quantity }} {{ negotiationCard.unitOfMeasure }}</p>
+                </div>
+                <div class="l-content-holder">
+                    <img class="l-detail-icon" src="./assets/icons/calendar.svg" alt="location-icon" />
+                    <p class="g-text-card-prop">
+                        {{ negotiationCard.dateFrom | date: 'dd/MM/yy' }} -
+                        {{ negotiationCard.dateTo | date: 'dd/MM/yy' }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- #endregion -->
+        </div>
+
+        <!-- #endregion -->
+    </div>
+</div>

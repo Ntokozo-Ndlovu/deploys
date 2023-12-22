@@ -1,0 +1,151 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $background-color-grey;
+    overflow: auto;
+}
+
+.l-header {
+    position: relative;
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.l-back-icon {
+    position: absolute;
+    left: 16px;
+    width: 20.24px;
+    height: 13.5px;
+}
+
+.l-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding: 16px;
+}
+
+.l-range-container {
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 16px;
+}
+
+.l-lotmatch {
+    width: 100%;
+    height: fit-content;
+}
+
+.l-lotmatch-table-container {
+    width: 100%;
+    height: fit-content;
+}
+
+.l-no-matches {
+    background-color: $background-color;
+    border-radius: $border-radius;
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.l-animate-from-left {
+    animation: animateFromLeft 0.3s 1 forwards;
+}
+
+@keyframes animateFromLeft {
+    0% {
+        margin-left: -50%;
+        opacity: 0;
+    }
+    100% {
+        margin-left: 0;
+        opacity: 1;
+    }
+}
+
+.l-animate-from-right {
+    animation: animateFromRight 0.3s 1 forwards;
+}
+
+@keyframes animateFromRight {
+    0% {
+        margin-left: 50%;
+        opacity: 0;
+    }
+    100% {
+        margin-right: 0;
+        opacity: 1;
+    }
+}
+
+.l-fill {
+    height: unset;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.l-verification-badge-container {
+    width: 100%;
+    margin-top: 16px;
+}
+
+.l-spacer {
+    width: 100%;
+    flex: 1;
+}
+
+.l-footer {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    padding: 16px;
+    background-color: $background-color-grey;
+}
+
+.l-chevron-holder {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: $border-radius;
+}
+
+.l-chevron-icon-left {
+    width: 9px;
+    height: auto;
+    cursor: pointer;
+}
+
+.l-chevron-icon-right {
+    width: 9px;
+    height: auto;
+    transform: rotate(180deg) !important;
+    cursor: pointer;
+}
+
+.l-button-container {
+    width: 100%;
+    padding: 0 16px;
+}

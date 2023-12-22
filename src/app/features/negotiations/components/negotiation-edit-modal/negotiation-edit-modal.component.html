@@ -1,0 +1,678 @@
+<div class="l-container">
+    <ng-container [ngSwitch]="matchItem">
+        <!-- #region Product -->
+
+        <ng-container *ngSwitchCase="'Product'">
+            <ng-container *ngTemplateOutlet="Default"></ng-container>
+        </ng-container>
+
+        <!-- #endregion -->
+
+        <!-- #region Position Toggle -->
+
+        <ng-container *ngSwitchCase="'Position'">
+            <div class="l-header" [ngClass.l-header-extended]="isPrice || isPosition">
+                <h2 class="g-text-h2-dark">Edit {{ matchItem }}</h2>
+                <img
+                    class="l-close-icon"
+                    src="./assets/icons/close-icon-dark.svg"
+                    alt="close"
+                    (click)="handleCancelModal()"
+                />
+            </div>
+            <mat-horizontal-stepper #PositionMatStepper class="g-stepper-hide-header">
+                <mat-step>
+                    <ng-container *ngTemplateOutlet="Default"></ng-container>
+                </mat-step>
+                <mat-step>
+                    <div class="p-3">
+                        <label class="g-text-h2 mb-2">Enter a new location </label>
+                        <div class="l-search-container">
+                            <div class="g-text-input-container l-no-border">
+                                <img
+                                    class="g-input-text-icon"
+                                    src="./assets/icons/search-icon-grey.svg"
+                                    alt="search-icon"
+                                />
+                                <input
+                                    class="g-input-text"
+                                    [(ngModel)]="searchTerm"
+                                    (ngModelChange)="handleSearchTermChange($event)"
+                                    name="search"
+                                    type="text"
+                                    placeholder="Search Location"
+                                    [matAutocomplete]="auto"
+                                />
+                                <mat-autocomplete
+                                    #auto="matAutocomplete"
+                                    class="g-mat-autocomplete"
+                                    (optionSelected)="handleSelectDeliveryPoint($event.option.value)"
+                                >
+                                    <mat-option
+                                        class="g-mat-option-text"
+                                        *ngFor="let filteredDeliveryPoint of filteredDeliveryPoints"
+                                        [value]="filteredDeliveryPoint"
+                                    >
+                                        {{ filteredDeliveryPoint.name }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </div>
+                        </div>
+
+                        <div *ngIf="apiLoaded | async" class="l-map-container my-2">
+                            <google-map
+                                class="g-delivery-form-map"
+                                [center]="{lat:markers[0]?.location.lat,lng:markers[0]?.location.lng}"
+                                [options]="{mapTypeId:'hybrid',gestureHandling:'cooperative'}"
+                                [fitBounds]="true"
+                            >
+                                <map-marker
+                                    [position]="{lat:markers[0]?.location.lat,lng:markers[0]?.location.lng}"
+                                    [options]="{icon:isSeller ? sellerIconUrl : buyerIconUrl}"
+                                    [agmFitBounds]="true"
+                                >
+                                    <map-info-window #infoWindow>
+                                        {{ markers[0] }}
+                                    </map-info-window>
+                                </map-marker>
+                                <map-marker
+                                    [center]="{lat:markers[1]?.location.lat,lng:markers[1]?.location.lng}"
+                                    [options]="{icon:isSeller ? buyerIconUrl : sellerIconUrl}"
+                                    [agmFitBounds]="true"
+                                >
+                                    <map-info-window #infoWindow>
+                                        {{ markers[1] }}
+                                    </map-info-window>
+                                </map-marker>
+                            </google-map>
+                        </div>
+
+                        <div>
+                            <label class="g-text-h2 my-2">INCO Term </label>
+
+                            <div class="l-choice-content">
+                                <mat-select
+                                    class="g-text-h2 l-choice-text"
+                                    [(ngModel)]="lotDetails.incoTerm"
+                                    name="incoTerm"
+                                    [compareWith]="compareSelectionsHelper"
+                                >
+                                    <mat-option *ngFor="let incoTerm of incoTerms" [value]="incoTerm">{{
+                                        incoTerm.name
+                                    }}</mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="l-save-holder" [class.w-100]="isMatch || isPrice || isPosition">
+                        <button
+                            mat-flat-button
+                            class="g-primary-button l-save-button"
+                            [class.w-100]="isPrice || isPosition"
+                            (click)="handleCloseModal()"
+                        >
+                            <ng-container *ngIf="isActionLoading; else showLoadingSpinnerSubmit">
+                                <mat-progress-spinner
+                                    class="g-mat-progress-spinner-white"
+                                    mode="indeterminate"
+                                    [diameter]="30"
+                                ></mat-progress-spinner>
+                            </ng-container>
+                            <ng-template #showLoadingSpinnerSubmit> Save </ng-template>
+                        </button>
+
+                        <button
+                            *ngIf="!isMatch"
+                            class="l-match-button g-primary-button ml-2"
+                            (click)="handleMatchItem(matchItem)"
+                        >
+                            Match {{ matchItem }}
+                        </button>
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </ng-container>
+
+        <!-- #endregion -->
+
+        <!-- #region Period Toggle -->
+
+        <ng-container *ngSwitchCase="'Period'">
+            <ng-container *ngTemplateOutlet="Default"></ng-container>
+        </ng-container>
+
+        <!-- #endregion -->
+
+        <!-- #region Price Toggle -->
+
+        <ng-container *ngSwitchCase="'ContractPrice'">
+            <div class="l-header" [ngClass]="isPrice || isPosition ? 'l-header-extended' : 'l-header'">
+                <h2 class="g-text-h2-dark">Edit {{ getCorrectMatchItemNameHelper(matchItem) }}</h2>
+                <img
+                    class="l-close-icon"
+                    src="./assets/icons/close-icon-dark.svg"
+                    alt="close"
+                    (click)="handleCancelModal()"
+                />
+            </div>
+            <mat-horizontal-stepper #PriceMatStepper class="g-stepper-hide-header l-no-padding">
+                <mat-step>
+                    <ng-container *ngTemplateOutlet="Default"></ng-container>
+                </mat-step>
+                <mat-step>
+                    <div class="p-3">
+                        <label class="g-text-label mb-2">Price Type</label>
+                        <div class="l-input-container" [class.mb-3]="lotDetails.priceType.id === 2">
+                            <div class="l-general-toggle-container">
+                                <ng-container *ngFor="let priceType of priceTypes">
+                                    <div
+                                        *ngIf="safexMonths?.length || priceType.id === 2"
+                                        class="l-general-toggle"
+                                        [class.l-active]="lotDetails.priceType.id === priceType.id"
+                                        (click)="handleTogglePrice(priceType)"
+                                    >
+                                        {{ priceType.name }}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div *ngIf="lotDetails.priceType.id === 1" class="l-basis-price-container g-fade-in">
+                            <div class="l-info-container mb-2">
+                                <img
+                                    class="g-form-info-icon mt-1"
+                                    src="./assets/icons/info-icon-black.svg"
+                                    alt="info-icon-grey"
+                                />
+                                <p
+                                    *ngIf="oppLotDetails.priceType.id === 1; else showAlternateText"
+                                    class="g-text-p-small-grey m-0"
+                                >
+                                    {{
+                                        isSeller
+                                            ? 'Buyer Month - ' + oppLotDetails.month?.name
+                                            : 'Seller Month - ' + oppLotDetails.month?.name
+                                    }}
+                                </p>
+                                <ng-template #showAlternateText>
+                                    <p class="g-text-p-small-grey m-0">
+                                        The {{ isSeller ? 'Buyer' : 'Seller' }} has selected a fixed price.
+                                    </p>
+                                </ng-template>
+                            </div>
+
+                            <div class="l-input-container mt-3 mb-2">
+                                <mat-select
+                                    [(ngModel)]="lotDetails.month"
+                                    name="month"
+                                    class="g-form-select"
+                                    [compareWith]="compareSelectionsHelper"
+                                    required
+                                    (selectionChange)="handleCropChange()"
+                                >
+                                    <h2 class="g-text-h2 text-left">
+                                        <mat-option *ngFor="let month of safexMonths" [value]="month">
+                                            {{ month?.name }}
+                                        </mat-option>
+                                    </h2>
+                                </mat-select>
+                            </div>
+
+                            <div class="l-input-container mb-3">
+                                <div class="l-general-toggle-container">
+                                    <div
+                                        class="l-general-toggle"
+                                        [class.l-active]="lotDetails.exchangeValue === 'PLUS'"
+                                        (click)="handleToggleSafexOption('PLUS')"
+                                    >
+                                        SAFEX PLUS
+                                    </div>
+                                    <div
+                                        class="l-general-toggle"
+                                        [class.l-active]="lotDetails.exchangeValue === 'MINUS'"
+                                        (click)="handleToggleSafexOption('MINUS')"
+                                    >
+                                        SAFEX MINUS
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="l-input-group">
+                            <label class="g-text-label mb-2"
+                                >{{ lotDetails.priceType.id === 1 ? 'Basis' : null }} Price</label
+                            >
+                            <div class="l-input-container">
+                                <div class="l-price-input">
+                                    <input
+                                        class="g-form-input l-price-padding"
+                                        type="number"
+                                        [(ngModel)]="lotDetails.price"
+                                        (ngModelChange)="handleShowPriceHint(lotDetails)"
+                                        name="price"
+                                    />
+                                    <div class="l-price-p">
+                                        <img
+                                            class="l-input-icon pr-2"
+                                            src="./assets/icons/contract-price-icon-grey.svg"
+                                            alt=""
+                                        />
+                                        <p class="g-text-input m-0">ZAR</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="showPriceHint" class="l-info-container-payment g-fade-in">
+                                <p class="g-text-p-small-grey l-red m-0">Enter a price greater than 0.</p>
+                            </div>
+                        </div>
+
+                        <div class="l-info-container">
+                            <img
+                                class="g-form-info-icon mt-1"
+                                src="./assets/icons/info-icon-grey.svg"
+                                alt="info-icon-grey"
+                            />
+                            <p class="g-text-p-small-grey m-0">
+                                {{
+                                    isSeller
+                                        ? 'Buyer - ' +
+                                          lotMatch.buyerDetails.priceType.name +
+                                          ' ' +
+                                          basisValue +
+                                          ' R' +
+                                          lotMatch.buyerDetails.price
+                                        : 'Seller - ' +
+                                          lotMatch.sellerDetails.priceType.name +
+                                          ' ' +
+                                          basisValue +
+                                          ' R' +
+                                          lotMatch.sellerDetails.price
+                                }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="l-save-holder" [class.w-100]="isMatch || isPrice || isPosition">
+                        <button
+                            mat-flat-button
+                            class="g-primary-button l-save-button"
+                            [class.w-100]="isPrice"
+                            (click)="handleCloseModal()"
+                        >
+                            <ng-container *ngIf="isActionLoading; else showLoadingSpinnerSubmit">
+                                <mat-progress-spinner
+                                    class="g-mat-progress-spinner-white"
+                                    mode="indeterminate"
+                                    [diameter]="30"
+                                ></mat-progress-spinner>
+                            </ng-container>
+                            <ng-template #showLoadingSpinnerSubmit> Save </ng-template>
+                        </button>
+
+                        <button
+                            *ngIf="!isMatch"
+                            class="l-match-button g-primary-button ml-2"
+                            (click)="handleMatchItem(matchItem)"
+                        >
+                            Match {{ matchItem }}
+                        </button>
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </ng-container>
+
+        <!-- #endregion -->
+
+        <!-- #region Payment Toggle -->
+
+        <ng-container *ngSwitchCase="'Payment'">
+            <ng-container *ngTemplateOutlet="Default"></ng-container>
+        </ng-container>
+
+        <!-- #endregion -->
+
+        <!-- #region Quantity Toggle -->
+
+        <ng-container *ngSwitchCase="'Quantity'">
+            <ng-container *ngTemplateOutlet="Default"></ng-container>
+        </ng-container>
+
+        <!-- #endregion -->
+
+        <!-- #region Quality Toggle -->
+
+        <ng-container *ngSwitchCase="'Quality'">
+            <ng-container *ngTemplateOutlet="Default"></ng-container>
+        </ng-container>
+
+        <!-- #endregion -->
+    </ng-container>
+</div>
+
+<!-- #region Editable Input Templates -->
+
+<!-- #region Default Content -->
+
+<ng-template #Default>
+    <!-- #region Modal Header -->
+
+    <div class="l-header" class="l-header" *ngIf="!isPrice && !isPosition">
+        <h2 class="g-text-h2-dark">Edit {{ matchItem === 'Product' ? matchItem + ' Packaging' : matchItem }}</h2>
+        <img class="l-close-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleCancelModal()" />
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Modal Content -->
+
+    <div class="l-content" [ngClass]="isPrice || isPosition ? 'l-content-extended' : 'l-content'">
+        <div class="w-100">
+            <div class="l-choice-header" [ngClass]="isSeller ? 'l-buyer-bg' : 'l-seller-bg'">
+                <p class="g-text-p" [ngClass]="isSeller ? 'l-buyer-text' : 'l-seller-text'">
+                    The {{ isSeller ? 'Buyer' : 'Seller' }} chose
+                </p>
+            </div>
+            <div
+                class="l-choice-content"
+                [ngClass]="{
+                    'justify-content-start': secondOpposingValue
+                }"
+            >
+                <h2 class="g-text-h2 text-left">{{ opposingValue }}</h2>
+                <h2 *ngIf="secondOpposingValue" class="g-text-h2 text-left ml-2">{{ secondOpposingValue }}</h2>
+            </div>
+        </div>
+
+        <!-- #region Separator -->
+
+        <div class="l-separator">
+            <div class="l-separator-line"></div>
+            <img
+                *ngIf="!isMatch; else showMatchIcon"
+                class="l-no-match-icon"
+                src="./assets/icons/no-match-icon.svg"
+                alt="no-match"
+            />
+            <ng-template #showMatchIcon>
+                <img class="l-match-icon" src="./assets/icons/blue-tick-icon.svg" alt="match" />
+            </ng-template>
+            <div class="l-separator-line"></div>
+        </div>
+
+        <!-- #endregion -->
+
+        <div class="w-100">
+            <div class="l-choice-header" [ngClass]="isSeller ? 'l-seller-bg' : 'l-buyer-bg'">
+                <p class="g-text-p" [ngClass]="isSeller ? 'l-seller-text' : 'l-buyer-text'">
+                    Your current
+                    {{
+                        matchItem === 'Product'
+                            ? matchItem.toLocaleLowerCase() + ' packaging'
+                            : matchItem.toLocaleLowerCase()
+                    }}
+                </p>
+            </div>
+
+            <!-- #region Editable Input -->
+
+            <ng-container [ngSwitch]="matchItem">
+                <ng-container *ngSwitchCase="'Product'">
+                    <ng-container *ngTemplateOutlet="Product"></ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="'Position'">
+                    <ng-container *ngTemplateOutlet="Position"></ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="'Period'">
+                    <ng-container *ngTemplateOutlet="Period"> </ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="'ContractPrice'">
+                    <ng-container *ngTemplateOutlet="ContractPrice"></ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="'Payment'">
+                    <ng-container *ngTemplateOutlet="Payment"></ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="'Quantity'">
+                    <ng-container *ngTemplateOutlet="Quantity"></ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="'Quality'">
+                    <ng-container *ngTemplateOutlet="Quality"></ng-container>
+                </ng-container>
+            </ng-container>
+
+            <!-- #endregion -->
+        </div>
+
+        <div *ngIf="!isMatch" class="l-info-container">
+            <img class="g-form-info-icon mt-1" src="./assets/icons/info-icon-grey.svg" alt="info-icon-grey" />
+            <p class="g-text-p-small-grey m-0">
+                {{ infoBoxText }}
+            </p>
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <div class="l-save-holder" [class.w-100]="isMatch || isPrice || isPosition">
+        <button
+            *ngIf="matchItem !== 'Period'"
+            mat-flat-button
+            class="g-primary-button l-save-button"
+            [class.w-100]="isPrice || isPosition"
+            [class.g-btn-disabled]="!isFormValidHelper()"
+            [disabled]="!isFormValidHelper()"
+            (click)="handleCloseModal()"
+        >
+            <ng-container *ngIf="isActionLoading; else showLoadingSpinnerSubmit">
+                <mat-progress-spinner
+                    class="g-mat-progress-spinner-white d-flex justify-content-centre"
+                    mode="indeterminate"
+                    [diameter]="30"
+                ></mat-progress-spinner>
+            </ng-container>
+            <ng-template #showLoadingSpinnerSubmit> Save </ng-template>
+        </button>
+
+        <button
+            *ngIf="matchItem === 'Period'"
+            mat-flat-button
+            class="g-primary-button"
+            [class.g-btn-disabled]="!isFormValidHelper()"
+            [disabled]="!isFormValidHelper()"
+            (click)="handleClosePeriodModal({ dateFrom: this.lotDetails.dateFrom, dateTo: this.lotDetails.dateTo })"
+        >
+            <ng-container *ngIf="isActionLoading; else showLoadingSpinnerSubmit">
+                <mat-progress-spinner
+                    class="g-mat-progress-spinner-white d-flex justify-content-centre"
+                    mode="indeterminate"
+                    [diameter]="30"
+                ></mat-progress-spinner>
+            </ng-container>
+            <ng-template #showLoadingSpinnerSubmit> Save </ng-template>
+        </button>
+
+        <button *ngIf="!isMatch" class="l-match-button g-primary-button ml-2" (click)="handleMatchItem(matchItem)">
+            Match {{ getCorrectMatchItemNameHelper(matchItem) }}
+        </button>
+    </div>
+</ng-template>
+
+<!-- #endregion -->
+
+<!-- #region Product -->
+
+<ng-template #Product>
+    <div class="l-choice-content">
+        <mat-select
+            class="g-text-h2 g-mat-select-placeholder l-choice-text"
+            [(ngModel)]="lotDetails.packaging"
+            name="packaging"
+            [compareWith]="compareSelectionsHelper"
+            (selectionChange)="handleProductChange()"
+            placeholder="No packaging selected"
+            required
+        >
+            <mat-option *ngFor="let packaging of packaging" [value]="packaging">{{ packaging.name }}</mat-option>
+        </mat-select>
+    </div>
+</ng-template>
+
+<!-- #endregion -->
+
+<!-- #region Position -->
+
+<ng-template #Position>
+    <div class="l-choice-content" (click)="handleChangePositionStep()">
+        <input
+            class="g-text-h2 text-left l-no-border"
+            type="text"
+            [(ngModel)]="lotDetails.deliveryPoint.name"
+            name="position"
+            [readOnly]="true"
+        />
+
+        <div class="l-choice-icon g-text-p">Edit</div>
+    </div>
+</ng-template>
+
+<!-- #endregion -->
+
+<!-- #region Period -->
+
+<ng-template #Period>
+    <div class="l-input-group">
+        <div class="w-100 d-flex justify-content-between align-items-end mt-2">
+            <div class="l-double-input-left-period">
+                <label class="g-form-label">Period Start</label>
+                <div class="l-input-container" (click)="pickerStart.open()">
+                    <input
+                        class="g-form-input l-choice-content"
+                        [(ngModel)]="lotDetails.dateFrom"
+                        name="dateFrom"
+                        (dateChange)="handlePeriodChange()"
+                        [matDatepicker]="pickerStart"
+                    />
+                    <mat-datepicker #pickerStart startView="year"></mat-datepicker>
+                </div>
+            </div>
+            <div class="h-100 l-double-input-right-period justify-content-end" (click)="pickerEnd.open()">
+                <label class="g-form-label">Period End</label>
+                <div class="l-input-container">
+                    <input
+                        class="g-form-input l-choice-content"
+                        [(ngModel)]="lotDetails.dateTo"
+                        name="dateTo"
+                        (dateChange)="handlePeriodChange()"
+                        [matDatepicker]="pickerEnd"
+                    />
+                    <mat-datepicker #pickerEnd startView="year" [startAt]="lotDetails.dateFrom"></mat-datepicker>
+                </div>
+            </div>
+        </div>
+        <mat-error class="l-error-text" *ngIf="!isPeriodValid">
+            Invalid Period: Start Date Should Be Before End Date AND End Date Should Be After Today's Date
+        </mat-error>
+    </div>
+</ng-template>
+<!-- #endregion -->
+
+<!-- #region Price -->
+
+<ng-template #ContractPrice>
+    <div class="l-choice-content w-100" (click)="handleChangePriceStep()">
+        <p *ngIf="lotDetails.priceType.id === 1 && lotDetails.exchangeValue === 'MINUS'" class="g-text-p m-0">-</p>
+        <input
+            class="l-quantity g-text-h2 text-left"
+            type="number"
+            [(ngModel)]="lotDetails.price"
+            name="price"
+            required
+            disabled="true"
+        />
+
+        <div class="l-choice-icon g-text-p">Edit</div>
+    </div>
+</ng-template>
+
+<!-- #endregion -->
+
+<!-- #region Payment -->
+
+<ng-template #Payment>
+    <div class="l-choice-content">
+        <mat-select
+            [(ngModel)]="lotDetails.payment"
+            name="payment Term"
+            class="g-text-h2 text-left"
+            [compareWith]="compareSelectionsHelper"
+            (selectionChange)="handlePaymentChange()"
+            required
+        >
+            <h2 class="g-text-h2 text-left">
+                <mat-option class="g-text-h2 text-left" *ngFor="let paymentTerm of paymentTerms" [value]="paymentTerm">
+                    <h2 class="g-text-h2 text-left">
+                        {{ paymentTerm.name }}
+                    </h2></mat-option
+                >
+            </h2>
+        </mat-select>
+    </div>
+</ng-template>
+
+<!-- #endregion -->
+
+<!-- #region Quantity -->
+
+<ng-template #Quantity>
+    <div class="l-quantity-holder">
+        <div class="l-choice-quantity">
+            <input
+                class="l-quantity g-text-h2 text-left"
+                type="number"
+                [(ngModel)]="lotDetails.quantity"
+                name="quantity"
+                (keyup)="handleQuantityChange()"
+                required
+            />
+        </div>
+        <div class="l-choice-measure">
+            <mat-select
+                class="g-text-h2 l-choice-text"
+                [(ngModel)]="lotDetails.unitOfMeasure"
+                name="packaging"
+                [compareWith]="compareSelectionsHelper"
+                required
+            >
+                <mat-option *ngFor="let unitOfMeasure of unitsOfMeasure" [value]="unitOfMeasure">{{
+                    unitOfMeasure.name
+                }}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <mat-error class="l-error-text" *ngIf="!isQuantityValid">
+        Invalid Quantity: Quantity Must Be Less Than Or Equal To 1000000
+    </mat-error>
+</ng-template>
+
+<!-- #endregion -->
+
+<!-- #region Quality -->
+
+<ng-template #Quality>
+    <div class="l-choice-content">
+        <mat-select
+            class="g-text-h2 l-choice-text"
+            [(ngModel)]="lotDetails.grade"
+            name="prod quality"
+            [compareWith]="compareSelectionsHelper"
+            (selectionChange)="handleQualityChange()"
+            required
+        >
+            <mat-option *ngFor="let cropGrade of cropGrades" [value]="cropGrade">{{ cropGrade.name }}</mat-option>
+        </mat-select>
+    </div>
+</ng-template>
+
+<!-- #endregion -->
+
+<!-- #endregion -->

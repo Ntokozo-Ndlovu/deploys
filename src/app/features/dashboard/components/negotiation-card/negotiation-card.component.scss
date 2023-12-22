@@ -1,0 +1,298 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: $border-radius;
+}
+
+.l-card {
+    position: relative;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: $app-border-radius;
+    transition: 0.3s ease-in-out;
+}
+
+.l-base-content {
+    width: 100%;
+    height: 236px;
+}
+
+.l-header {
+    width: 100%;
+    padding: 8px 16px 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.l-banner-sell {
+    background-color: $secondary-green;
+}
+
+.l-banner-buy {
+    background-color: $secondary-red;
+}
+
+.l-buy-text {
+    color: $primary-red;
+    text-align: left;
+}
+
+.l-sell-text {
+    color: $primary-green;
+    text-align: left;
+}
+
+.l-lot-name {
+    text-align: left;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 16px 16px 0 16px;
+}
+
+.l-view-text {
+    text-decoration: underline;
+    font-weight: $font-weight-semi-bold;
+    color: $primary-color;
+    margin: 0;
+}
+
+.l-detail-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+    padding: 0 16px;
+    cursor: pointer;
+}
+
+.l-content-holder {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.l-detail-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 16px;
+}
+
+.l-card-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0px 0px $border-radius $border-radius;
+    border-top: solid 1px $background-color-grey;
+    cursor: pointer;
+}
+
+.l-footer-complete {
+    @extend .l-card-footer;
+    justify-content: flex-end;
+    padding-right: 16px;
+    padding-top: 12px;
+}
+
+.l-card-footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 18px;
+    color: $primary-color;
+    font-weight: $font-weight-semi-bold;
+}
+
+.l-count {
+    background-color: $primary-color;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: 4px solid $secondary-color;
+}
+
+.l-matches-arrow {
+    margin-right: 16px;
+    height: 20px;
+    align-self: center;
+}
+
+.l-rotate-icon-up {
+    transform: rotate(180deg);
+    transition: 0.3s;
+}
+
+.l-rotate-icon-down {
+    transform: rotate(0deg);
+    transition: 0.3s;
+}
+
+.l-price-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+}
+
+.l-negotiation-detail-row {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.l-match-header {
+    display: flex;
+    align-items: center;
+    color: $primary-color;
+}
+
+.l-match-bar {
+    min-width: 92px;
+    width: 100%;
+    height: 6px;
+    border-radius: 4px;
+    border: 0.5px solid $app-input-bg-color;
+    background-color: $secondary-color;
+    overflow: hidden;
+    margin-top: 3px;
+}
+
+.l-tag {
+    padding: 4px 16px 4px 16px;
+    border-radius: $border-radius;
+    height: 24px;
+    background: rgba(54, 89, 166, 0.1);
+    color: $primary-color;
+    margin: -8px 0px;
+    font-weight: $font-weight-bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.l-match-fill {
+    height: 100%;
+}
+
+.l-1,
+.l-2,
+.l-3,
+.l-4,
+.l-5,
+.l-6,
+.l-7 {
+    background-color: $primary-color;
+}
+
+.l-1 {
+    width: 14.29%;
+}
+
+.l-2 {
+    width: 28.58%;
+}
+
+.l-3 {
+    width: 42.87%;
+}
+
+.l-4 {
+    width: 57.16%;
+}
+
+.l-5 {
+    width: 71.45%;
+}
+
+.l-6 {
+    width: 85.74%;
+}
+
+.l-7 {
+    width: 100%;
+}
+
+.l-selling-bg {
+    background-color: $app-selling-green;
+}
+.l-buying-bg {
+    background-color: $app-buying-red;
+}
+
+.l-h1 {
+    font-family: $app-font;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-align: center;
+    margin: 0;
+    color: #ffffff;
+}
+
+.l-edit-icon {
+    width: 15.05px;
+    height: 15.05px;
+}
+
+.l-content {
+    width: 100%;
+    height: 171px;
+    padding: 16px;
+}
+
+.l-expanded-content {
+    width: 100%;
+    height: fit-content;
+}
+
+.l-active-negotiation-container {
+    width: 100%;
+    height: 105px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    border-bottom: 1px solid $app-input-bg-color;
+}
+.l-active-negotiation-container:last-child {
+    border-bottom: none;
+}
+
+.l-footer-completed {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    background-color: #efefef;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+}
+
+.l-footer-completed {
+    height: 34px;
+    justify-content: flex-end;
+}
+
+.l-chevron-right {
+    height: auto;
+    transform: rotate(-90deg);
+    margin-left: 4px;
+}

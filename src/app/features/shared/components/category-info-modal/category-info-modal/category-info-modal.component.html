@@ -1,0 +1,40 @@
+<div class="l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img class="l-close-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleClose()" />
+        <img class="l-icon" src="{{ data.iconSource }}" alt="icon" />
+    </div>
+    <h1 class="g-text-h1-dark mb-3">
+        <b>{{ data.categoryName }}</b>
+    </h1>
+
+    <!-- #endregion -->
+
+    <!-- #region Modal Content -->
+
+    <div *ngIf="isDataLoading; else showCategories" class="l-loading-container">
+        <mat-progress-spinner
+            class="g-mat-progress-spinner-blue"
+            mode="indeterminate"
+            [diameter]="40"
+        ></mat-progress-spinner>
+    </div>
+
+    <ng-template #showCategories>
+        <div class="l-content-container">
+            <div class="l-content g-text-p-dark" *ngFor="let crop of crops">
+                <img class="l-crop-bullet-icon" src="./assets/icons/crop-icon-blue.svg" alt="crop-icon" />
+                <p>{{ crop.name }}</p>
+            </div>
+        </div>
+    </ng-template>
+
+    <!-- #endregion -->
+
+    <!-- #region Buttons -->
+
+    <button class="g-primary-button my-2" (click)="handleClose()">Okay, got it!</button>
+
+    <!-- #endregion -->
+</div>

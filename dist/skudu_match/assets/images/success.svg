@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="212.946" height="298.234" viewBox="0 0 212.946 298.234">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Subtraction_15" data-name="Subtraction 15" d="M159,141.261v0h0L95.607,102.881a6,6,0,0,0-6.214,0L27,140.654V0H159V141.258h0v0Z" transform="translate(-13730 -11652)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#3c9b09"/>
+      <stop offset="1" stop-color="#c0c2bf"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.5" x2="0.5" y2="0.539" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#eeecf5"/>
+      <stop offset="0" stop-color="#3c9b09"/>
+      <stop offset="1" stop-color="#d4d4d4"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_32022" data-name="Group 32022" transform="translate(-6420.972 -3287.027)">
+    <g id="Mask_Group_10" data-name="Mask Group 10" transform="translate(20165 15096)" clip-path="url(#clip-path)">
+      <g id="Group_32021" data-name="Group 32021">
+        <rect id="Rectangle_11515" data-name="Rectangle 11515" width="43" height="146" transform="translate(-13704 -11652)" fill="url(#linear-gradient)"/>
+        <rect id="Rectangle_11516" data-name="Rectangle 11516" width="43" height="146" transform="translate(-13614 -11652)" fill="url(#linear-gradient)"/>
+        <rect id="Rectangle_11517" data-name="Rectangle 11517" width="47" height="146" transform="translate(-13661 -11652)" fill="url(#linear-gradient-3)"/>
+      </g>
+    </g>
+    <path id="Path_29941" data-name="Path 29941" d="M-15187.584-12733.734c-2.223,0-76.691,46.682-76.691,46.682l2.223,90.029,80.025,43.346,75.58-47.793v-92.252Z" transform="translate(21712.102 16042.697)" fill="#ed8d11" stroke="#707070" stroke-width="1"/>
+    <g id="hexagon-geometrical-shape-outline" transform="translate(6491.954 3294.214) rotate(30)">
+      <g id="Group_30122" data-name="Group 30122" transform="translate(0 0)">
+        <path id="Path_20631" data-name="Path 20631" d="M122.945,141.965H40.979L0,70.983,40.979,0h81.966l40.98,70.983ZM44.52,135.837h74.887l37.443-64.854L119.406,6.129H44.52L7.076,70.983Z" transform="translate(0 0)" fill="#d76700"/>
+      </g>
+    </g>
+    <g id="Layer_2" data-name="Layer 2" transform="translate(6620.641 3287.894) rotate(90)">
+      <g id="Layer_1" data-name="Layer 1">
+        <path id="Path_20625" data-name="Path 20625" d="M67.207.016,40.834,0,0,70.629,13.171,93.477Z" transform="translate(148.856 93.529)" fill="#f6e870" stroke="#f6e870" stroke-width="1"/>
+        <path id="Path_20626" data-name="Path 20626" d="M0,0,13.183,22.839H94.771L107.953,0Z" transform="translate(54.033 0.004)" fill="#f3c700" stroke="#f3c700" stroke-width="1"/>
+        <path id="Path_20627" data-name="Path 20627" d="M0,93.461l26.369.016L67.207,22.847,54.037,0Z" fill="#f5de7d" stroke="#f5de7d" stroke-width="1"/>
+        <path id="Path_20628" data-name="Path 20628" d="M107.957,22.835,94.771,0H13.187L0,22.835Z" transform="translate(54.073 164.162)" fill="#f2bf00" stroke="#f2bf00" stroke-width="1"/>
+        <path id="Path_20629" data-name="Path 20629" d="M67.207,93.461l-26.373.016L0,22.847,13.171,0Z" transform="translate(148.856)" fill="#f1a400" stroke="#f1a400" stroke-width="1"/>
+        <path id="Path_20630" data-name="Path 20630" d="M0,.016,26.369,0,67.207,70.629,54.037,93.477Z" transform="translate(0 93.529)" fill="#f6eab1" stroke="#f6eab1" stroke-width="1"/>
+      </g>
+    </g>
+    <g id="Icons_Actions_ic-actions-check-simple" data-name="Icons / Actions / ic-actions-check-simple" transform="translate(6472 3340)">
+      <rect id="Rectangle_120" data-name="Rectangle 120" width="122" height="122" fill="none"/>
+      <g id="ic-actions-check-simple" transform="translate(26.179 40.463)">
+        <path id="Path_8" data-name="Path 8" d="M5.15,26.667,27.568,49.033,74.792,7.96" transform="translate(-5.15 -7.96)" fill="none" stroke="#c9c3c3" stroke-linecap="round" stroke-linejoin="round" stroke-width="10" fill-rule="evenodd"/>
+      </g>
+    </g>
+    <g id="Icons_Actions_ic-actions-check-simple-2" data-name="Icons / Actions / ic-actions-check-simple" transform="translate(6472 3338)">
+      <rect id="Rectangle_120-2" data-name="Rectangle 120" width="122" height="122" fill="none"/>
+      <g id="ic-actions-check-simple-2" data-name="ic-actions-check-simple" transform="translate(26.179 40.463)">
+        <path id="Path_8-2" data-name="Path 8" d="M5.15,26.667,27.568,49.033,74.792,7.96" transform="translate(-5.15 -7.96)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="10" fill-rule="evenodd"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<div class="l-verification-subscription" (click)="!isWeb && handleVerificationModal()">
+    <div class="l-promotion" *ngIf="verificationSubscription.value.promotion">
+        {{ verificationSubscription.value.promotion }}
+    </div>
+    <div>
+        <img
+            class="d-inline l-verification-icon"
+            [src]="verificationSubscription.value.source"
+            alt="verification-icon"
+        />
+        <p class="d-inline g-text-p l-left">{{ verificationSubscription.value.product.title }}</p>
+    </div>
+    <p class="g-text-p l-verification-price">{{ verificationSubscription.value.product.price }}</p>
+</div>

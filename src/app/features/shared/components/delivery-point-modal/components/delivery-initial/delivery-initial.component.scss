@@ -1,0 +1,91 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 16px;
+    background-color: $background-color-grey;
+    overflow: auto;
+}
+
+.l-header {
+    position: relative;
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.l-back-icon {
+    position: absolute;
+    left: 16px;
+    width: 20.24px;
+    height: 13.5px;
+}
+
+.l-content {
+    width: 100%;
+    height: fit-content;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.l-input {
+    width: calc(100% - 48px);
+    height: 56px;
+    padding-left: 20px;
+    border: none;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    background-color: #ffffff;
+    outline: none;
+}
+.l-input::-webkit-input-placeholder,
+.l-input::-moz-placeholder {
+    color: $text-placeholder !important;
+}
+
+.l-search-container {
+    width: 48px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    background-color: $primary-color;
+}
+
+.l-search-icon {
+    width: 20.5px;
+    height: 20.5px;
+}
+
+.l-user-delivery-point {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    padding: 0 24px;
+    border-radius: $border-radius;
+    background-color: #ffffff;
+}
+
+.l-primary-bg {
+    background-color: $primary-color !important;
+}
+
+.l-existing-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.l-delivery-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,54 @@
+<div class="g-app-dimensions l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleNavigateToHome()"
+        />
+        <div class="l-header-img-container">
+            <img
+                class="l-header-img"
+                src="./assets/images/MX-logo-full.svg"
+                alt="MX Match Logo"
+                (click)="handleNavigateToHome()"
+            />
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content -->
+
+    <div class="l-cards-container">
+        <div *ngFor="let card of cards" class="l-card" matRipple>
+            <a
+                class="l-card l-black"
+                *ngIf="card.linksTo !== null; else displayRouteCard"
+                href="{{ card.linksTo }}"
+                target="_blank"
+            >
+                <div class="l-card-img-container">
+                    <img class="l-card-img" [src]="card.source" [alt]="card.sourceAlt" />
+                </div>
+                <div class="l-card-title-container">
+                    <h2 class="g-text-h2 m-0">{{ card.title }}</h2>
+                </div>
+            </a>
+            <ng-template class="l-black" #displayRouteCard (click)="handleNavigate(card.routesTo)">
+                <div class="l-card" (click)="handleNavigate(card.routesTo)">
+                    <div class="l-card-img-container">
+                        <img class="l-card-img" [src]="card.source" [alt]="card.sourceAlt" />
+                    </div>
+                    <div class="l-card-title-container">
+                        <h2 class="g-text-h2 m-0 text-left">{{ card.title }}</h2>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <!-- #endregion -->
+</div>

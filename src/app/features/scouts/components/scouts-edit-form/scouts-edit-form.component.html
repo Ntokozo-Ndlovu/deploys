@@ -1,0 +1,435 @@
+<div class="l-container g-fade-in">
+    <!-- #region Content Loading -->
+
+    <div *ngIf="isLoading; else showScoutForm" class="l-loading-container">
+        <mat-progress-spinner
+            class="g-mat-progress-spinner"
+            mode="indeterminate"
+            [diameter]="40"
+        ></mat-progress-spinner>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Page Content -->
+
+    <ng-template #showScoutForm>
+        <!-- #region Header -->
+
+        <div class="l-header">
+            <img
+                class="l-back-icon"
+                src="./assets/icons/back-arrow-icon.svg"
+                alt="back-arrow-icon"
+                (click)="handleBack()"
+            />
+            <p class="g-text-h2-dark">Edit Scout</p>
+        </div>
+
+        <!-- #endregion -->
+
+        <div class="l-content">
+            <!-- #region Form -->
+
+            <form class="l-form">
+
+                <!-- #region visibility to market -->
+                <div class="l-public-toggle">
+                    <button
+                        class="mr-2"
+                        [ngClass]="{
+                              'l-public-card-sell': scout?.scoutType === 'Sell',
+                              'l-public-card-buy': scout?.scoutType === 'Buy',
+                              'l-active': !scout.isPublic
+                          }"
+                        (click)="handlePublicToggle(false)"
+                      >
+                        Private
+                    </button>
+                    <button
+                        class="ml-2"
+                        [ngClass]="{
+                              'l-public-card-sell': scout?.scoutType === 'Sell',
+                              'l-public-card-buy': scout?.scoutType === 'Buy',
+                              'l-active': scout.isPublic
+                          }"
+                        (click)="handlePublicToggle(true)"
+                      >
+                        Available to Market
+                    </button>
+                </div>
+                <!-- #endregion -->
+
+                <!-- #region Scout Type -->
+
+                <div class="g-form-input-group mt-3">
+                    <label class="g-form-label">Scout the Market</label>
+                    <div class="l-toggle-container">
+                        <button
+                            class="l-option"
+                            [class.l-active-sell]="scout.scoutType === 'Sell'"
+                            (click)="handleToggleScoutType('Sell')"
+                        >
+                            Sell<img
+                                class="l-icon"
+                                src="./assets/icons/i-icon-grey.svg"
+                                [src]="
+                                    scout.scoutType === 'Sell'
+                                        ? './assets/icons/sell-selected-icon.svg'
+                                        : './assets/icons/unselected-icon.svg'
+                                "
+                                alt="tick-icon"
+                            />
+                        </button>
+                        <button
+                            class="l-option"
+                            [class.l-active-buy]="scout.scoutType === 'Buy'"
+                            (click)="handleToggleScoutType('Buy')"
+                        >
+                            Buy
+                            <img
+                                class="l-icon"
+                                [src]="
+                                    scout.scoutType === 'Buy'
+                                        ? './assets/icons/buy-selected-icon.svg'
+                                        : './assets/icons/unselected-icon.svg'
+                                "
+                                alt="tick-icon"
+                            />
+                        </button>
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Crop  -->
+
+                <div class="g-form-input-group mt-3">
+                    <label class="g-form-label">What Match Scout are you interested in?</label>
+                    <input
+                        class="g-form-input mb-2"
+                        name="crop category"
+                        [(ngModel)]="cropCategory.name"
+                        placeholder="Product Category"
+                        readonly
+                        required
+                    />
+                    <input
+                        class="g-form-input"
+                        name="crop"
+                        [(ngModel)]="scout.crop.name"
+                        placeholder="Product"
+                        readonly
+                        required
+                    />
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Scout SA -->
+
+                <div *ngIf="scout.scoutType === 'Buy'" class="g-form-input-group mt-3">
+                    <label class="w-100 g-form-label">Scout the whole of South Africa</label>
+                    <div class="l-toggle-container">
+                        <button
+                            class="l-option"
+                            [class.l-active]="scout.inSouthAfrica"
+                            (click)="handleToggleIsSouthAfrica(true)"
+                        >
+                            Yes<img
+                                class="l-icon"
+                                src="./assets/icons/unselected-icon.svg"
+                                [src]="
+                                    scout.inSouthAfrica
+                                        ? './assets/icons/selected-blue-icon.svg'
+                                        : './assets/icons/unselected-icon.svg'
+                                "
+                                alt="selected-icon"
+                            />
+                        </button>
+                        <button
+                            class="l-option"
+                            [class.l-active]="!scout.inSouthAfrica"
+                            (click)="handleToggleIsSouthAfrica(false)"
+                        >
+                            No
+                            <img
+                                class="l-icon"
+                                [src]="
+                                    !scout.inSouthAfrica
+                                        ? './assets/icons/selected-blue-icon.svg'
+                                        : './assets/icons/unselected-icon.svg'
+                                "
+                                alt="selected-icon"
+                            />
+                        </button>
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Location Autocomplete Input -->
+
+                <div *ngIf="!scout.inSouthAfrica" class="g-form-input-group g-fade-in mt-3">
+                    <mat-tab-group class="g-mat-tabs-scout mt-3">
+                        <!-- #region Scout By Location -->
+
+                        <mat-tab label="Scout by Location">
+                            <div class="g-form-input-group d-flex flex-column mt-3">
+                                <div class="l-info-container">
+                                    <img
+                                        class="g-form-info-icon mt-1"
+                                        src="./assets/icons/info-icon-grey.svg"
+                                        alt="info-icon-grey"
+                                    />
+                                    <p class="g-form-info-p l-black m-0">
+                                        Tell the Market where your crop is situated using a location.
+                                    </p>
+                                </div>
+                                <input
+                                    class="g-form-input"
+                                    type="text"
+                                    [(ngModel)]="scout.town"
+                                    name="town"
+                                    ngx-gp-autocomplete
+                                    [options]="options"
+                                    (onAddressChange)="handleSelectLocation($event)"
+                                    placeholder=""
+                                    autocomplete="off"
+                                    required
+                                />
+                            </div>
+                        </mat-tab>
+
+                        <!-- #endregion -->
+
+                        <!-- #region Scout By Silo -->
+
+                        <mat-tab label="Scout by Silo">
+                            <div class="g-form-input-group d-flex flex-column mt-3">
+                                <div class="l-info-container">
+                                    <img
+                                        class="g-form-info-icon mt-1"
+                                        src="./assets/icons/info-icon-grey.svg"
+                                        alt="info-icon-grey"
+                                    />
+                                    <p class="g-form-info-p l-black m-0">
+                                        Tell the Market where your crop is situated using a silo.
+                                    </p>
+                                </div>
+                                <input
+                                    class="g-form-input"
+                                    name="silo"
+                                    [(ngModel)]="searchTerm"
+                                    (ngModelChange)="handleSearchTermChange($event)"
+                                    [matAutocomplete]="auto"
+                                />
+                                <mat-autocomplete
+                                    #auto="matAutocomplete"
+                                    class="g-mat-autocomplete"
+                                    (optionSelected)="handleSelectDeliveryPoint($event.option.value)"
+                                >
+                                    <mat-option
+                                        class="g-mat-option-text"
+                                        *ngFor="let filteredDeliveryPoint of filteredDeliveryPoints"
+                                        [value]="filteredDeliveryPoint"
+                                    >
+                                        {{ filteredDeliveryPoint.name }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </div>
+                        </mat-tab>
+
+                        <!-- #endregion -->
+                    </mat-tab-group>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Radius -->
+
+                <div *ngIf="!scout.inSouthAfrica && scout.scoutType === 'Buy'" class="g-form-input-group mt-3">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <label class="g-form-label">Delivery Radius Km</label>
+                        <label class="g-form-label">{{ scout.radius }} Km</label>
+                    </div>
+                    <mat-slider
+                        class="g-mat-slider"
+                        min="25"
+                        max="300"
+                        step="25"
+                        [(ngModel)]="scout.radius"
+                        name="radius"
+                        (change)="hasBeenEditedHelper()"
+                    ></mat-slider>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Location Map -->
+
+                <div *ngIf="!scout.inSouthAfrica" class="g-form-input-group d-flex flex-column mt-3 mb-2">
+                    <label class="g-form-label">Location</label>
+                    <div class="l-info-container">
+                        <img
+                            class="g-form-info-icon mt-1"
+                            src="./assets/icons/info-icon-grey.svg"
+                            alt="info-icon-grey"
+                        />
+                        <p class="g-form-info-p l-black m-0">Move the pin to your point of production.</p>
+                    </div>
+                    <div *ngIf="apiLoaded | async" class="l-map-holder">
+                        <google-map
+                            class="g-delivery-form-map"
+                            [zoom]="zoom"
+                            [center]="{lat:scout.location.lat,lng:scout.location.lng}"
+                            [options]="{mapTypeId:'hybrid',gestureHandling:'cooperative'}"
+                        >
+                            <map-marker
+                                [position]="{lat:scout.location.lat,lng:scout.location.lng}"
+                                [options]="{draggable:true}"
+                                (dragend)="handleDragEnd($event)"
+                            ></map-marker>
+                        </google-map>
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <div *ngIf="scout.scoutType === 'Buy'">
+                    <!-- #region ExFarm  -->
+
+                    <div class="g-form-input-group mt-3">
+                        <label class="g-form-label">Scout farmers that can deliver crop Ex Farm</label>
+                        <div class="l-toggle-container">
+                            <button
+                                class="l-option"
+                                [class.l-active]="fineTune.exFarm"
+                                (click)="handleToggleExFarm(true)"
+                            >
+                                Yes<img
+                                    class="l-icon"
+                                    src="./assets/icons/unselected-icon.svg"
+                                    [src]="
+                                        fineTune.exFarm
+                                            ? './assets/icons/selected-blue-icon.svg'
+                                            : './assets/icons/unselected-icon.svg'
+                                    "
+                                    alt="selected-icon"
+                                />
+                            </button>
+                            <button
+                                class="l-option"
+                                [class.l-active]="!fineTune.exFarm"
+                                (click)="handleToggleExFarm(false)"
+                            >
+                                No
+                                <img
+                                    class="l-icon"
+                                    [src]="
+                                        !fineTune.exFarm
+                                            ? './assets/icons/selected-blue-icon.svg'
+                                            : './assets/icons/unselected-icon.svg'
+                                    "
+                                    alt="selected-icon"
+                                />
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- #endregion -->
+
+                    <!-- #region B-BBEE Rating -->
+
+                    <div class="g-form-input-group mt-3">
+                        <label class="g-form-label">Scout for farmers that have a B-BBEE rating better than:</label>
+                        <mat-select
+                            class="g-form-select l-grey-bg"
+                            [(ngModel)]="fineTune.rating"
+                            name="bbbeeRating"
+                            (selectionChange)="hasBeenEditedHelper()"
+                            [compareWith]="compareSelectionsHelper"
+                        >
+                            <mat-option *ngFor="let rating of ratingData" [value]="rating">
+                                {{ rating }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+
+                    <!-- #endregion -->
+
+                    <!-- #region Lots -->
+
+                    <div class="g-form-input-group mt-2">
+                        <label class="g-form-label">Include Lots in my Scout</label>
+                        <div class="l-toggle-container">
+                            <button
+                                class="l-option"
+                                [class.l-active]="fineTune.hasLots"
+                                (click)="handleToggleHasLots(true)"
+                            >
+                                Yes<img
+                                    class="l-icon"
+                                    src="./assets/icons/unselected-icon.svg"
+                                    [src]="
+                                        fineTune.hasLots
+                                            ? './assets/icons/selected-blue-icon.svg'
+                                            : './assets/icons/unselected-icon.svg'
+                                    "
+                                    alt="selected-icon"
+                                />
+                            </button>
+                            <button
+                                class="l-option"
+                                [class.l-active]="!fineTune.hasLots"
+                                (click)="handleToggleHasLots(false)"
+                            >
+                                No
+                                <img
+                                    class="l-icon"
+                                    [src]="
+                                        !fineTune.hasLots
+                                            ? './assets/icons/selected-blue-icon.svg'
+                                            : './assets/icons/unselected-icon.svg'
+                                    "
+                                    alt="selected-icon"
+                                />
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- #endregion -->
+                </div>
+            </form>
+
+            <!-- #endregion -->
+
+            <!-- #region Footer Buttons -->
+
+            <div class="l-buttons-container">
+                <button class="g-secondary-button mr-1" mat-flat-button (click)="handleOpenConfirmationModal()">
+                    Delete
+                </button>
+                <button
+                    class="g-primary-button ml-1"
+                    mat-flat-button
+                    [disabled]="!hasBeenEdited"
+                    (click)="handleSaveChanges()"
+                >
+                    <ng-container *ngIf="hasActionDispatched; else showLoadingSpinner">
+                        <mat-progress-spinner
+                            class="g-mat-progress-spinner-white mx-auto"
+                            mode="indeterminate"
+                            [diameter]="30"
+                        ></mat-progress-spinner>
+                    </ng-container>
+                    <ng-template #showLoadingSpinner><span class="l-save">Save Changes</span></ng-template>
+                </button>
+            </div>
+
+            <!-- #endregion -->
+        </div>
+    </ng-template>
+
+    <!-- #endregion -->
+</div>

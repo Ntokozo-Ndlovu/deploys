@@ -1,0 +1,34 @@
+<div class="d-flex flex-column">
+  <!-- #region Header -->
+
+  <div class="d-flex flex-column">
+    <div class="d-flex flex-row justify-content-end w-100">
+      <img class="l-close-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleCloseModal()" />
+    </div>
+    <h1 class="g-text-h1-dark mb-3 w-100">
+      <b>Request Sent</b>
+    </h1>
+  </div>
+
+  <!-- #endregion -->
+
+  <!-- #region Modal Content -->
+
+  <div class="g-text-p-dark">
+    <p>
+      Your request has been successfully sent.
+    </p>
+  </div>
+  <!-- #endregion -->
+
+  <!-- #region Buttons -->
+
+  <button
+    class="g-primary-button my-2"
+    (click)="handleCloseModal()">
+    Continue
+  </button>
+
+  <!-- #endregion -->
+</div>
+

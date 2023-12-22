@@ -1,0 +1,8 @@
+<div class="g-app-dimensions">
+    <div class="l-container">
+        <div class="l-content" [class.l-fade-in]="showAnimation">
+            <app-stepper [stepperContents]="onboardingContents" [stepperIndex]="stepperIndex"></app-stepper>
+        </div>
+        <button mat-flat-button class="g-primary-button mt-3" (click)="handleProgressNext()">Next</button>
+    </div>
+</div>

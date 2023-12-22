@@ -1,0 +1,86 @@
+<div class="l-container g-fade-in">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-home-img"
+            src="./assets/icons/home-blue-icon.svg"
+            alt="Blue bell"
+            (click)="handleNavigateToHomePage()"
+        />
+        <div class="g-logo-header-container">
+            <img
+                class="g-header-mx-icon"
+                src="./assets/icons/MX-small-logo.svg"
+                alt="home icon"
+                (click)="handleNavigateToHomePage()"
+            />
+            <h2 class="g-text-h2-dark mb-0">Lots</h2>
+        </div>
+        <div class="g-profile-icon-container">
+            <img
+                class="g-profile-icon"
+                src="./assets/icons/profile-icon.svg"
+                alt="home icon"
+                (click)="handleNavigateToProfile()"
+            />
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Loading Spinner -->
+
+    <div *ngIf="isLotsLoading; else lotsIsLoaded" class="l-spinner-holder">
+        <mat-progress-spinner
+            class="g-mat-progress-spinner"
+            mode="indeterminate"
+            [diameter]="40"
+        ></mat-progress-spinner>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content -->
+
+    <ng-template #lotsIsLoaded>
+        <div *ngIf="lotCards && lotCards.length; else noLots" class="l-content-container">
+            <cdk-virtual-scroll-viewport id="lot-cdk" class="l-cdk" itemSize="375">
+                <app-dashboard-header
+                    [activeRoute]="'lots'"
+                    [toggleIndex]="toggleIndex"
+                    [toggles]="lotToggles"
+                    [showSearchBar]="searchInput || searchInput === ''"
+                    ($changeToggleEvent)="handleToggleChange($event)"
+                    ($searchInputEvent)="handleSearchInput($event)"
+                    ($createEvent)="handleNavigateToScoutModal()"
+                ></app-dashboard-header>
+                <div
+                    *cdkVirtualFor="let lotCard of filteredLotCards; trackBy: trackByIdx; templateCacheSize: 0"
+                    class="l-card-holder"
+                    [class.g-fade-in]="animateIn"
+                >
+                    <app-lot-card [lotCard]="lotCard"></app-lot-card>
+                </div>
+            </cdk-virtual-scroll-viewport>
+        </div>
+
+        <ng-template #noLots>
+            <div class="l-content-container p-3">
+                <button mat-flat-button class="g-primary-button" (click)="handleNavigateToScoutModal()">
+                    CREATE NEW LOT
+                </button>
+
+                <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+                    <h1 class="g-text-h2-dark mt-5 mb-3">It's a bit empty here...</h1>
+                    <p class="g-text-p-dark mx-5">
+                        By creating a Match Exchange Lot you are communicating to the Market that you are a willing
+                        seller or buyer of a specific portion of your crop.
+                    </p>
+                </div>
+            </div>
+        </ng-template>
+    </ng-template>
+
+    <!-- #endregion -->
+</div>

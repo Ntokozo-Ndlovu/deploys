@@ -1,0 +1,86 @@
+<div class="l-container">
+  <div class="d-flex flex-row px-2" [class]="showToggle === true ? 'justify-content-between' : 'justify-content-around'">
+    <div class="d-flex flex-column px-1 mb-1">
+      <h2 class="g-text-h2-dark mb-1" [ngClass]="{ 'text-left': user.textLeft }">
+        {{ user.broker_data.firstname }} {{ user.broker_data.lastname }}
+      </h2>
+      <div class="d-flex flex-row justify-content-center">
+        <h2 *ngIf="user.showAccepted" class="l-accepted">ACCEPTED</h2>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column px-1" *ngIf="showToggle === true">
+      <div class="d-flex mb-1">
+        <p class="m-0 l-allow-broker-text text-center">Allow Broker to Submit Match</p>
+      </div>
+      <div class="d-flex flex-row justify-content-center">
+        <mat-slide-toggle color="primary"
+                          [checked]="toggleInputValue"
+                          (change)="toggleOutputValueEvent.emit($event.checked)">
+          {{ toggleInputValue ? 'YES' : 'NO' }}
+        </mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+
+  <div class="l-row">
+        <img src="./assets/icons/position-icon-grey.svg" class="l-icon" alt="location-icon" />
+
+        <div class="l-item-container">
+            <p class="g-text-p-small-grey mb-1">Location</p>
+            <div class="l-location">
+                <h2 class="l-item">{{ user.location }}</h2>
+                <p *ngIf="user.broker_data.distance">
+                    {{ user.broker_data.distance < 2000 ? user.broker_data.distance : 'N/A' }} km away
+                </p>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isLoading; else showMap" class="l-loading-container">
+        <mat-progress-spinner
+            class="g-mat-progress-spinner-blue mx-auto"
+            mode="indeterminate"
+            [diameter]="40"
+        ></mat-progress-spinner>
+    </div>
+    <ng-template #showMap>
+        <div *ngIf="coordinates && apiLoaded | async" class="l-map-holder">
+            <google-map
+                class="g-delivery-form-map"
+                [zoom]="14"
+                [center]="{lat:coordinates.lat,lng:coordinates.lng}"
+                [options]="{mapTypeId:'hybrid',gestureHandling:'cooperative',disableDefaultUI:true}"
+            >
+                <map-marker
+                    [position]="{lat:coordinates.lat,lng:coordinates.lng}"
+                    [options]="{draggable:false}"
+                ></map-marker>
+            </google-map>
+        </div>
+    </ng-template>
+    <div *ngIf="user.broker_data.phone" class="l-row">
+        <img src="./assets/icons/phone-icon-grey.svg" class="l-icon" alt="phone-icon" />
+
+        <div class="l-item-container">
+            <p class="g-text-p-small-grey mb-1">Phone Number</p>
+            <h2 class="l-item">{{ user.broker_data.phone }}</h2>
+        </div>
+    </div>
+    <div *ngIf="user.broker_data.email" class="l-row">
+        <img src="./assets/icons/mail-icon-grey.svg" class="l-icon" alt="email-icon" />
+
+        <div class="l-item-container">
+            <p class="g-text-p-small-grey mb-1">Email Address</p>
+            <h2 class="l-item">{{ user.broker_data.email }}</h2>
+        </div>
+    </div>
+    <div *ngIf="user.validUntil" class="l-row">
+        <img src="./assets/icons/calendar-icon.svg" class="l-icon" alt="email-icon" />
+
+        <div class="l-item-container">
+            <p class="g-text-p-small-grey mb-1">Contract Valid Until</p>
+
+            <h2 class="l-item">{{ user.validUntil | date }}</h2>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+@import 'src/variables.scss';
+
+.l-verification-icon {
+    width: 48px;
+    height: 48px;
+    margin-right: 8px;
+}
+
+.l-left {
+    text-align: left;
+}
+
+.l-verification-price {
+    font-weight: 700;
+}
+
+.l-verification-subscription {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px $primary-color;
+    border-style: solid;
+    border-radius: 4px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 70px;
+    position: relative;
+}
+.l-verification-subscription:last-child {
+    margin-bottom: 0;
+}
+
+.l-promotion {
+    padding: 4px 8px;
+    background-color: $primary-color;
+    color: #fff;
+    position: absolute;
+    top: -16px;
+    right: -2px;
+    font-weight: $font-weight-bold;
+    border-radius: $app-border-radius;
+}

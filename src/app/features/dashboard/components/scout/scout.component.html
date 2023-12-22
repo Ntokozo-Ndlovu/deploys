@@ -1,0 +1,85 @@
+<div class="l-container g-fade-in">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-home-img"
+            src="./assets/icons/home-blue-icon.svg"
+            alt="Blue bell"
+            (click)="handleNavigateToHomePage()"
+        />
+        <div class="g-logo-header-container">
+            <img
+                class="g-header-mx-icon"
+                src="./assets/icons/MX-small-logo.svg"
+                alt="home icon"
+                (click)="handleNavigateToHomePage()"
+            />
+            <h2 class="g-text-h2-dark mb-0">Scouts</h2>
+        </div>
+        <div class="g-profile-icon-container">
+            <img
+                class="g-profile-icon"
+                src="./assets/icons/profile-icon.svg"
+                alt="home icon"
+                (click)="handleNavigateToProfile()"
+            />
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Loading Spinner -->
+
+    <div *ngIf="isScoutLoading; else scoutsIsLoaded" class="l-spinner-holder">
+        <mat-progress-spinner
+            class="g-mat-progress-spinner"
+            mode="indeterminate"
+            [diameter]="40"
+        ></mat-progress-spinner>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content -->
+
+    <ng-template #scoutsIsLoaded>
+        <div *ngIf="scoutCards && scoutCards.length; else noScouts" class="l-content-container">
+            <cdk-virtual-scroll-viewport id="lot-cdk" class="l-cdk" itemSize="334">
+                <app-dashboard-header
+                    [activeRoute]="'scouts'"
+                    [toggleIndex]="toggleIndex"
+                    [toggles]="scoutToggles"
+                    [showSearchBar]="searchInput || searchInput === ''"
+                    ($changeToggleEvent)="handleToggleChange($event)"
+                    ($searchInputEvent)="handleSearchInput($event)"
+                    ($createEvent)="handleNavigateToCreateScout()"
+                ></app-dashboard-header>
+                <div
+                    *cdkVirtualFor="let scoutCard of filteredScoutCards"
+                    class="l-card-holder"
+                    [class.g-fade-in]="animateIn"
+                >
+                    <app-scout-card [scoutCard]="scoutCard"></app-scout-card>
+                </div>
+            </cdk-virtual-scroll-viewport>
+        </div>
+
+        <ng-template #noScouts>
+            <div class="l-content-container p-3">
+                <button mat-flat-button class="g-primary-button" (click)="handleNavigateToCreateScout()">
+                    CREATE NEW SCOUT
+                </button>
+                <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+                    <h1 class="g-text-h2-dark mt-5 mb-3">It's a bit empty here...</h1>
+                    <p class="g-text-p-dark mx-5">
+                        Tell the Market what you're planning to buy or sell. Build your own Match Exchange Scouts, with
+                        <b>no obligations</b>.
+                    </p>
+                </div>
+            </div>
+        </ng-template>
+    </ng-template>
+
+    <!-- #endregion -->
+</div>

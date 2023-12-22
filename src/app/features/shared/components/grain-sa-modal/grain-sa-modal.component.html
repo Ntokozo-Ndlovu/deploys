@@ -1,0 +1,40 @@
+<div class="l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img class="l-close-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleClose()" />
+
+        <img class="l-icon" src="../../../assets/icons/grainSA-icon.svg" alt="Grain SA icon" />
+
+        <h1 class="g-text-h1-dark">
+            <b>Grain SA</b>
+        </h1>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Modal Content -->
+
+    <div class="l-content g-text-p-dark">
+        <p>
+            Use your Grain SA membership number and get a years' free Grain SA verification type. Input your membership
+            number and after we verify your number you can purchase the Grain SA verification and get access to all of
+            MX's premium features.
+        </p>
+        <p class="mt-2">
+            You will see a green tick <img class="mx-1" src="./assets/icons/green-tick.svg" /> when MX has confirmed
+            your membership. You can then purchase the Grain SA verification.
+        </p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Buttons -->
+
+    <button class="g-primary-button" (click)="handleClose()">Okay, got it!</button>
+    <button *ngIf="data.showSubscription" class="g-secondary-button mt-2" (click)="handleNavigateToSubscriptions()">
+        Go to Subscriptions
+    </button>
+
+    <!-- #endregion -->
+</div>

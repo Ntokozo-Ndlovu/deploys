@@ -1,0 +1,54 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: 100%;
+    background-color: $app-bg-color;
+    overflow: auto;
+}
+
+.l-header {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    background-color: $background-color;
+}
+
+.l-home-img {
+    width: 24px;
+    height: auto;
+}
+
+.l-spinner-holder {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.l-content-container {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    background-color: $background-color-grey;
+}
+
+.l-card-container {
+    width: 100%;
+    height: fit-content;
+    padding: 8px;
+}
+
+.l-no-content-container {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

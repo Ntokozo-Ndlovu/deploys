@@ -1,0 +1,37 @@
+@import 'src/variables.scss';
+
+.l-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.l-content {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+.l-step-index {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.l-img {
+    height: 150px;
+}
+
+.l-progress-container {
+    display: flex;
+    justify-content: center;
+}
+
+.l-progress-step {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: $secondary-color;
+}
+
+.l-step-active {
+    background-color: $primary-color;
+}

@@ -1,0 +1,185 @@
+<div class="l-container g-fade-in-right">
+    <!-- #region Page Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon ml-4"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleBack()"
+        />
+        <h2 class="g-text-h2-dark">
+            {{ isPending ? 'Pending Match' : isComplete ? 'Match' : "Let's Negotiate" }}
+        </h2>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content -->
+
+    <div class="l-content">
+        <div class="l-sub-header">
+            <div *ngIf="!isLocked" class="l-match-banner">
+                <p class="g-text-h2-dark l-blue">This Lot was matched</p>
+            </div>
+            <div *ngIf="isLocked" class="l-timer-banner">
+                <p class="g-text-h2-dark l-blue">This Lot is Locked</p>
+                <div class="l-timer g-text-h2">
+                    <span class="l-time-remaining">Time Remaining: </span>
+                    <span id="hours" class="l-time">{{ hoursToDday }}</span
+                    >:<span id="minutes" class="l-time">{{ minutesToDday }}</span
+                    >:<span id="seconds" class="l-time">{{ secondsToDday }}</span>
+                </div>
+
+                <div class="l-info-container">
+                    <p class="l-form-info-p m-0">
+                        <img
+                            class="l-form-info-icon"
+                            src="./assets/icons/info-icon-white.svg"
+                            alt="info-icon-grey"
+                        />This Lot is currently in another negotiation.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="l-lotmatch" [class.l-fill]="isLoading">
+            <!-- #region Loading Spinner -->
+
+            <div *ngIf="isLoading; else showLotMatchAndVerification">
+                <mat-progress-spinner
+                    class="g-mat-progress-spinner-blue"
+                    mode="indeterminate"
+                    [diameter]="40"
+                ></mat-progress-spinner>
+            </div>
+
+            <!-- #endregion -->
+
+            <ng-template #showLotMatchAndVerification>
+                <!-- #region Lot Match -->
+
+                <app-lot-match-table
+                    [lotMatch]="lotMatch"
+                    [isNegotiation]="true"
+                    [isLocked]="isLocked"
+                    [hasAgent]="counterPartyHasBroker"
+                    [isPending]="
+                        matchIterations[selectedIteration].hasSellerSubmittedMatch ||
+                        matchIterations[selectedIteration].hasBuyerSubmittedMatch
+                    "
+                    ($isFullMatchEvent)="handleGetMatch($event)"
+                ></app-lot-match-table>
+
+                <!-- #endregion -->
+
+                <div *ngIf="(!isComplete && !isPending && !isFullMatch) || isMatchAllLoading">
+                    <button mat-flat-button class="g-secondary-button mt-2" (click)="handleMatchAll()">
+                        <ng-container *ngIf="isMatchAllLoading; else showMatchAll">
+                            <mat-progress-spinner
+                                class="g-mat-progress-spinner-blue mx-auto"
+                                mode="indeterminate"
+                                [diameter]="30"
+                            ></mat-progress-spinner>
+                        </ng-container>
+                        <ng-template #showMatchAll><span class="l-match-all"> Match All </span></ng-template>
+                    </button>
+                </div>
+
+                <!-- #region Verification Badge -->
+
+                <div class="l-verification-badge-container">
+                    <app-verification-badge
+                        [verificationTypes]="verificationTypes"
+                        [verificationId]="
+                            isSeller
+                                ? lotMatch.buyerDetails.userVerificationId
+                                : lotMatch.sellerDetails.userVerificationId
+                        "
+                    ></app-verification-badge>
+                </div>
+
+                <!-- #endregion -->
+            </ng-template>
+        </div>
+
+        <!-- #endregion -->
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Buttons -->
+
+    <div *ngIf="!isComplete && !isPending" class="l-buttons-container l-end">
+        <div
+            *ngIf="activeNegotiationIds?.length > 1"
+            class="l-chevron-holder"
+            (click)="handleToggleNegotiations('previous')"
+        >
+            <img class="l-chevron-icon-left" src="./assets/icons/chevron-blue.svg" alt="toggle-left" />
+        </div>
+
+        <ng-container *ngIf="!isLocked && !isComplete && !submittedSkuduMatch; else showDisabled">
+            <div class="l-button-and-text">
+                <p class="g-text-p-small-grey text-center mb-2">
+                    {{ negotiationIndex + 1 }} of {{ activeNegotiationIds?.length }} Negotiations
+                </p>
+                <div
+                    class="l-button-group l-height-content"
+                    ngClass="{{ activeNegotiationIds?.length > 1 ? 'px-2' : 'px-0' }}"
+                >
+                    <button
+                        mat-flat-button
+                        [disabled]="user.isBroker && !brokerAdminRole"
+                        [class.g-disabled-button]="user.isBroker && !brokerAdminRole"
+                        class="g-primary-button"
+                        ngClass="{{ isFullMatch ? 'l-height-content mb-2' : 'l-full-w-button' }}"
+                        (click)="handleDeclineNegotiation()"
+                    >
+                        <ng-container *ngIf="isDeclineNegotiationActionLoading; else showDecline">
+                            <mat-progress-spinner
+                                class="g-mat-progress-spinner-blue mx-auto"
+                                mode="indeterminate"
+                                [diameter]="30"
+                            ></mat-progress-spinner>
+                        </ng-container>
+                        <ng-template #showDecline> Decline </ng-template>
+                    </button>
+                    <button
+                        *ngIf="isFullMatch && !isMatchAllLoading"
+                        mat-flat-button
+                        [disabled]="user.isBroker && !brokerAdminRole"
+                        [class.g-disabled-button]="user.isBroker && !brokerAdminRole"
+                        class="g-secondary-button l-height-content"
+                        (click)="handleOpenSubmitYourMatchModal()"
+                    >
+                        <ng-container *ngIf="isSubmitMatchActionLoading; else showSubmit">
+                            <mat-progress-spinner
+                                class="g-mat-progress-spinner-blue mx-auto"
+                                mode="indeterminate"
+                                [diameter]="30"
+                            ></mat-progress-spinner>
+                        </ng-container>
+                        <ng-template #showSubmit> Submit Match </ng-template>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #showDisabled>
+            <div class="l-button-and-text">
+                <div class="l-button-group l-height-content px-2">
+                    <button mat-flat-button class="g-primary-button" disabled>Decline</button>
+                </div>
+            </div>
+        </ng-template>
+        <div
+            *ngIf="activeNegotiationIds?.length > 1"
+            class="l-chevron-holder"
+            (click)="handleToggleNegotiations('next')"
+        >
+            <img class="l-chevron-icon-right" src="./assets/icons/chevron-blue.svg" alt="toggle-right" />
+        </div>
+    </div>
+
+    <!-- #endregion -->
+</div>

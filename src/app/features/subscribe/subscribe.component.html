@@ -1,0 +1,18 @@
+<div class="g-app-dimensions">
+    <div class="l-container">
+        <div class="l-content l-fade-in">
+            <h1 class="g-text-h1-dark mb-4 mt-3">Subscribe to be Verified</h1>
+            <p class="g-text-p-dark mb-3">Raise your profile and enjoy multiple benefits.</p>
+            <p class="g-text-p-dark mb-4">Subscribe as a:</p>
+            <div class="l-verification-row ml-3 my-3" *ngFor="let verification of verificationOrder">
+                <img
+                    class="l-img"
+                    src="{{ subscribeContent[verification].source }}"
+                    alt="{{ subscribeContent[verification].name }}"
+                />
+                <p class="g-text-p-dark l-verification-text pl-5">{{ subscribeContent[verification].name }}</p>
+            </div>
+        </div>
+        <button mat-flat-button class="g-primary-button" (click)="handleNavigateCreateScout()">Next</button>
+    </div>
+</div>

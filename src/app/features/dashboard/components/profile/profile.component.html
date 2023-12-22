@@ -1,0 +1,586 @@
+<div *ngIf="this.entityDetails" class="l-container">
+    <!-- #region header -->
+
+    <div class="l-header">
+        <img
+            class="l-home-img"
+            src="./assets/icons/home-blue-icon.svg"
+            alt="Blue bell"
+            (click)="handleNavigateToHomePage()"
+        />
+        <div class="l-header-img-container">
+            <img src="./assets/images/MX-logo-full.svg" alt="MX Match Logo" (click)="handleNavigateToHomePage()" />
+        </div>
+        <img class="l-profile-img" src="./assets/icons/user-blue-selected-icon.svg" alt="User Icon" />
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region  Page Tabs -->
+
+    <mat-tab-group
+        class="g-mat-tabs-dashboard l-tabs"
+        [selectedIndex]="tabIndex"
+        (selectedTabChange)="handleTabChange($event.index)"
+    >
+        <!-- #region Entity -->
+
+        <mat-tab label="{{ profileTabs[0] }}">
+            <!-- #region Loading Spinner -->
+
+            <div *ngIf="isEntityLoading; else entityHasLoaded" class="l-spinner-holder">
+                <mat-progress-spinner
+                    class="g-mat-progress-spinner"
+                    mode="indeterminate"
+                    [diameter]="40"
+                ></mat-progress-spinner>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Tab Content -->
+
+            <ng-template #entityHasLoaded>
+                <div class="l-content-holder">
+                    <div class="g-form-input-group">
+                        <label class="g-form-label">Legal Entity Name</label>
+                        <div class="g-text-input-container">
+                            <input
+                                class="g-input-text-no-icon"
+                                type="text"
+                                name="fullName"
+                                placeholder="Legal Entity Name"
+                                [(ngModel)]="entityDetails.legalEntityName"
+                                required
+                            />
+                        </div>
+                        <div class="g-form-input-group mt-3">
+                            <label class="g-form-label">Entity Email</label>
+
+                            <div class="g-text-input-container">
+                                <img class="g-input-text-icon" src="../../../assets/icons/mail-icon.svg" alt="" />
+                                <input
+                                    class="g-input-text"
+                                    type="email"
+                                    placeholder="Entity Email"
+                                    [(ngModel)]="entityDetails.email"
+                                    name="email"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- #region Ex Farm Toggle -->
+
+                    <div class="w-100 d-flex flex-column mt-3">
+                        <label class="g-form-label">Do you have the ability to deliver Ex-Farm?</label>
+
+                        <div class="l-delivery-container">
+                            <button
+                                class="l-delivery-option"
+                                [class.l-active-delivery]="entityDetails.exFarm"
+                                (click)="handleToggleExFarm(true)"
+                            >
+                                Yes<img
+                                    class="l-selected-icon"
+                                    src="./assets/icons/unselected-icon.svg"
+                                    [src]="
+                                        entityDetails.exFarm
+                                            ? './assets/icons/selected-blue-icon.svg'
+                                            : './assets/icons/unselected-icon.svg'
+                                    "
+                                    alt="selected-icon"
+                                />
+                            </button>
+                            <button
+                                class="l-delivery-option"
+                                [class.l-active-delivery]="!entityDetails.exFarm"
+                                (click)="handleToggleExFarm(false)"
+                            >
+                                No
+                                <img
+                                    class="l-selected-icon"
+                                    [src]="
+                                        !entityDetails.exFarm
+                                            ? './assets/icons/selected-blue-icon.svg'
+                                            : './assets/icons/unselected-icon.svg'
+                                    "
+                                    alt="selected-icon"
+                                />
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- #endregion -->
+
+                    <!-- #region B-BBEE Rating -->
+
+                    <div class="w-100 d-flex flex-column mt-3">
+                        <label class="g-form-label">Do you have a B-BBEE rating?</label>
+                        <mat-select class="g-form-select" [(ngModel)]="entityDetails.bbbeeRating" name="bbbeeRating">
+                            <mat-option *ngFor="let rating of ratingData" [value]="ratingData.indexOf(rating)">
+                                {{ rating }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+
+                    <p class="g-text-p-small-grey mt-2">
+                        If your turnover is less than R10 Million, you can choose level 4.
+                    </p>
+
+                    <!-- #endregion -->
+
+                    <!-- #region Save Entity Details Button -->
+
+                    <button mat-flat-button class="g-primary-button" (click)="handleSaveEntityDetails()">
+                        <mat-progress-spinner
+                            *ngIf="isDetailsActionLoading; else showButtonText"
+                            class="g-mat-progress-spinner-blue mx-auto"
+                            mode="indeterminate"
+                            [diameter]="30"
+                        ></mat-progress-spinner>
+                        <ng-template #showButtonText> Save Details </ng-template>
+                    </button>
+
+                    <!-- #endregion -->
+                </div>
+            </ng-template>
+
+            <!-- #endregion -->
+        </mat-tab>
+
+        <!-- #endregion -->
+
+        <!-- #region Delivery/Admin Tab -->
+
+        <mat-tab label="{{ profileTabs[1].split('/')[isAdmin ? 1 : 0] }}">
+            <!-- #region Delivery -->
+
+            <ng-container *ngIf="!isAdmin; else showAdminTab">
+                <div *ngIf="isDeliveryPointLoading; else showDeliveryPoints" class="l-spinner-holder">
+                    <mat-progress-spinner
+                        class="g-mat-progress-spinner"
+                        mode="indeterminate"
+                        [diameter]="40"
+                    ></mat-progress-spinner>
+                </div>
+                <ng-template #showDeliveryPoints>
+                    <div class="l-content-holder">
+                        <h2 class="g-text-h2-dark"><b>My delivery points</b></h2>
+                        <div
+                            class="l-type-option g-clickable l-create-own-button mt-3"
+                            (click)="handleCreateDeliveryPoint()"
+                        >
+                            Create new delivery point
+                            <img
+                                class="l-create-icon g-clickable"
+                                src="./assets/icons/plus-icon-white.svg"
+                                alt="create"
+                            />
+                        </div>
+                        <div *ngFor="let deliveryPoint of deliveryPoints" class="w-100">
+                            <div class="l-type-option g-clickable" (click)="handleEditDeliveryPoint(deliveryPoint.id)">
+                                {{ deliveryPoint.name }}
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+
+            <!-- #endregion -->
+
+            <!-- #region Admin -->
+
+            <ng-template #showAdminTab>
+                <div *ngIf="isUsersLoading; else showAdminTabContent" class="l-spinner-holder">
+                    <mat-progress-spinner
+                        class="g-mat-progress-spinner"
+                        mode="indeterminate"
+                        [diameter]="40"
+                    ></mat-progress-spinner>
+                </div>
+                <ng-template #showAdminTabContent>
+                    <div class="l-input-container">
+                        <!-- #region Search Input -->
+
+                        <img class="l-search-icon" src="./assets/icons/search-grey-icon.svg" alt="Magnifying glass" />
+                        <input
+                            class="g-form-input l-search-input"
+                            [(ngModel)]="userSearchTerm"
+                            (ngModelChange)="handleFilterUsers()"
+                            name="userSearch"
+                            type="text"
+                            [placeholder]="'Search...'"
+                        />
+
+                        <!-- #endregion -->
+
+                        <!-- #region Filter + Download -->
+
+                        <div class="l-header-icons-container">
+                            <div class="l-header-icon-holder" [mat-ripple] (click)="handleOpenVerificationModal(true)">
+                                <img class="l-header-icon" src="./assets/icons/filter-icon.svg" alt="Filter" />
+                            </div>
+                            <div class="l-header-icon-holder" [mat-ripple] (click)="handleRequestAnalytics()">
+                                <img
+                                    *ngIf="!isAnalyticsActionLoading; else showAnalyticsSpinner"
+                                    class="l-header-icon"
+                                    src="./assets/icons/download-icon.svg"
+                                    alt="A piece of paper with a downward facing arrow"
+                                />
+                                <ng-template #showAnalyticsSpinner>
+                                    <mat-progress-spinner
+                                        class="g-mat-progress-spinner-blue"
+                                        mode="indeterminate"
+                                        [diameter]="20"
+                                    ></mat-progress-spinner>
+                                </ng-template>
+                            </div>
+                        </div>
+
+                        <!-- #endregion -->
+                    </div>
+                    <div class="l-admin-content-holder">
+                        <!-- #region User Count & Current Filter -->
+
+                        <div class="l-user-count-container">
+                            <p class="g-text-p text-left">Users:</p>
+                            <div class="l-pill g-text-p">{{ filteredVerificationUsers.length }}</div>
+                        </div>
+
+                        <div *ngIf="selectedVerificationType" class="l-current-filter-container mt-2">
+                            <p class="g-text-p text-left">Current Filter:</p>
+                            <div class="l-pill g-text-p">
+                                {{ selectedVerificationType.name }}
+                            </div>
+                            <div class="l-remove-filter-container" (click)="toggleVerificationTypeHelper(null, true)">
+                                <img
+                                    class="l-remove-filter-icon"
+                                    src="./assets/icons/remove-filter-icon.svg"
+                                    alt="closing x"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- #endregion -->
+
+                        <!-- #region Users Container -->
+
+                        <div class="l-users-container">
+                            <div
+                                *ngFor="let user of filteredVerificationUsers"
+                                class="l-user-container"
+                                [mat-ripple]
+                                (click)="handleToggleSelectUser(user)"
+                            >
+                                <div class="l-padded-container">
+                                    <div class="l-checkbox-container">
+                                        <input type="checkbox" [checked]="selectedVerificationUsers.includes(user)" />
+                                    </div>
+                                    <div class="l-user-info-container">
+                                        <h2 class="g-text-h2 text-left mb-2">
+                                            <b>{{ user.firstname }} {{ user.lastname }}</b>
+                                        </h2>
+                                        <p class="g-text-p text-left">
+                                            {{ user.verification.verificationType }}
+                                        </p>
+                                        <p class="g-text-p text-left">
+                                            {{ user.email }}
+                                        </p>
+                                    </div>
+                                    <div class="l-verification-icon-container">
+                                        <img
+                                            class="l-verification-icon"
+                                            [src]="verificationTypes[user.verification.id].source"
+                                            alt="verification-icon"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- #endregion -->
+
+                        <!-- #region Select Verification Button -->
+
+                        <ng-container *ngIf="selectedVerificationUsers.length">
+                            <button
+                                class="g-primary-button mt-3"
+                                mat-flat-button
+                                (click)="handleOpenVerificationModal(false)"
+                            >
+                                Select Verification Type
+                            </button>
+                            <button
+                                class="g-secondary-button mt-3"
+                                mat-flat-button
+                                (click)="handleClearUserSelection()"
+                            >
+                                Clear User Selection
+                            </button>
+                        </ng-container>
+
+                        <!-- #endregion -->
+                    </div>
+                </ng-template>
+            </ng-template>
+
+            <!-- #endregion -->
+        </mat-tab>
+
+        <!-- #endregion -->
+
+        <!-- #region User Tab -->
+
+        <mat-tab label="{{ profileTabs[2] }}">
+            <form class="l-content-holder" *ngIf="editableUser">
+                <!-- #region Verification Badge -->
+
+                <div class="l-verification-badge-container">
+                    <app-verification-badge
+                        [verificationTypes]="verificationTypes"
+                        [isOwn]="true"
+                        [verificationId]="user?.verification.id"
+                    ></app-verification-badge>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region First Name -->
+
+                <div class="g-form-input-group mt-3">
+                    <label class="g-form-label">First Name</label>
+                    <div class="g-text-input-container">
+                        <img class="g-input-text-icon" src="./assets/icons/user-blue-icon.svg" alt="" />
+                        <input
+                            class="g-input-text"
+                            type="text"
+                            name="firstName"
+                            placeholder="Name"
+                            [(ngModel)]="editableUser.firstname"
+                            (ngModelChange)="toggleProfileEditStatusHelper()"
+                        />
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Last Name -->
+
+                <div class="g-form-input-group mt-3">
+                    <label class="g-form-label">Last Name</label>
+                    <div class="g-text-input-container">
+                        <img class="g-input-text-icon" src="./assets/icons/user-blue-icon.svg" alt="" />
+                        <input
+                            class="g-input-text"
+                            type="text"
+                            name="lastName"
+                            placeholder="Name"
+                            [(ngModel)]="editableUser.lastname"
+                            (ngModelChange)="toggleProfileEditStatusHelper()"
+                        />
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Email -->
+
+                <div class="g-form-input-group mt-2">
+                    <label class="g-form-label">Email</label>
+                    <div class="g-text-input-container">
+                        <img class="g-input-text-icon" src="./assets/icons/mail-icon.svg" alt="" />
+                        <input
+                            class="g-input-text"
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            [(ngModel)]="editableUser.email"
+                            (ngModelChange)="toggleProfileEditStatusHelper()"
+                        />
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Mobile Number -->
+
+                <div class="g-form-input-group mt-2">
+                    <label class="g-form-label">Mobile Number</label>
+                    <div class="g-text-input-container">
+                        <img class="g-input-text-icon" src="./assets/icons/phone-blue-icon.svg" alt="" />
+                        <input
+                            class="g-input-text"
+                            type="tel"
+                            name="enterprise"
+                            placeholder=""
+                            [(ngModel)]="editableUser.phone"
+                            (ngModelChange)="toggleProfileEditStatusHelper()"
+                        />
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Location -->
+
+                <div class="g-form-input-group mt-2">
+                    <label class="g-form-label">Location</label>
+                    <div class="g-text-input-container">
+                        <img class="g-input-text-icon" src="./assets/icons/location-blue-icon.svg" alt="" />
+                        <input
+                            class="g-input-text"
+                            [class.l-form-input-filled]="editableUser.location"
+                            type="location"
+                            name="location"
+                            [(ngModel)]="editableUser.location"
+                            ngx-gp-autocomplete
+                            [options]="options"
+                            (onAddressChange)="handleSelectLocation($event)"
+                            placeholder=""
+                            autocomplete="off"
+                        />
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Grain SA Number -->
+
+                <div class="g-form-input-group mt-2">
+                    <label class="g-form-label">Grain SA Number</label>
+                    <img class="ml-3" *ngIf="isGrainSAVerified" src="./assets/icons/green-tick.svg" />
+                    <div class="g-text-input-container">
+                        <img class="g-input-text-icon" src="./assets/icons/grainSA-icon.svg" alt="" />
+                        <input
+                            class="g-input-text"
+                            type="text"
+                            name="grainSA"
+                            #grainSA="ngModel"
+                            pattern="[Gg][Ss][Aa][0-9]{3,5}$"
+                            placeholder="Optional"
+                            [(ngModel)]="grainSAId"
+                        />
+                        <img
+                            class="l-additional-icon"
+                            (click)="handleGrainSAModal()"
+                            src="../../../assets/icons/info-icon-blue.svg"
+                            alt="Grain SA Info view"
+                        />
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Save User Profile Button -->
+
+                <button
+                    mat-flat-button
+                    class="g-primary-button mt-3"
+                    (click)="handleSaveUserProfile()"
+                    [disabled]="grainSA.invalid"
+                    [ngClass]="{
+                        'g-disabled-button': grainSA.invalid
+                    }"
+                >
+                    <mat-progress-spinner
+                        *ngIf="isUserProfileActionLoading; else showButtonText"
+                        class="g-mat-progress-spinner-blue mx-auto"
+                        mode="indeterminate"
+                        [diameter]="30"
+                    ></mat-progress-spinner>
+                    <ng-template #showButtonText> Save Details </ng-template>
+                </button>
+
+                <!-- #endregion -->
+
+                <!-- #region Additional Registration Questions -->
+
+                <a
+                    class="g-secondary-button l-additional-registration-button"
+                    href="https://docs.google.com/forms/d/1-tz4aLzxetvOy4sMOIlwZ5D9gJM6xT__IGS7aLlBXNc/viewform?ts=60d97d85&edit_requested=true"
+                    target="_blank"
+                    matRipple
+                    >Additional Registration Questions</a
+                >
+
+                <!-- #endregion -->
+
+                <!-- #region Lots in Date Range Button -->
+
+                <button
+                    *ngIf="isAdmin"
+                    class="g-secondary-button mt-2"
+                    mat-flat-button
+                    (click)="handleGetLotsInDateRange()"
+                >
+                    <ng-container *ngIf="!isGetLotsActionLoading; else showGetLotsSpinner"
+                        >Get Lots In Date Range</ng-container
+                    >
+                    <ng-template #showGetLotsSpinner>
+                        <mat-progress-spinner
+                            class="g-mat-progress-spinner-white"
+                            mode="indeterminate"
+                            [diameter]="30"
+                        ></mat-progress-spinner>
+                    </ng-template>
+                </button>
+
+                <!-- #endregion -->
+
+                <button class="g-secondary-button mt-2" (click)="handleLogout()">Log out</button>
+
+                <button class="l-delete-account g-secondary-button mt-4" (click)="handleDeletionRequestModal()">
+                    <ng-container *ngIf="!isDeleteActionLoading; else showDeleteSpinner">Delete Account</ng-container>
+                    <ng-template #showDeleteSpinner>
+                        <mat-progress-spinner
+                            class="g-mat-progress-spinner-white mx-auto"
+                            mode="indeterminate"
+                            [diameter]="30"
+                        ></mat-progress-spinner>
+                    </ng-template>
+                </button>
+
+                <div class="g-text-p-small-dark mt-2">{{ version }}</div>
+
+                <p class="g-text-p-small-dark pt-3 l-terms">
+                    By using our site, you agree to the
+                    <span class="g-text-blue"
+                        ><a
+                            (click)="handleRouteToDocumentViewer('ToS.pdf')"
+                            target="_blank"
+                            class="terms clickable"
+                            id="TermsOfServiceLink"
+                        >
+                            Terms Of Service</a
+                        >,
+                        <a
+                            (click)="handleRouteToDocumentViewer('privacyPolicy.pdf')"
+                            class="terms clickable"
+                            id="PrivacyPolicyLink"
+                            target="_blank"
+                        >
+                            Privacy Policy
+                        </a></span
+                    >
+                    and
+                    <span class="g-text-blue"
+                        ><a
+                            (click)="handleRouteToDocumentViewer('Skudu_Acceptable.pdf')"
+                            class="terms clickable"
+                            id="WebsiteTermsofUseLink"
+                            target="_blank"
+                        >
+                            Website Terms of Use
+                        </a></span
+                    >
+                </p>
+            </form>
+        </mat-tab>
+    </mat-tab-group>
+
+    <!-- #endregion -->
+
+    <!-- #endregion -->
+</div>

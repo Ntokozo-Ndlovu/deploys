@@ -1,0 +1,16 @@
+{
+    "name": "Match Exchange",
+    "short_name": "MX",
+    "theme_color": "#31a05f",
+    "background_color": "#f9f9fc",
+    "display": "standalone",
+    "scope": "./",
+    "start_url": "./",
+    "icons": [
+        {
+            "src": "assets/icons/MX-small-logo.svg",
+            "sizes": "208x208",
+            "type": "image/png"
+        }
+    ]
+}

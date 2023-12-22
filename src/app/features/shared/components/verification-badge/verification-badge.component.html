@@ -1,0 +1,7 @@
+<div class="l-container g-fade-in">
+    <h2 class="g-text-h2">{{ !isOwn ? 'Counterparty ' : '' }}Verification:</h2>
+    <div class="l-img-container">
+        <img class="l-img" [src]="verificationTypes[verificationId].source" alt="verification-icon" />
+    </div>
+    <p class="g-text-p g-text-grey">{{ verificationTypes[verificationId].name }}</p>
+</div>

@@ -1,0 +1,87 @@
+<div
+    class="l-container"
+    [ngClass]="{
+        'g-card-border-sell': scoutCard?.scoutType === 'Sell',
+        'g-card-border-buy': scoutCard?.scoutType === 'Buy'
+    }"
+>
+    <!-- #region Header -->
+    <div
+        class="l-header"
+        [ngClass]="{
+            'l-banner-sell': scoutCard?.scoutType === 'Sell',
+            'l-banner-buy': scoutCard?.scoutType === 'Buy'
+        }"
+    >
+        <h2
+            [ngClass]="{
+                'l-sell-text': scoutCard?.scoutType === 'Sell',
+                'l-buy-text': scoutCard?.scoutType === 'Buy'
+            }"
+            class="g-text-h2-dark"
+        >
+            <b>{{ scoutCard.scoutType.toLocaleUpperCase() }}</b>
+        </h2>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Scout Name / Edit -->
+
+    <div class="l-edit-container" (click)="handleEditScout(scoutCard.id)">
+        <span class="l-type">{{ scoutCard.isPublic ? 'Public' : 'Private' }}</span>
+        <p class="l-edit-text g-clickable">Edit</p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content (Details) -->
+
+    <div class="l-detail-container">
+        <div class="l-content-holder">
+            <img class="l-detail-icon" src="./assets/icons/location-icon.svg" alt="delivery-point-icon" />
+            <p class="g-text-card-prop">{{ scoutCard.town }}</p>
+        </div>
+        <div class="l-content-holder">
+            <img class="l-detail-icon" src="./assets/icons/crop-icon.svg" alt="crop-icon" />
+            <p class="g-text-card-prop">{{ scoutCard.crop.name }}</p>
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region count -->
+
+    <div
+        class="l-count-holder"
+        [ngClass]="{
+            'l-sell-text': scoutCard?.scoutType === 'Sell',
+            'l-buy-text': scoutCard?.scoutType === 'Buy'
+        }"
+    >
+        <div class="l-match-count-container">
+            <h2 class="l-count-text">
+                {{ scoutCard.matchCount }} {{ scoutCard.scoutType === 'Sell' ? 'Buyers' : 'Sellers' }}
+            </h2>
+        </div>
+
+        <div class="l-match-count-container" *ngIf="scoutCard.lotCount">
+            <h2 class="l-count-text">{{ scoutCard.lotCount }} Lots</h2>
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region create lot button -->
+
+    <div class="l-footer">
+        <button class="g-primary-button g-clickable" (click)="handleCreateLot(scoutCard)">Create a Lot</button>
+
+        <div class="l-info-container">
+            <img class="g-form-info-icon" src="./assets/icons/info-icon-grey.svg" alt="info-icon-grey" />
+            <p class="g-text-p-small-grey mt-3">
+                Create a Lot to Match with potential {{ scoutCard.scoutType === 'Buy' ? 'sellers' : 'buyers' }}.
+            </p>
+        </div>
+    </div>
+</div>

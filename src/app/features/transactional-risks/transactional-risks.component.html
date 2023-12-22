@@ -1,0 +1,17 @@
+<div class="g-app-dimensions">
+    <div class="l-container">
+        <div class="l-content l-fade-in">
+            <h1 class="g-text-h1-dark mb-4">No Transactional Risk</h1>
+            <p class="g-text-p-dark mb-3">There is no transactional risk for either buyers or sellers.</p>
+            <p class="g-text-p-dark">MX solves the two most important problems in the marketplace.</p>
+            <img class="l-img my-4" src="assets/images/connect-buyers-sellers.svg" alt="Buyers & Sellers" />
+            <p class="g-text-p-dark">Firstly, connecting buyers and sellers with similar needs.</p>
+            <img class="l-img my-4" src="assets/images/price-discovery.svg" alt="Discovery" />
+            <p class="g-text-p-dark">Secondly, MX facilitates price discovery between buyers and sellers.</p>
+        </div>
+        <button mat-flat-button class="g-primary-button my-2" (click)="handleNavigateToOnboarding()">Next</button>
+        <button *nfIf="!fromSupport" mat-flat-button class="g-secondary-button" (click)="handleNavigateCreateScout()">
+            Skip Tutorial
+        </button>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="l-container">
+    <img class="l-close-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleCloseModal()" />
+    <div *ngIf="!isSuccess; else showSuccess">
+        <app-completed-clearing-card [negotiationCard]="data.completedNegotiation"></app-completed-clearing-card>
+        <button class="g-primary-button mt-2" mat-flat-button [disabled]="isLoading" (click)="handleEmailSend()">
+            <mat-progress-spinner
+                *ngIf="isLoading; else showButtonText"
+                class="g-mat-progress-spinner-white mx-auto"
+                mode="indeterminate"
+                [diameter]="30"
+            ></mat-progress-spinner>
+            <ng-template #showButtonText> Send Email</ng-template>
+        </button>
+    </div>
+    <ng-template #showSuccess>
+        <h2 class="l-success-heading g-text-h2-dark">Success</h2>
+        <p class="l-success g-text-p-dark">
+            Your request for clearing has been received! A MX representative will be in contact soon.
+        </p>
+        <button class="g-primary-button mt-2" mat-flat-button (click)="handleCloseModal()">Close</button>
+    </ng-template>
+</div>

@@ -1,0 +1,92 @@
+<div class="l-container">
+    <div *ngIf="!isLoading">
+        <img
+            class="l-close-icon"
+            src="./assets/icons/close-icon-dark.svg"
+            alt="Black cross / close icon"
+            (click)="handleClose()"
+        />
+        <img class="l-verification-icon" [src]="data.verificationSubscription.value.source" alt="verification-icon" />
+    </div>
+    <div *ngIf="!isSuccess; else showSuccess">
+        <div *ngIf="!isLoading; else showLoading">
+            <p class="g-text-h1-dark">{{ data.verificationSubscription.value.product.title }}</p>
+            <p class="g-text-p-dark my-2">{{ data.promotionalText?.description }}</p>
+            <p class="g-text-h2-dark">{{ data.promotionalText?.period }}</p>
+            <button
+                class="g-primary-button mt-3"
+                [disabled]="isLoading"
+                mat-flat-button
+                (click)="!isWeb && handleNativePurchase('year', data.verificationSubscription.value.id)"
+            >
+                <div>
+                    {{ data.verificationSubscription.value.product.price }}
+                    / year
+                </div>
+            </button>
+            <div class="g-text-p-small-grey">
+                <p class="mt-1">*VAT Included</p>
+            </div>
+            <p class="text-center m-0">OR</p>
+            <button
+                class="g-secondary-button mt-2"
+                [disabled]="isLoading"
+                mat-flat-button
+                (click)="!isWeb && handleNativePurchase('month', data.verificationSubscription.value.id)"
+            >
+                <div>
+                    {{ data.verificationSubscription.value.product_monthly.price }}
+                    / month
+                </div>
+            </button>
+            <div class="g-text-p-small-grey">
+                <p class="mt-1">*VAT Included</p>
+            </div>
+            <div class="g-text-p-dark text-center m-0">
+                <p>Save <strong>20%</strong> with the yearly subscription!</p>
+            </div>
+        </div>
+        <ng-template #showLoading>
+            <mat-progress-spinner
+                class="g-mat-progress-spinner-blue mx-auto my-4"
+                mode="indeterminate"
+                [diameter]="100"
+            ></mat-progress-spinner>
+            <h1 class="g-text-h1-dark my-3">Processing your Payment...</h1>
+        </ng-template>
+    </div>
+    <ng-template #showSuccess>
+        <div class="g-text-h2-dark">Congratulations!</div>
+        <div class="g-text-p-dark">
+            You are now verified as a
+            <strong>{{ data.verificationSubscription.value.product.title }}</strong>
+        </div>
+        <div class="g-text-p-dark">
+            You can now access all our premium features, like Browse the Market and MX Clearing.
+        </div>
+        <div class="g-text-p-dark mt-2">
+            Further increase your trust in the market by getting <strong>FICA</strong> registered with MatchMX.
+        </div>
+        <a
+            class="g-primary-button l-button-link mt-3"
+            mat-ripple
+            [href]="
+                isWeb
+                    ? './assets/files/The Match Exchange - Client Subscription Form.docx'
+                    : 'https://match.skudu.co.za/assets/files/The Match Exchange - Client Subscription Form.docx'
+            "
+            download="The Match Exchange - Client Subscription Form"
+            >Download Form</a
+        >
+        <button class="g-secondary-button mt-3" mat-flat-button [disabled]="isEmailLoading" (click)="handleEmail()">
+            <mat-progress-spinner
+                *ngIf="isEmailLoading; else showEmailText"
+                class="g-mat-progress-spinner-blue mx-auto"
+                mode="indeterminate"
+                [diameter]="30"
+            ></mat-progress-spinner>
+            <ng-template #showEmailText>Request By Email </ng-template>
+        </button>
+        <p class="g-text-p-small-grey mt-2">*This is optional and can be completed at a future date</p>
+    </ng-template>
+</div>

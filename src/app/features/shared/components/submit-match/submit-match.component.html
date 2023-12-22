@@ -1,0 +1,70 @@
+<div class="l-container">
+    <!-- #region Content -->
+
+    <div class="l-modal" cdkFocusInitial>
+        <div class="l-header">
+            <img
+                *ngIf="stepper.selectedIndex !== 0"
+                class="l-back"
+                src="./assets/icons/black-arrow-back.svg"
+                alt="back"
+                (click)="handleBack()"
+            />
+            <h2 class="g-text-h2-dark"><b>Submit Match</b></h2>
+
+            <img class="l-close" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleCloseModal()" />
+        </div>
+
+        <!-- #region Stepper -->
+
+        <mat-horizontal-stepper class="g-stepper-modal" [linear]="isLinear" #stepper>
+            <!-- #region Progress Icons -->
+
+            <ng-template matStepperIcon="edit">
+                <mat-icon>done</mat-icon>
+            </ng-template>
+
+            <ng-template matStepperIcon="number" let-index="index">
+                <mat-icon>done</mat-icon>
+            </ng-template>
+
+            <!-- #endregion -->
+
+            <mat-step *ngFor="let stepData of stepperData">
+                <div class="l-submit-content">
+                    <p class="g-text-p-dark mb-2">
+                        <b>Step {{ stepper.selectedIndex + 1 }}</b>
+                    </p>
+
+                    <p class="g-text-p-dark">{{ stepData }}</p>
+
+                    <p *ngIf="stepper.selectedIndex === 0" class="g-text-p-dark mb-1">{{ entity[0].name }}</p>
+
+                    <div *ngIf="stepper.selectedIndex === 0" class="d-flex align-items-start mt-2">
+                        <img
+                            class="g-form-info-icon mt-1"
+                            src="./assets/icons/info-icon-grey.svg"
+                            alt="info-icon-grey"
+                        />
+                        <p class="g-form-info-p l-black m-0">
+                            Make sure your legal entity name is correct. You can change it on your
+                            <a href="dashboard/profile">profile.</a>
+                        </p>
+                    </div>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+
+        <!-- #endregion -->
+
+        <!-- #region Button -->
+
+        <button mat-flat-button class="g-primary-button" (click)="handleNext()">
+            {{ isFinalStep ? 'Submit Match' : 'I Understand' }}
+        </button>
+
+        <!-- #endregion -->
+    </div>
+
+    <!-- #endregion -->
+</div>

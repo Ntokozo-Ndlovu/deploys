@@ -1,0 +1,88 @@
+@import 'src/variables';
+
+.l-container {
+    width: 100%;
+    max-height: 440px;
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: $border-radius;
+    overflow: auto;
+}
+
+.l-header,
+.l-secondary-header {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 8px;
+}
+
+.l-secondary-header {
+    align-items: center;
+    border-bottom: 1px solid $app-form-info-color;
+}
+
+.l-blue {
+    color: $primary-color;
+}
+
+.l-notifications-container {
+    width: 100%;
+    height: fit-content;
+    margin-top: 16px;
+}
+
+.l-notification {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.l-notification-info-container,
+.l-profile-notification-info-container {
+    width: 85%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.l-profile-notification-info-container {
+    min-width: 100%;
+}
+
+.l-notification-dot-container {
+    width: 10%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.l-notification-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: $app-notification-red;
+}
+
+.l-notification-message-container {
+    width: 75%;
+    height: 100%;
+}
+
+.g-text-p {
+    text-align: left;
+    line-height: 16px;
+}
+
+.l-clear {
+    width: 15%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    cursor: pointer;
+}

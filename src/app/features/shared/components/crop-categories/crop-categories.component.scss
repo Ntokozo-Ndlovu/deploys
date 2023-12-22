@@ -1,0 +1,63 @@
+@import 'src/variables.scss';
+
+.l-container,
+.l-container-scout {
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 16px;
+}
+.l-container-scout {
+    width: 100vw !important;
+}
+
+.l-cards-container {
+    width: 100%;
+    height: fit-content;
+}
+
+.l-card {
+    position: relative;
+    width: 90%;
+    height: 96px;
+    margin: 16px auto 0 auto;
+    display: flex;
+    background-color: #ffffff;
+    border-radius: $border-radius;
+    cursor: pointer;
+}
+
+.l-card-img-container {
+    width: 140px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.l-card-img {
+    height: 30px;
+    width: auto;
+}
+
+.l-card-title-container {
+    width: calc(100% - 140px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.l-coming-soon-banner-img {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+// #region Responsive Media Queries
+
+@media screen and (min-width: 576px) {
+    .l-container-scout {
+        width: 558px !important;
+    }
+}
+
+// #endregion

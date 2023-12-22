@@ -1,0 +1,96 @@
+<div class="l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-home-img"
+            src="./assets/icons/home-blue-icon.svg"
+            alt="Blue bell"
+            (click)="handleNavigateToHomePage()"
+        />
+        <div class="g-logo-header-container">
+            <img
+                class="g-header-mx-icon"
+                src="./assets/icons/MX-small-logo.svg"
+                alt="home icon"
+                (click)="handleNavigateToHomePage()"
+            />
+            <h2 class="g-text-h2-dark mb-0">Negotiating Room</h2>
+        </div>
+        <div class="g-profile-icon-container">
+            <img
+                class="g-profile-icon"
+                src="./assets/icons/profile-icon.svg"
+                alt="home icon"
+                (click)="handleNavigateToProfile()"
+            />
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Loading Spinner -->
+
+    <div *ngIf="isLoading; else negotiationRoomLoaded" class="l-spinner-holder">
+        <mat-progress-spinner
+            class="g-mat-progress-spinner"
+            mode="indeterminate"
+            [diameter]="40"
+        ></mat-progress-spinner>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Negotiating Room Content -->
+
+    <ng-template #negotiationRoomLoaded>
+        <div
+            *ngIf="negotiatingRoomCards && negotiatingRoomCards.length; else noNegotiatingRoomCards"
+            class="l-content-container"
+        >
+            <!-- #region Tab Header -->
+            <app-dashboard-header
+                [activeRoute]="'negotiations'"
+                [toggleIndex]="toggleIndex"
+                [toggles]="negotiatingToggles"
+                [showSearchBar]="searchInput || searchInput === ''"
+                ($changeToggleEvent)="handleToggleChange($event)"
+                ($searchInputEvent)="handleSearchInput($event)"
+            ></app-dashboard-header>
+
+            <!-- #endregion -->
+
+            <!-- #region Negotiating Room Cards -->
+
+            <div
+                *ngFor="let negotiatingRoomCard of filteredNegotiatingRoomCards"
+                class="l-card-container"
+                [class.g-fade-in]="animateIn"
+            >
+                <app-negotiation-card
+                    *ngIf="!notificationLotIds.includes(negotiatingRoomCard.id); else cardHasNotification"
+                    [negotiationCard]="negotiatingRoomCard"
+                    [hasActiveAgent]="hasActiveAgent"
+                ></app-negotiation-card>
+                <ng-template #cardHasNotification>
+                    <app-negotiation-card
+                        [negotiationCard]="negotiatingRoomCard"
+                        [notifications]="handleGetNotification(negotiatingRoomCard.id)"
+                        [hasActiveAgent]="hasActiveAgent"
+                    ></app-negotiation-card>
+                </ng-template>
+            </div>
+
+            <!-- #endregion -->
+        </div>
+
+        <ng-template #noNegotiatingRoomCards>
+            <div class="l-no-content-container">
+                <h1 class="g-text-h2-dark mx-2 mb-3">It's a bit empty here...</h1>
+                <p class="g-text-p-dark mx-5">Match with Lots to begin the negotiating process.</p>
+            </div>
+        </ng-template>
+    </ng-template>
+
+    <!-- #endregion -->
+</div>

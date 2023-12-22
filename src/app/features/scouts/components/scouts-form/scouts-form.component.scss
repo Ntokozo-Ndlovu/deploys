@@ -1,0 +1,278 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $background-color-grey;
+    overflow: auto;
+}
+
+.l-content {
+    @extend .l-container;
+    padding: 0px 16px 16px 16px;
+}
+
+.l-remove-padding-bottom {
+    padding-bottom: 0;
+}
+
+.l-header {
+    position: relative;
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.l-back-icon {
+    position: absolute;
+    left: 0;
+    width: 20.24px;
+    height: 13.5px;
+    margin-left: 16px;
+}
+
+.l-step-holder {
+    min-width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.l-show-slideIn {
+    animation: showSlideIn 0.5s;
+}
+
+@keyframes showSlideIn {
+    0% {
+        margin-left: 50%;
+        opacity: 0.5;
+    }
+    100% {
+        margin-left: 0;
+        opacity: 1;
+    }
+}
+
+.l-show-slideOut {
+    animation: showSlideOut 0.5s;
+}
+
+@keyframes showSlideOut {
+    0% {
+        margin-left: -50%;
+        opacity: 0.5;
+    }
+    100% {
+        margin-left: 0;
+        opacity: 1;
+    }
+}
+
+.l-step {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.l-step:last-child {
+    max-height: 100%;
+}
+
+.l-step-wide {
+    min-width: 100%;
+}
+
+.l-type-option,
+.l-type-option-selected {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $border-radius;
+    background-color: #ffffff;
+    font-family: $text-font;
+    font-size: 14px;
+    font-weight: 500;
+    color: $text-dark;
+    margin-bottom: 24px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+.l-type-option-selected {
+    background-color: $primary-color;
+    color: #ffffff;
+}
+
+.l-scout-type-container,
+.l-sa-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 48px;
+}
+.l-sa-container {
+    margin-bottom: 0;
+}
+
+.l-scout-option,
+.l-sa-option {
+    position: relative;
+    width: 47%;
+    height: 44px;
+    padding: 0 16px;
+    text-align: left;
+    font-family: $app-input-font;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 21px;
+    color: $text-dark;
+    border-radius: $border-radius;
+    background-color: #ffffff;
+    outline: none;
+    cursor: pointer;
+}
+.l-scout-option {
+    transition: 0.1s ease-in-out;
+    height: 56px;
+}
+
+.l-active-sell {
+    border: solid 1px $primary-green !important;
+}
+.l-active-buy {
+    border: solid 1px $primary-red !important;
+}
+
+.l-active-sa,
+.l-active-not-sa {
+    border: solid 1px $primary-color !important;
+}
+
+.l-scout-option-icon,
+.l-sa-icon {
+    position: absolute;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+}
+
+.l-stepper {
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.l-stepper-progress-step {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: $secondary-color;
+    margin-right: 4px;
+    margin-left: 4px;
+}
+
+.l-step-active {
+    background-color: $primary-color;
+}
+
+.l-info-container {
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.l-location-container {
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 16px;
+}
+
+.l-step-and-nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.l-margin {
+    margin-top: 38px;
+}
+
+.l-no-height {
+    line-height: normal;
+}
+
+.l-delivery-radius-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.l-fade-out {
+    animation: fadeOut 0.3s;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.l-fade-in {
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.l-map-holder {
+    border-radius: $border-radius;
+    overflow: hidden;
+}
+
+.l-large-view {
+    display: inline-block;
+}
+
+.l-small-view {
+    display: none;
+}
+
+@media screen and (max-width: 346px) {
+    .l-large-view {
+        display: none;
+    }
+
+    .l-small-view {
+        display: inline-block;
+    }
+}

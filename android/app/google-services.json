@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "663811423141",
+    "firebase_url": "https://skudumain.firebaseio.com",
+    "project_id": "skudumain",
+    "storage_bucket": "skudumain.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663811423141:android:8559e5fabfe53e322f064c",
+        "android_client_info": {
+          "package_name": "za.co.skudu.match"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663811423141-ecpu9qdnkgjadlok6nliteuireb4e11o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "za.co.skudu.match",
+            "certificate_hash": "e5b7b0844b366f54cdd55d2173c265fb57abf0cf"
+          }
+        },
+        {
+          "client_id": "663811423141-hgtqg5t10k3htiplgm0nu868aa06v7b5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "za.co.skudu.match",
+            "certificate_hash": "5c158fdbd60ac02028892201ce8d42e175c709aa"
+          }
+        },
+        {
+          "client_id": "663811423141-r8em9f97465ts5iltjbooi6oekmlrd6e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "za.co.skudu.match",
+            "certificate_hash": "0ebbe760e93dafc035cd89bb9b4c2545aae1f2ea"
+          }
+        },
+        {
+          "client_id": "663811423141-3v9t4d5oknf7kq6dpu0jakf0t5i68fu9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgnkCyCmJ4Uy6YGKNmtoQwSqBUzkatYq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663811423141-3v9t4d5oknf7kq6dpu0jakf0t5i68fu9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "663811423141-5lf9fr5e8gl2j2kv3kq9a252jtffj1n8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "za.co.skudu.match"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

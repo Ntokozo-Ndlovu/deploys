@@ -1,0 +1,32 @@
+<div class="g-app-dimensions">
+    <div class="l-container">
+        <div class="l-content">
+            <ng-lottie class="l-image" [options]="options"></ng-lottie>
+            <div class="l-success-text">
+                <ng-container *ngIf="!lotMatchId; else showSkuduMatchText">
+                    <h1 class="g-text-h1-dark mb-2"><b>Great!</b></h1>
+                    <h1 class="g-text-h1-dark">Let's get serious</h1>
+                </ng-container>
+                <ng-template #showSkuduMatchText>
+                    <h1 class="g-text-h1-dark mb-2"><b>Congratulations!</b></h1>
+                    <h1 class="g-text-h1-dark mb-4">You have a Match!</h1>
+                    <h2 class="g-text-h2">Your Match has been notified of this.</h2>
+                </ng-template>
+            </div>
+
+            <!-- #region Buttons -->
+            <div *ngIf="!lotMatchId; else showNegotiatingButton" class="l-negotiations">
+                <button mat-flat-button (click)="handleRouteToNegotiation()" class="g-primary-button mt-4">
+                    Let's Negotiate
+                </button>
+                <button class="g-secondary-button mt-3" (click)="handleContinueSwiping()">Continue swiping</button>
+            </div>
+            <ng-template #showNegotiatingButton>
+                <button mat-flat-button (click)="handleNavigateToNegotiationCard()" class="g-primary-button mt-4">
+                    {{ hasOpposingPartySubmitted ? 'View in completed negotiations' : 'View in negotiating room' }}
+                </button>
+            </ng-template>
+            <!-- #endregion -->
+        </div>
+    </div>
+</div>

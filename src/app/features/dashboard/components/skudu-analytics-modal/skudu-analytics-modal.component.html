@@ -1,0 +1,41 @@
+<div class="l-container">
+    <!-- #region Modal Header -->
+
+    <div class="l-header">
+        <img class="l-close-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleCloseModal()" />
+        <h2 class="g-text-h1-dark">Match Analytics</h2>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Modal Content -->
+
+    <div class="l-content">
+        <p class="g-text-p">
+            Number Of Buying Scouts: <b>{{ numberOfBuyingScouts }}</b>
+        </p>
+        <p class="g-text-p">
+            Number Of Selling Scouts: <b>{{ numberOfSellingScouts }}</b>
+        </p>
+        <p class="g-text-p">
+            Number Of Buying Lots: <b>{{ numberOfBuyingLots }}</b>
+        </p>
+        <p class="g-text-p">
+            Number Of Selling Lots: <b>{{ numberOfSellingLots }}</b>
+        </p>
+        <p class="g-text-p">
+            Total Matches: <b>{{ totalSkuduMatches }}</b>
+        </p>
+        <p class="g-text-p">
+            Volume Negotiated In Tons: <b>{{ volumeNegotiatedInTons }}</b>
+        </p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Buttons -->
+
+    <button class="g-primary-button" (click)="handleCloseModal()">Close</button>
+
+    <!-- #endregion -->
+</div>

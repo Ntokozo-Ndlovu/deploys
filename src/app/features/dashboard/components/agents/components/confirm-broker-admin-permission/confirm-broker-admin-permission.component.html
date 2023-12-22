@@ -1,0 +1,38 @@
+<div class="d-flex flex-column">
+  <!-- #region Header -->
+
+  <div class="d-flex flex-column">
+    <div class="d-flex flex-row justify-content-end w-100">
+      <img
+        class="g-modal-close-icon"
+        src="./assets/icons/close-icon-dark.svg"
+        alt="close"
+        (click)="handleCloseModal()" />
+    </div>
+    <h1 class="g-text-h1-dark mb-3 w-100">
+      <b>Confirm Broker Permission</b>
+    </h1>
+  </div>
+
+  <!-- #endregion -->
+
+  <!-- #region Modal Content -->
+
+  <div class="g-text-p-dark">
+    <p>
+      When 'YES' this setting lets your appointed Broker submit matches on your behalf.
+      When 'NO' you will be required to submit the final match.
+    </p>
+  </div>
+  <!-- #endregion -->
+
+  <!-- #region Buttons -->
+
+  <button
+    class="g-primary-button my-2"
+    (click)="handleCloseModal()">
+    OK
+  </button>
+
+  <!-- #endregion -->
+</div>

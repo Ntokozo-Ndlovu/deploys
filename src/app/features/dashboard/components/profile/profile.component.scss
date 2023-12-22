@@ -1,0 +1,342 @@
+@import 'src/variables.scss';
+@import 'src/styles.scss';
+
+.l-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: $app-bg-color;
+}
+
+.l-header {
+    width: 100%;
+    padding: 16px;
+    height: fit-content;
+    background-color: $background-color;
+    display: flex;
+    align-items: center;
+}
+
+.l-header-img-container {
+    margin: 0 auto;
+}
+
+.l-profile-img {
+    width: 36px;
+    height: auto;
+}
+
+.l-home-img {
+    width: 24px;
+    height: auto;
+}
+
+.l-content {
+    padding-bottom: 56px;
+}
+
+.l-tabs {
+    background-color: $background-color;
+    overflow: auto;
+    height: calc(100% - 70px);
+}
+
+.l-delivery-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.l-delivery-option {
+    width: 47%;
+    height: 56px;
+    text-align: left;
+    font-family: $text-font;
+    font-weight: 600;
+    color: $text-dark;
+    border-radius: $border-radius;
+    position: relative;
+    background-color: $background-color;
+    border: none;
+    padding-left: 16px;
+}
+
+.l-active-delivery {
+    border: solid 1px $primary-color !important;
+}
+
+.l-selected-icon {
+    position: absolute;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+}
+
+button:focus {
+    outline: none;
+}
+
+.l-content-holder {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background-color: $background-color-grey;
+}
+
+.l-admin-content-holder {
+    width: 100%;
+    height: calc(100% - 70px);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background-color: $background-color-grey;
+}
+
+.l-form {
+    width: 100%;
+    height: fit-content;
+}
+
+.l-active {
+    color: #ffffff;
+    background-color: $app-primary-button-bg-color;
+}
+
+.l-icon {
+    position: absolute;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+}
+
+.l-create-icon {
+    width: 18px;
+    height: auto;
+}
+
+.l-create-own-button {
+    background-color: $primary-color !important;
+    color: white !important;
+}
+
+.l-type-option,
+.l-type-option-selected {
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: $border-radius;
+    background-color: #ffffff;
+    font-family: $text-font;
+    font-size: 14px;
+    font-weight: 400;
+    color: $app-font-black;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    padding: 0 20px;
+    border: 1px solid $primary-color;
+}
+.l-type-option-selected {
+    background-color: $app-primary-button-bg-color;
+    color: #ffffff;
+}
+
+.l-input-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.l-search-input {
+    width: calc(100% - 114px - 16px);
+    padding-left: 50px;
+    color: $text-placeholder;
+    background-color: #ffffff;
+    border: 1px solid $input-border;
+}
+
+.l-search-icon {
+    position: absolute;
+    left: 32px;
+    top: 32px;
+    width: 22px;
+    height: auto;
+}
+
+.l-header-icons-container {
+    min-width: 120px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.l-header-icon-holder {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: $border-radius;
+    border: 1px solid $input-border;
+}
+
+.l-header-icon {
+    width: 23px;
+    height: auto;
+}
+
+.l-users-container {
+    margin: 16px 0;
+    background-color: #ffffff;
+    border-radius: $app-border-radius;
+}
+
+.l-user-count-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.l-pill {
+    margin-left: 8px;
+    padding: 0 16px;
+    color: $primary-color;
+    border-radius: $border-radius;
+    background-color: $secondary-color;
+}
+
+.l-current-filter-container {
+    position: relative;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.l-remove-filter-container {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.l-remove-filter-icon {
+    width: 14px;
+    height: auto;
+}
+
+.l-user-container {
+    width: 100%;
+    min-width: 300px;
+    height: fit-content;
+    cursor: pointer;
+}
+
+.l-padded-container {
+    width: calc(100% - 32px);
+    height: fit-content;
+    margin: 0 auto;
+    display: flex;
+    border-bottom: 1px solid $app-form-info-color;
+}
+
+.l-checkbox-container {
+    width: 10%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.l-checkbox-container {
+    input[type='checkbox'] {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -o-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        border: 1px solid $text-dark;
+    }
+    input[type='checkbox']:checked {
+        border: 1px solid $primary-color;
+        background-color: $primary-color;
+        background-image: url('/assets/icons/tick-icon.svg');
+        background-size: 13px auto;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+.l-user-info-container {
+    width: calc(100% - 42px);
+    height: 100%;
+    padding: 16px 4px;
+}
+
+.l-verification-icon-container {
+    width: 42px;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.l-verification-icon {
+    width: 100%;
+    height: auto;
+}
+
+.l-spinner-holder {
+    width: 100%;
+    height: calc(100vh - 160px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.l-verification-badge-container {
+    width: 100%;
+}
+
+.l-additional-registration-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 72px;
+    text-decoration: none !important;
+    font-size: 18px;
+    text-align: center;
+}
+
+.l-terms {
+    line-height: 24px;
+}
+
+.l-delete-account {
+    background: $app-delete-button-red;
+    border: $app-delete-button-red !important;
+    color: white;
+}
+
+.l-additional-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 20px;
+}

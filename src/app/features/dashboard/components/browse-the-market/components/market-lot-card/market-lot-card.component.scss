@@ -1,0 +1,55 @@
+@import 'src/variables.scss';
+
+.l-container {
+    border-radius: $border-radius;
+    background-color: $background-color;
+}
+
+.l-banner-sell {
+    padding: 8px 16px;
+    background-color: $secondary-green;
+}
+.l-banner-buy {
+    padding: 8px 16px;
+    background-color: $secondary-red;
+}
+
+.l-sell-text {
+    color: $primary-green;
+    text-align: left;
+}
+
+.l-buy-text {
+    color: $primary-red;
+    text-align: left;
+}
+
+.l-detail {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    overflow: hidden;
+}
+
+.l-detail-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 16px;
+}
+
+.l-border {
+    border-top: 1px solid $input-border;
+}
+
+.l-button {
+    width: 100%;
+    height: 56px;
+    background-color: #ffffff;
+    font-size: 18px;
+    font-weight: $button-font-weight;
+    font-family: $text-font;
+    color: $primary-color;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}

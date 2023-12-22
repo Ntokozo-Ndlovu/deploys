@@ -1,0 +1,85 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: 100%;
+    background-color: $app-bg-color;
+    overflow: auto;
+}
+
+.l-header {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    background-color: $background-color;
+}
+
+.l-back-icon {
+    position: absolute;
+    left: 16px;
+    top: 20px;
+    width: 20.24px;
+    height: 13.5px;
+}
+
+.l-spinner-holder {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.l-icon {
+    width: 70px;
+    height: auto;
+}
+
+.l-info-icon-img {
+    width: 20px;
+    height: 20px;
+}
+
+.l-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 12px auto 0 auto;
+    cursor: pointer;
+}
+
+.l-clearing-content {
+    padding: 8px 24px;
+}
+
+.l-text {
+    font-size: 16px;
+}
+
+.l-content-container {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+    overflow: auto;
+    background-color: $background-color-grey;
+}
+
+.l-card-container {
+    width: 100%;
+    height: fit-content;
+    padding: 8px;
+}
+
+.l-no-content-container {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

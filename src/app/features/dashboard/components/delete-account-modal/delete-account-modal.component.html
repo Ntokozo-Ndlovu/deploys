@@ -1,0 +1,31 @@
+<div class="l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img class="l-close-icon" src="./assets/icons/close-icon-dark.svg" alt="close" (click)="handleClose()" />
+        <h2 class="g-text-h2">
+            <b>Delete Account Request</b>
+        </h2>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Modal Content -->
+
+    <div class="l-content">
+        Click "Delete" to request the removal of your account and associated data. An MX representative will reach out
+        to confirm this, and your account will be deleted within 5 working days. If you are subscribed, your
+        subscription will end at the end of the current payment period.
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Buttons -->
+
+    <div class="l-buttons-container">
+        <button class="g-secondary-button mb-2" (click)="handleDelete()">Delete</button>
+        <button class="g-primary-button" mat-flat-button (click)="handleClose()">Cancel</button>
+    </div>
+
+    <!-- #endregion -->
+</div>

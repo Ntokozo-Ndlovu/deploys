@@ -1,0 +1,129 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: $border-radius;
+    background-color: $background-color;
+}
+
+.l-header {
+    width: 100%;
+    padding: 8px 16px 8px 16px;
+}
+
+.l-banner-sell {
+    background-color: $secondary-green;
+}
+
+.l-banner-buy {
+    background-color: $secondary-red;
+}
+
+.l-buy-text {
+    color: $primary-red;
+    text-align: left;
+}
+
+.l-sell-text {
+    color: $primary-green;
+    text-align: left;
+}
+
+.l-lot-name {
+    text-align: left;
+    width: 100%;
+    margin-right: 16px;
+}
+
+.l-edit-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding: 0 16px;
+    cursor: pointer;
+}
+
+.l-edit-text {
+    text-decoration: underline;
+    font-weight: $font-weight-semi-bold;
+    color: $primary-color;
+    margin: 0;
+}
+
+.l-type {
+    color: $primary-color;
+    background-color: $secondary-color;
+    font-weight: $font-weight-semi-bold;
+    padding: 2px 8px 2px 8px;
+    border-radius: $border-radius;
+    width: min-content;
+}
+
+.l-detail-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+    padding: 0 16px;
+    cursor: pointer;
+}
+
+.l-detail-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 16px;
+}
+
+.l-card-footer {
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    background-color: $background-color;
+    border-radius: 0px 0px $border-radius $border-radius;
+    border-top: solid 1px $background-color-grey;
+    min-height: 56px;
+    cursor: pointer;
+}
+
+.l-card-footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 18px;
+    color: $primary-color;
+    font-weight: $font-weight-semi-bold;
+}
+
+.l-count {
+    background-color: $primary-color;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: 4px solid $secondary-color;
+}
+
+.l-matches-arrow {
+    margin-right: 16px;
+    height: 30px;
+    align-self: center;
+}
+
+.l-content-holder {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    overflow: hidden;
+}

@@ -1,0 +1,200 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $background-color-grey;
+    overflow: auto;
+}
+
+.l-content {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+.l-spinner-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.l-back-icon {
+    position: absolute;
+    left: 0;
+    width: 20.24px;
+    height: 13.5px;
+}
+
+.l-edit-text {
+    position: absolute;
+    right: 0;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.l-header {
+    position: relative;
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.l-search-tabs {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.l-tab,
+.l-tab-sell,
+.l-tab-buy {
+    width: fit-content;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    padding: 0 16px;
+    font-family: $app-font;
+    font-size: 12px;
+    font-weight: 700;
+    color: $primary-color;
+    border-radius: $border-radius;
+    background-color: $secondary-color;
+}
+.l-tab-sell:first-child {
+    color: $primary-green;
+    background-color: $secondary-green;
+}
+.l-tab-buy:first-child {
+    color: $primary-red;
+    background-color: $secondary-red;
+}
+
+.l-results-card {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: $border-radius;
+    margin-bottom: 24px;
+    background-color: $background-color;
+}
+
+.l-results-card-content {
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.l-h1 {
+    font: $app-font;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: normal;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.l-match-count-sell,
+.l-match-count-buy {
+    width: 60%;
+    height: 76px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: $app-font;
+    font-size: 48px;
+    font-weight: 400;
+    color: #ffffff;
+    border-radius: $border-radius;
+    margin: 24px auto;
+    background-color: $primary-color;
+}
+
+.l-fine-tune-button {
+    background-color: #ffffff;
+    color: $primary-color;
+    position: relative;
+    border-radius: $border-radius !important;
+    font-family: $app-font;
+    font-size: 18px;
+    font-weight: $font-weight-semi-bold;
+    height: 40px;
+}
+
+.l-public-toggle {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    margin: 32px 0;
+}
+
+.l-public-card-sell,
+.l-public-card-buy {
+    width: 47%;
+    height: fit-content;
+    min-height: 100%;
+    font-family: $text-font;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: normal;
+    color: $medium-blue;
+    border-radius: $border-radius;
+    border: solid 1px $medium-blue;
+    background-color: #ffffff;
+    transition: 0.1s ease-in-out;
+    text-align: center;
+    padding: 8px 16px;
+    outline: none;
+    white-space: normal;
+}
+
+.l-active {
+    color: #ffffff;
+    background-color: $primary-color;
+}
+
+.l-edit-icon {
+    color: white;
+    position: absolute;
+    right: 20px;
+    top: 13px;
+}
+
+.l-sub-num {
+    font-weight: 0px !important;
+    font-size: 18px;
+}
+
+// #region Media Queries
+
+@media screen and (min-width: 360px) {
+    .l-match-count-sell,
+    .l-match-count-buy {
+        font-size: 60px;
+    }
+}
+
+// #endregion

@@ -1,0 +1,78 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: $border-radius;
+}
+
+.l-card {
+    position: relative;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: $app-border-radius;
+    transition: 0.3s ease-in-out;
+}
+
+.l-base-content {
+    width: 100%;
+    height: 170px;
+}
+
+.l-header {
+    width: 100%;
+    padding: 8px 16px 8px 16px;
+}
+
+.l-banner-sell {
+    background-color: $secondary-green;
+}
+
+.l-banner-buy {
+    background-color: $secondary-red;
+}
+
+.l-buy-text {
+    color: $primary-red;
+    text-align: left;
+}
+
+.l-sell-text {
+    color: $primary-green;
+    text-align: left;
+}
+
+.l-lot-name {
+    text-align: left;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 16px 16px 0 16px;
+}
+
+.l-detail-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
+    padding: 0 16px;
+    cursor: pointer;
+}
+
+.l-content-holder {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+.l-detail-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 16px;
+}

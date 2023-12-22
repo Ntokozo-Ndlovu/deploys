@@ -1,0 +1,14 @@
+<div class="l-container">
+    <img
+        class="l-close-icon"
+        src="./assets/icons/close-icon-dark.svg"
+        alt="Black cross / close icon"
+        (click)="handleClose()"
+    />
+    <h1 class="g-text-h1-dark mb-4">This is a Premium Feature</h1>
+    <p class="g-text-p-dark mb-4">{{ data.featurePhrase }}</p>
+    <p class="g-text-p-dark mb-4">{{ data.subscribeText }}</p>
+    <button class="g-primary-button" mat-flat-button (click)="handleNavigateToSubscribeToBeVerified()">
+        Verify / Subscribe
+    </button>
+</div>

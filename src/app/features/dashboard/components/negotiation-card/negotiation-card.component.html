@@ -1,0 +1,194 @@
+<div
+    class="l-container"
+    [ngClass]="{
+        'g-card-border-sell': negotiationCard.lotType === 'Sell',
+        'g-card-border-buy': negotiationCard.lotType === 'Buy'
+    }"
+>
+    <div class="l-card g-fade-in" [ngStyle]="{ height: cardHeight }">
+        <!-- #region Base Content -->
+
+        <div class="l-base-content" (click)="handleToggleIsExpanded()">
+            <!-- #region Header -->
+
+            <div
+                class="l-header"
+                [ngClass]="{
+                    'l-banner-sell': negotiationCard.lotType === 'Sell',
+                    'l-banner-buy': negotiationCard.lotType === 'Buy'
+                }"
+            >
+                <h2
+                    [ngClass]="{
+                        'l-sell-text': negotiationCard.lotType === 'Sell',
+                        'l-buy-text': negotiationCard.lotType === 'Buy'
+                    }"
+                    class="g-text-h2"
+                >
+                    <b>{{ negotiationCard.lotType.toLocaleUpperCase() }}</b>
+                </h2>
+                <span
+                    *ngIf="hasActiveAgent && cardStatusTag"
+                    class="l-tag"
+                    (click)="handleOpenPaymentDetails($event)"
+                    >{{ cardStatusTag }}</span
+                >
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Lot Name / Edit -->
+
+            <h2 class="g-text-h2-dark l-lot-name">
+                {{ negotiationCard.lotName }}
+            </h2>
+
+            <!-- #endregion -->
+
+            <!-- #region Content -->
+
+            <div class="l-detail-container">
+                <div class="l-content-holder">
+                    <img class="l-detail-icon" src="./assets/icons/crop-icon.svg" alt="" />
+                    <p class="g-text-card-prop">{{ negotiationCard.cropName }}</p>
+                </div>
+                <div class="l-content-holder">
+                    <img class="l-detail-icon" src="./assets/icons/delivery-box.svg" alt="" />
+                    <p class="g-text-card-prop">{{ negotiationCard.quantity }} {{ negotiationCard.unitOfMeasure }}</p>
+                </div>
+                <div class="l-content-holder">
+                    <img class="l-detail-icon" src="./assets/icons/calendar.svg" alt="location-icon" />
+                    <p class="g-text-card-prop">
+                        {{ negotiationCard.dateFrom | date: 'dd/MM/yy' }} -
+                        {{ negotiationCard.dateTo | date: 'dd/MM/yy' }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- #endregion -->
+
+            <!-- #region Card Footer -->
+
+            <div *ngIf="!negotiationCard.isCompleted; else showCompletedFooter" class="l-card-footer g-text-h2">
+                <div class="d-flex align-items-center">
+                    <p class="l-card-footer-content">Negotiations</p>
+                    <p class="l-count">{{ activeNegotiationsCount }}</p>
+                </div>
+                <div class="d-flex">
+                    <div class="d-flex justify-content-centre align-items-centre">
+                        <img
+                            class="l-matches-arrow"
+                            [ngClass]="isExpanded ? 'l-rotate-icon-up' : 'l-rotate-icon-down'"
+                            src="./assets/icons/arrow-down-icon.svg"
+                            alt="arrow-icon"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #showCompletedFooter>
+                <div class="l-footer-complete">
+                    <div class="d-flex align-items-center" (click)="handleRouteToCompletedNegotiation()">
+                        <p class="l-view-text">View</p>
+                        <img class="l-chevron-right" src="./assets/icons/arrow-down-icon.svg" alt="expand-content" />
+                    </div>
+                </div>
+            </ng-template>
+
+            <!-- #endregion -->
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region DropDown Content -->
+
+        <div
+            *ngIf="!negotiationCard.isCompleted && isExpanded && animateIn"
+            class="l-expanded-content"
+            [class.g-fade-in]="animateIn"
+        >
+            <div
+                *ngFor="let activeNegotiation of negotiationCard.activeNegotiations"
+                class="l-active-negotiation-container"
+                (click)="handleRouteToNegotiation(activeNegotiation.lotMatchId, activeNegotiation.isPending)"
+            >
+                <!-- #region Detail Row (Price & ID) -->
+
+                <div class="l-negotiation-detail-row">
+                    <div class="d-flex justify-content-between w-100">
+                        <span class="d-flex align-items-center"
+                            ><img class="l-price-icon" src="./assets/icons/database-icon.svg" alt="price" />
+                            <p class="g-text-p">
+                                <b
+                                    >{{ activeNegotiation.isSafexMinus === true ? '-' : '' }}R
+                                    {{ activeNegotiation.price }} per {{ activeNegotiation.unitOfMeasure }}</b
+                                >
+                            </p></span
+                        >
+                        <div class="d-flex align-items-center">
+                            <!-- #region Notification Dot -->
+
+                            <div
+                                *ngIf="notificationCounts[activeNegotiation.lotMatchId]"
+                                class="g-notification-dot-block"
+                            >
+                                {{ notificationCounts[activeNegotiation.lotMatchId] }}
+                            </div>
+
+                            <!-- #endregion -->
+                            <span class="g-text-p-dark ml-1">Lot Match ID: {{ activeNegotiation.lotMatchId }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+
+                <!-- #region Detail Row (Match & View Trade) -->
+
+                <div class="l-negotiation-detail-row mt-2">
+                    <div>
+                        <div class="l-match-header">
+                            <ng-container *ngIf="activeNegotiation.isPending; else showMatchedPropertyCount">
+                                <p class="g-text-p">
+                                    <i>Pending...</i>
+                                </p>
+                            </ng-container>
+                            <ng-template #showMatchedPropertyCount>
+                                <p class="g-text-p">Match</p>
+                                <p class="g-text-p pl-2">{{ activeNegotiation.matchedPropertyCount }}/7</p>
+                            </ng-template>
+                        </div>
+                        <div class="l-match-bar">
+                            <div
+                                class="l-match-fill"
+                                [ngClass]="{
+                                    'l-1': activeNegotiation.matchedPropertyCount === 1,
+                                    'l-2': activeNegotiation.matchedPropertyCount === 2,
+                                    'l-3': activeNegotiation.matchedPropertyCount === 3,
+                                    'l-4': activeNegotiation.matchedPropertyCount === 4,
+                                    'l-5': activeNegotiation.matchedPropertyCount === 5,
+                                    'l-6': activeNegotiation.matchedPropertyCount === 6,
+                                    'l-7': activeNegotiation.matchedPropertyCount === 7
+                                }"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <p class="l-view-text">View</p>
+                    </div>
+                </div>
+
+                <!-- #endregion -->
+            </div>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Notification Dot -->
+
+        <div *ngIf="_notifications?.length" class="g-notification-dot-protrude">{{ _notifications?.length }}</div>
+
+        <!-- #endregion -->
+    </div>
+</div>

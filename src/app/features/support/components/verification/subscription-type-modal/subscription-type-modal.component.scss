@@ -1,0 +1,36 @@
+@import 'src/variables.scss';
+
+.l-container {
+    position: relative;
+}
+
+.l-close-icon {
+    width: 24px;
+    height: auto;
+    position: absolute;
+    right: 0px;
+    cursor: pointer;
+}
+
+.l-verification-icon {
+    width: 48px;
+    height: auto;
+    margin: auto;
+    display: flex;
+}
+
+.l-verification-option {
+    margin: 8px 0px;
+    border: 1px solid $primary-color;
+    padding: 16px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.l-button-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none !important;
+    color: #ffffff !important;
+}

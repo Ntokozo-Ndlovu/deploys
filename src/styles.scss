@@ -1,0 +1,1152 @@
+// General imports
+@import 'src/variables';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+// Font imports
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@500;600&display=swap');
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #a2a2a2;
+}
+.g-app-dimensions {
+    position: relative;
+    width: 100%;
+    max-width: 576px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+// #region Text
+.g-text-h1,
+.g-text-h2,
+.g-text-p {
+    font-family: $app-font;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-align: center;
+    margin: 0;
+}
+.g-text-h1 {
+    font-size: 24px;
+}
+.g-text-h2 {
+    font-size: 14px;
+}
+.g-text-p {
+    font-size: 12px;
+}
+.g-text-grey {
+    color: $app-text-grey;
+}
+.g-text-green {
+    color: $app-primary-button-bg-color;
+}
+.g-text-input {
+    font-family: $text-font;
+    font-size: 16px;
+    font-weight: $font-weight-light;
+    color: $text-dark;
+}
+
+.g-edit-icon {
+    @extend .g-text-p;
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    width: auto;
+    height: auto;
+    color: $app-primary-button-bg-color;
+    font-size: 12px !important;
+}
+.g-text-form-header {
+    font-family: $app-font;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-align: center;
+    margin: 0;
+}
+
+.g-modal-close-icon {
+  width: 18px;
+  height: auto;
+}
+
+
+// #endregion
+
+// #region Form
+.g-form-input-group,
+.g-form-double-input-container {
+    width: 100%;
+}
+
+.g-form-double-input-group {
+    width: 45%;
+}
+
+.g-form-label {
+    font-family: $app-font;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: normal;
+    color: $app-font-black;
+}
+
+.g-form-label-dark {
+    font-family: $app-font;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: normal;
+    color: $app-font-black;
+}
+
+.g-form-input,
+.g-form-select {
+    width: 100%;
+    height: 56px;
+    padding-left: 16px;
+    border: none;
+    border-radius: $border-radius;
+    background-color: $background-color !important;
+    outline: none !important;
+    @extend .g-text-input;
+}
+.g-form-input::-webkit-input-placeholder {
+    color: $app-font-input-placeholder;
+}
+
+::ng-deep .mat-select-panel{
+     background: $background-color !important;
+ }
+
+.g-form-select {
+    box-sizing: border-box;
+    overflow: hidden;
+    color: $app-font-input-placeholder;
+    option {
+        max-width: 100%;
+    }
+    .mat-select-trigger {
+        min-height: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-right: 16px;
+    }
+    .mat-select-value {
+        display: unset;
+        max-width: unset;
+    }
+}
+
+.g-mat-select-placeholder {
+    .mat-select-placeholder {
+        color: unset !important;
+    }
+}
+
+.mat-select-panel {
+    min-width: 100% !important;
+    max-width: 100% !important;
+    border-radius: $border-radius !important;
+}
+
+.mat-select {
+    height: 56px;
+    border-radius: 4px;
+    box-shadow: none !important;
+}
+
+.mat-select-arrow {
+    width: 10px !important;
+    height: 10px !important;
+    border-bottom: 2px solid !important;
+    border-right: 2px solid !important;
+    border-top: 0px !important;
+    border-left: 0px !important;
+    transform: rotate(45deg);
+}
+
+.mat-option {
+    @extend .g-text-input;
+}
+
+.g-form-info-icon {
+    width: 10.45px;
+    height: 10.45px;
+    margin-right: 4px;
+}
+
+.g-form-info-p {
+    font-family: $app-font;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: normal;
+    color: $app-form-info-color;
+}
+
+.g-form-header {
+    background-color: $app-primary-button-bg-color;
+    color: white;
+    width: 100%;
+    padding: 8px 8px;
+    font-weight: 700;
+}
+.g-form-back-icon {
+    position: absolute;
+    left: 32px;
+    top: 11px;
+    width: 20.24px;
+    height: 13.5px;
+}
+// #endregion
+
+// #region Button
+.g-btn-primary,
+.g-btn-card,
+.g-btn-card-no-bg,
+.g-btn-modal,
+.g-btn-blue,
+.g-btn-disabled,
+.g-btn-bordered,
+.g-btn-bordered-red {
+    width: 90%;
+    min-height: 44px;
+    border: none;
+    border-radius: $app-border-radius !important;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: normal;
+    color: #ffffff;
+    background-color: $app-primary-button-bg-color;
+    @extend .g-clickable;
+    outline: none !important;
+    transition: ease-in-out 0.3s;
+}
+
+.g-btn-card,
+.g-btn-card-no-bg,
+.g-btn-modal,
+.g-btn-blue {
+    font-family: $app-font;
+    font-size: 16px;
+    font-weight: 500;
+}
+.g-btn-card-no-bg {
+    color: $app-font-black;
+    background-color: #ffffff;
+}
+.g-btn-modal {
+    color: $app-text-grey;
+    background-color: $app-bottom-nav-item-bg;
+}
+.g-btn-blue {
+    color: #ffffff;
+    background-color: $app-tabs-negotiations-blue;
+}
+
+.g-btn-disabled {
+    color: #ffffff !important;
+    background-color: $app-text-grey !important;
+    opacity: 0.35 !important;
+}
+
+.g-btn-delete {
+    width: 90%;
+    min-height: 44px;
+    border: none;
+    @extend .g-text-h2;
+    color: $app-delete-button-red;
+    @extend .g-clickable;
+    background-color: transparent;
+    outline: none !important;
+}
+
+.g-btn-delete-icon {
+    width: 13.38px;
+    height: 16.46px;
+    margin-left: 10px;
+}
+
+.g-double-btn,
+.g-double-btn-primary {
+    height: 53px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: $app-font;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: $app-border-radius !important;
+    outline: none !important;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+.g-double-btn {
+    width: 40%;
+    color: $app-delete-button-red;
+    background-color: transparent;
+}
+.g-double-btn-primary {
+    width: 60%;
+    color: #ffffff;
+    background-color: $app-primary-button-bg-color;
+    box-shadow: $app-box-shadow;
+}
+
+.g-btn-bordered {
+    border: 1px solid $app-primary-button-bg-color !important;
+    background-color: #ffffff;
+    color: $app-primary-button-bg-color;
+}
+.g-btn-bordered-red {
+    border: 1px solid $app-delete-button-red !important;
+    background-color: #ffffff;
+    color: $app-font-black;
+}
+// #endregion
+
+// #region Animations
+
+.g-fade-in {
+    animation: fadeIn 0.3s 1 forwards;
+}
+
+.g-fade-in-right {
+    animation: fadeInRight 0.3s 1 forwards;
+}
+
+.g-fade-in-top {
+    animation: fadeInTop 0.3s 1 forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+    }
+    5% {
+        margin-left: 50%;
+    }
+    100% {
+        opacity: 1;
+        margin-left: 0;
+    }
+}
+
+@keyframes fadeInTop {
+    0% {
+        opacity: 0;
+    }
+    5% {
+        margin-top: -50%;
+    }
+    100% {
+        opacity: 1;
+        margin-top: 0;
+    }
+}
+
+// #endregion
+
+// #region Icons
+
+.g-header-mx-icon {
+    width: 45px;
+    height: auto;
+}
+
+.g-profile-icon-container {
+    width: 45px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.g-profile-icon {
+    width: 18px;
+    height: auto;
+    cursor: pointer;
+}
+
+.g-home-icon {
+    position: absolute;
+    left: 16px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.g-MX-icon {
+    position: absolute;
+    left: 16px;
+    width: 45px;
+    cursor: pointer;
+}
+
+.g-nav-info-icon {
+    position: absolute;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.g-card-info-icon {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+// #endregion
+
+// #region Stepper
+.g-stepper-hide-header {
+    .mat-horizontal-stepper-header-container {
+        display: none;
+    }
+    .mat-horizontal-content-container {
+        padding: 0;
+    }
+}
+
+.g-stepper-sign-up {
+    .mat-horizontal-stepper-header-container {
+        display: none;
+    }
+    .mat-horizontal-content-container {
+        padding: 0;
+    }
+}
+
+.g-stepper-hide-overlay {
+    .mat-focus-indicator {
+        background-color: transparent !important;
+    }
+}
+// #endregion
+
+// #region MatTabs
+
+.mat-tab-header-pagination {
+    display: none !important;
+}
+
+.g-mat-tabs-scout {
+    width: 100% !important;
+    .mat-tab-header {
+        width: 100%;
+        height: 50px;
+    }
+    .mat-tab-label {
+        width: 50% !important;
+        font-family: $app-font;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: normal;
+        color: $app-font-black;
+        opacity: 1;
+    }
+    .mat-ink-bar {
+        height: 5px !important;
+        border-top-left-radius: $app-border-radius !important;
+        border-top-right-radius: $app-border-radius !important;
+        background-color: $primary-color !important;
+    }
+}
+
+.g-mat-tabs-dashboard {
+    .mat-tab-header .mat-tab-labels {
+        justify-content: space-evenly !important;
+    }
+    .mat-tab-label {
+        min-width: 33% !important;
+        width: 100%;
+        font-size: 14px;
+        font-family: $text-font;
+        font-weight: $font-weight-regular;
+        color: $text-dark;
+        opacity: 0.6;
+    }
+    .mat-tab-label-active {
+        color: $primary-color;
+        font-weight: $font-weight-semi-bold;
+        opacity: 1 !important;
+    }
+    .mat-ink-bar {
+        background-color: $primary-color !important;
+    }
+    .mat-tab-body-wrapper {
+        height: 100%;
+    }
+    .mat-tab-body-content {
+        overflow: hidden;
+    }
+}
+
+.g-mat-tabs-profile {
+    width: 100% !important;
+    height: 100% !important;
+    .mat-tab-header {
+        width: 100%;
+        height: 50px;
+        border: none !important;
+        z-index: 2;
+    }
+    .mat-tab-list {
+        flex-grow: unset;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+    .mat-tab-labels {
+        width: 85% !important;
+    }
+    .mat-tab-label {
+        width: 33.3333333% !important;
+        font-family: $app-font;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: normal;
+        color: #ffffff;
+        opacity: 1;
+    }
+    .mat-tab-header-pagination {
+        display: none !important;
+    }
+    .mat-ink-bar {
+        height: 5px !important;
+        border-top-left-radius: $app-border-radius !important;
+        border-top-right-radius: $app-border-radius !important;
+        background-color: #ffffff !important;
+    }
+    .mat-tab-body-wrapper {
+        flex-grow: 1;
+    }
+    .mat-tab-body-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden !important;
+    }
+}
+
+.g-mat-tabs-bg-profile {
+    .mat-tab-header {
+        background-color: $app-tabs-marketplace-green;
+    }
+}
+
+.g-mat-tabs-bg-negotiations {
+    .mat-tab-header {
+        background-color: $app-tabs-negotiations-blue;
+    }
+}
+// #endregion
+
+// #region MatAutoComplete
+.g-mat-autocomplete {
+    border-bottom-left-radius: $app-border-radius !important;
+    border-bottom-right-radius: $app-border-radius !important;
+    box-shadow: $app-box-shadow;
+}
+.g-mat-option-text {
+    @extend .g-text-input;
+}
+// #endregion
+
+// #region MatSlider
+.g-mat-slider {
+    width: 100%;
+    .mat-slider-track-fill,
+    .mat-slider-thumb {
+        background-color: $primary-color;
+    }
+}
+// #endregion
+
+// #region Map
+.g-delivery-form-map {
+    width: 100%;
+    height: 297px;
+    box-shadow: $app-box-shadow !important;
+    overflow: auto;
+}
+// #endregion
+
+// #region MatCheckBox
+.g-mat-checkbox {
+    .mat-checkbox-layout {
+        margin-bottom: 0;
+    }
+}
+.g-mat-checkbox.mat-checkbox-checked {
+    .mat-ripple-element {
+        background-color: $primary-color !important;
+    }
+    .mat-checkbox-background {
+        background-color: $primary-color !important;
+    }
+}
+// #endregion
+
+// #region MatDatePicker
+.g-mat-datepicker {
+    .mat-date-range-input-container {
+        height: 100%;
+    }
+}
+// #endregion
+
+// #region MatDialog
+.g-modal-container {
+    max-width: unset !important;
+    .mat-dialog-container {
+        min-width: unset !important;
+        width: 90vw;
+        max-width: 518px !important;
+        height: fit-content;
+        max-height: 90vh !important;
+        overflow: auto !important;
+        padding: 24px;
+    }
+}
+
+.g-modal-container-sm-padding {
+    max-width: unset !important;
+    .mat-dialog-container {
+        min-width: unset !important;
+        width: 90vw;
+        max-width: 518px !important;
+        height: fit-content;
+        padding: 8px !important;
+    }
+}
+
+.g-modal-scroll-container {
+    @extend .g-modal-container;
+    .mat-dialog-container {
+        height: unset !important;
+        padding: 0px !important;
+    }
+}
+.g-modal-fullwidth-container {
+    max-width: unset !important;
+    .mat-dialog-container {
+        min-width: unset !important;
+        width: 100vw;
+        max-width: 576px;
+        height: auto;
+        overflow: scroll;
+        border-radius: 0px;
+        padding: 0;
+    }
+}
+.g-modal-fullwidth-transparent-container {
+    max-width: unset !important;
+    .mat-dialog-container {
+        min-width: unset !important;
+        width: 100vw;
+        max-width: 576px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0px;
+        box-shadow: unset;
+        padding: 0;
+        background-color: transparent;
+    }
+}
+// #endregion
+
+// #region Modal Stepper
+.g-stepper-modal {
+    .mat-step-header .mat-step-icon-selected,
+    .mat-step-header .mat-step-icon-state-done {
+        background-color: $app-primary-button-bg-color !important;
+        color: white !important;
+    }
+
+    .mat-step-label {
+        min-width: unset !important;
+    }
+
+    .mat-stepper-horizontal-line {
+        border-top-width: 4px !important;
+        border-top-style: solid;
+        border-radius: 16px !important;
+    }
+
+    .mat-horizontal-stepper-header {
+        pointer-events: none !important;
+    }
+
+    .mat-step-header .mat-step-icon-state-edit {
+        background-color: grey;
+    }
+}
+// #endregion
+
+// #region Global Mat Overrides
+.mat-expansion-panel-header {
+    padding: 28px 24px !important;
+    font-weight: 500;
+    height: 100%;
+}
+
+.mat-expansion-panel {
+    box-shadow: none !important;
+}
+
+.mat-expansion-panel-body {
+    padding: 16px 24px 16px !important;
+}
+
+.mat-stepper-horizontal {
+    min-width: 100% !important;
+}
+
+.mat-calendar-body-selected {
+    background-color: $primary-color !important;
+}
+.mat-calendar-body-in-range::before {
+    background-color: rgba(49, 88, 160, 0.2);
+}
+// #endregion
+
+// #region Other
+.g-edit-icon {
+    margin-left: 10px;
+}
+
+.clickable,
+.g-clickable {
+    cursor: pointer;
+}
+
+.g-white-text {
+    color: white;
+}
+
+.g-logo-header-container {
+    display: flex;
+    align-items: center;
+}
+
+.g-card-border-sell {
+    border: $secondary-green;
+    border-style: solid;
+    border-radius: $border-radius;
+    border-width: 2px;
+}
+.g-card-border-buy {
+    border: $secondary-red;
+    border-style: solid;
+    border-radius: $border-radius;
+    border-width: 2px;
+}
+// #endregion
+
+// #region MatSnackBar
+
+.g-snack-error {
+    .mat-button-wrapper {
+        color: $app-delete-button-red;
+        font-size: 14px;
+    }
+    .mat-button {
+        outline: none !important;
+    }
+}
+
+.g-snack-success {
+    .mat-button-wrapper {
+        color: white;
+        font-size: 14px;
+    }
+    .mat-button {
+        outline: none !important;
+    }
+}
+
+.g-snack-notification {
+    background-color: $app-tabs-negotiations-blue;
+    color: white;
+}
+
+.g-snack-success {
+    background-color: $app-primary-button-bg-color;
+    color: white;
+}
+
+.g-snack-notification {
+    .mat-button-wrapper {
+        color: white;
+        font-size: 14px;
+    }
+    .mat-button {
+        outline: none !important;
+    }
+}
+
+// #endregion
+
+// #region Mat Ripple
+
+.g-mat-ripple {
+    .mat-ripple-element {
+        z-index: -1;
+    }
+}
+
+// #endregion
+
+// #region Notifications
+
+.g-notification-dot,
+.g-notification-dot-protrude,
+.g-notification-dot-block {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: $app-notification-red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: $app-font;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-align: center;
+    font-size: 12px;
+    animation: fadeInBounce 0.3s 1 forwards;
+}
+.g-notification-dot-protrude {
+    top: -6px;
+    right: -6px;
+}
+.g-notification-dot-block {
+    position: unset;
+    top: unset;
+    right: unset;
+    display: flex;
+}
+
+@keyframes fadeInBounce {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.5;
+        color: $app-delete-button-red;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        color: #ffffff;
+    }
+}
+
+// #endregion
+
+// #region Media Queries
+@media only screen and (min-width: 360px) {
+    .g-text-h2 {
+        font-size: 16px;
+    }
+    .g-text-p {
+        font-size: 14px;
+    }
+    .g-btn-card,
+    .g-btn-card-no-bg,
+    .g-btn-modal {
+        font-size: 19px;
+    }
+    .g-mat-tabs-profile {
+        .mat-tab-label {
+            font-size: 16px;
+        }
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .g-app-dimensions {
+        width: 576px;
+    }
+    .g-modal-container {
+        .mat-dialog-container {
+            width: 518px;
+        }
+    }
+}
+
+// #endregion
+
+// #region Match Exchange
+
+// #region text
+
+.g-text-h1-dark,
+.g-text-h2-dark,
+.g-text-p-dark,
+.g-text-p-small-dark,
+.g-text-card-prop,
+.g-text-label {
+    font-family: $text-font;
+    letter-spacing: normal;
+    text-align: center;
+    margin: 0;
+    color: $text-dark;
+}
+
+.g-text-h1-dark {
+    font-weight: $font-weight-bold;
+    font-size: 24px;
+}
+
+.g-text-h2-dark {
+    font-weight: $font-weight-semi-bold;
+    font-size: 18px;
+}
+
+.g-text-p-dark {
+    font-weight: $font-weight-regular;
+    font-size: 14px;
+}
+
+.g-text-p-small-dark {
+    font-weight: $font-weight-light;
+    font-size: 12px;
+}
+
+.g-text-p-small-grey {
+    font-weight: $font-weight-light;
+    font-size: 12px;
+    font-family: $text-font;
+    letter-spacing: normal;
+    color: $text-placeholder;
+}
+
+.g-text-label {
+    font-size: 18px;
+    font-weight: $font-weight-regular;
+    text-align: left;
+}
+
+.g-text-blue {
+    color: $primary-color;
+}
+
+.g-text-card-prop {
+    font-weight: $font-weight-regular;
+    font-size: 16px;
+}
+
+// #endregion
+
+// #region text input
+
+.g-text-input-container {
+    position: relative;
+    background-color: $background-color;
+    width: 100%;
+    height: 56px !important;
+    border: solid 1px $input-border !important;
+    border-radius: $border-radius;
+}
+
+.g-text-input-container:hover {
+    border: solid 1px $primary-color !important;
+}
+
+.g-input-text {
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+    font-family: $text-font;
+    letter-spacing: normal;
+    color: $text-dark;
+    padding-left: 52px;
+    border: none;
+    background-color: $background-color;
+    border-radius: $border-radius;
+    font-size: 16px;
+    font-family: $text-font;
+    color: $text-dark;
+}
+
+.g-input-text::-webkit-input-placeholder {
+    color: $text-placeholder;
+    font-family: $text-font;
+    font-size: 16px;
+}
+
+.g-input-text-icon {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 20px;
+    z-index: 2;
+}
+
+.g-input-text-no-icon {
+    @extend .g-input-text;
+    padding-left: 16px !important;
+    font-family: $text-font;
+    color: $text-dark;
+}
+
+input:focus {
+    outline: none;
+}
+
+.g-input-validation-text-error {
+    @extend .g-text-p-small-dark;
+    color: $error-message;
+}
+
+// #endregion
+
+// #region select input
+
+.g-input-select {
+    width: 100%;
+    height: 56px;
+    padding-left: 16px;
+    border-radius: $border-radius;
+    outline: none !important;
+    font-size: 16px;
+    font-family: $text-font;
+    letter-spacing: normal;
+    margin: 0;
+    color: $text-dark;
+    background-color: #ffffff;
+    border: solid 1px $input-border !important;
+    option {
+        max-width: 100%;
+    }
+    .mat-select-trigger {
+        min-height: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-right: 16px;
+    }
+    .mat-select-value {
+        display: unset;
+        max-width: unset;
+    }
+}
+.g-input-select:hover {
+    border: solid 1px $primary-color !important;
+}
+
+// #endregion
+
+// #region buttons
+
+.g-primary-button {
+    width: 100%;
+    min-height: 56px;
+    background-color: $primary-color;
+    color: #ffffff;
+    border-radius: $border-radius !important;
+    font-size: 18px;
+    font-weight: $button-font-weight;
+    font-family: $text-font;
+    @extend .g-clickable;
+    border: none !important;
+    outline: none !important;
+}
+
+.g-disabled-button {
+    background-color: $disabled-color !important;
+    @extend .g-primary-button;
+}
+
+.g-secondary-button {
+    width: 100%;
+    min-height: 56px;
+    background-color: $background-color;
+    color: $text-dark;
+    border-radius: $border-radius !important;
+    font-size: 18px;
+    font-weight: $button-font-weight;
+    font-family: $text-font;
+    @extend .g-clickable;
+    border: solid 1px $primary-color !important;
+    outline: none !important;
+}
+
+.g-google-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 56px;
+    color: $text-dark;
+    border-radius: $border-radius;
+    background-color: $background-color;
+    width: 100%;
+    border: solid 1px $input-border;
+    outline: none !important;
+}
+
+// #endregion
+
+// #region info text
+
+.g-info-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.g-info-icon {
+    height: 24px;
+    width: 24px;
+    margin-right: 16px;
+}
+
+// #region MatProgressSpinner
+
+.g-mat-progress-spinner-blue {
+    circle {
+        stroke: $primary-color !important;
+    }
+}
+.g-mat-progress-spinner-white {
+    circle {
+        stroke: #ffffff !important;
+    }
+}
+
+// #endregion
+
+// #endregion

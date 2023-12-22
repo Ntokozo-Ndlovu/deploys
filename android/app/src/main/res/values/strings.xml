@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Skudu Match</string>
+    <string name="title_activity_main">Skudu Match</string>
+    <string name="package_name">za.co.skudu.match</string>
+    <string name="custom_url_scheme">za.co.skudu.match</string>
+    <string name="server_client_id">663811423141-3v9t4d5oknf7kq6dpu0jakf0t5i68fu9.apps.googleusercontent.com</string>
+</resources>

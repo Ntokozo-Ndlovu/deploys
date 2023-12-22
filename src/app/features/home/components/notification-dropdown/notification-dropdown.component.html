@@ -1,0 +1,78 @@
+<div class="l-container" (click)="$event.stopPropagation()">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <h1 class="g-text-h1">Notifications</h1>
+        <p class="g-text-p l-blue g-clickable" (click)="handleClearAllNotifications()"><b>Clear All</b></p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Notifications -->
+
+    <p *ngIf="!notificationsExist; else showNotifications" class="g-fade-in g-text-p mt-3">
+        <i>You don't have any new notifications</i>
+    </p>
+
+    <ng-template #showNotifications>
+        <!-- #region Incomplete User Profile Notification -->
+
+        <div *ngIf="incompleteUserProfileItems.length" class="l-notifications-container">
+            <div class="l-secondary-header">
+                <h2 class="g-text-h2 pb-2">
+                    <b>Profile</b>
+                </h2>
+                <p class="g-text-p">1</p>
+            </div>
+            <div class="l-notification" [mat-ripple]>
+                <div class="l-profile-notification-info-container" (click)="handleNavigateToProfile()">
+                    <div class="l-notification-dot-container">
+                        <div class="l-notification-dot"></div>
+                    </div>
+                    <div class="l-notification-message-container">
+                        <p class="g-text-p l-left">
+                            We noticed you haven't completed your profile. We need all this information to ensure trust
+                            between counterparties. You still need to provide your:
+                            <span *ngFor="let incompleteUserProfileItem of incompleteUserProfileItems">{{
+                                incompleteUserProfileItem.slice(0, 1).toUpperCase() + incompleteUserProfileItem.slice(1)
+                            }}</span
+                            >.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Notifications -->
+
+        <div *ngFor="let notificationType of notificationTypes" class="l-notifications-container">
+            <ng-container *ngIf="_notifications[notificationType]?.length">
+                <div class="l-secondary-header">
+                    <h2 class="g-text-h2 pb-2">
+                        <b>{{ notificationType.substring(0, 1).toUpperCase() + notificationType.substr(1) }}</b>
+                    </h2>
+                    <p class="g-text-p">{{ _notifications[notificationType]?.length }}</p>
+                </div>
+                <div *ngFor="let notification of _notifications[notificationType]" class="l-notification" [mat-ripple]>
+                    <div class="l-notification-info-container" (click)="handleNavigateToNotification(notification)">
+                        <div class="l-notification-dot-container">
+                            <div class="l-notification-dot"></div>
+                        </div>
+                        <div class="l-notification-message-container">
+                            <p class="g-text-p l-left">{{ notification.message }}</p>
+                        </div>
+                    </div>
+                    <div class="l-clear" (click)="handleClearNotification(notification.uid)">
+                        <p class="g-text-p l-green">Clear</p>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <!-- #endregion -->
+    </ng-template>
+
+    <!-- #endregion -->
+</div>

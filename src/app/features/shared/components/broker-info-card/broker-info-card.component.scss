@@ -1,0 +1,67 @@
+@import 'src/variables.scss';
+
+.l-container {
+    margin: 16px 0;
+}
+.l-row {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+}
+
+.l-item-container {
+    display: flex;
+    flex-direction: column;
+    padding-right: 8px;
+    margin-left: 16px;
+    width: 100%;
+    height: 48px;
+    white-space: normal;
+}
+
+.l-item {
+    font-weight: $font-weight-semi-bold;
+    font-family: $text-font;
+    color: $text-dark;
+    font-size: 16px;
+    text-align: left;
+    margin-right: 4px;
+}
+
+.l-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.l-accepted {
+    padding: 8px 16px;
+    background-color: $secondary-green;
+    color: $primary-green;
+    font-size: 12px;
+    width: min-content;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.l-allow-broker-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.l-location {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.l-map-holder {
+    margin: 8px 16px;
+}
+
+.l-loading-container {
+    margin: 0 auto;
+    margin-top: 40px;
+}

@@ -1,0 +1,48 @@
+<div class="l-container">
+    <div class="l-search-container" *ngIf="dontShowSearchBar === undefined">
+        <div class="g-text-input-container">
+            <img class="g-input-text-icon" src="./assets/icons/search-grey-icon.svg" alt="search-icon" />
+            <input
+                class="g-input-text"
+                [(ngModel)]="searchInput"
+                (ngModelChange)="handleSearchInput()"
+                name="search"
+                type="text"
+                [placeholder]="
+                    activeRoute === 'scouts' ? 'Search crop or location...' : 'Search Lot name, crop, or location...'
+                "
+            />
+        </div>
+    </div>
+
+    <!-- #region All / Selling / Buying Toggle -->
+
+    <mat-tab-group
+        *ngIf="dontShowTabs === undefined"
+        class="g-mat-tabs-dashboard"
+        (selectedTabChange)="handleChangeToggle($event.index)"
+        mat-align-tabs="center"
+    >
+        <mat-tab label="All"></mat-tab>
+        <mat-tab label="Selling"></mat-tab>
+        <mat-tab label="Buying"></mat-tab>
+    </mat-tab-group>
+
+    <!-- #endregion -->
+
+    <!-- #region Buttons -->
+
+    <div class="l-content">
+        <button class="g-primary-button mt-3" *ngIf="isScoutOrLot" (click)="handleCreate()">
+            <h2 class="g-text-h2">{{ isScout ? 'CREATE NEW SCOUT' : 'CREATE NEW LOT' }}</h2>
+        </button>
+        <div class="l-info" (click)="handleInfoModal()">
+            <img class="l-info-icon-img" src="./assets/icons/info-icon-blue.svg" alt="info-icon" />
+            <p class="g-text-p-small-dark pl-2">
+                {{ infoText }}
+            </p>
+        </div>
+
+        <!-- #endregion -->
+    </div>
+</div>

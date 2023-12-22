@@ -1,0 +1,39 @@
+<div class="l-container">
+    <!--  #region search input-->
+    <div class="l-search-container">
+        <div class="g-text-input-container">
+            <img class="g-input-text-icon" src="./assets/icons/search-grey-icon.svg" alt="search-icon" />
+            <input
+                class="g-input-text"
+                [(ngModel)]="searchInput"
+                (ngModelChange)="handleSearchInput()"
+                name="search"
+                type="text"
+                placeholder="Search client name"
+            />
+        </div>
+    </div>
+    <!--  #endregion-->
+
+    <!-- #region Clients / Pending Toggle -->
+
+    <mat-tab-group
+        class="g-mat-tabs-dashboard"
+        (selectedTabChange)="handleChangeToggle($event.index)"
+        [(selectedIndex)]="tabIndex"
+        mat-align-tabs="center"
+    >
+        <mat-tab label="Clients"></mat-tab>
+        <mat-tab label="Pending"></mat-tab>
+    </mat-tab-group>
+
+    <!-- #endregion -->
+
+    <!-- #region Buttons -->
+
+    <div class="l-content">
+        <button mat-flat-button class="g-primary-button my-3" (click)="handleAddNewClient()">Add New Client</button>
+    </div>
+
+    <!-- #endregion -->
+</div>

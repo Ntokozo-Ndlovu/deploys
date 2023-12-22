@@ -1,0 +1,30 @@
+<div class="l-container">
+    <!-- #region Initial Delivery Point Screen -->
+
+    <app-delivery-initial
+        *ngIf="showInitial && !isCreateOwn; else deliveryForm"
+        ($closeModalEvent)="handleCloseModal($event)"
+        ($toggleIsCreateOwnEvent)="handleToggleIsCreateOwn()"
+        [publicDeliveryPoints]="hidePublicDeliveryPoints ? [] : publicDeliveryPoints"
+        [userDeliveryPoints]="userDeliveryPoints"
+    ></app-delivery-initial>
+
+    <!-- #endregion -->
+
+    <!-- #region Delivery Point Form -->
+
+    <ng-template #deliveryForm>
+        <app-delivery-form
+            [isLoading]="isLoading"
+            [isView]="isView"
+            [showInitial]="showInitial"
+            [fromProfile]="fromProfile"
+            [deliveryPoint]="viewableDeliveryPoint"
+            ($closeModalEvent)="handleCloseModal($event)"
+            ($toggleIsCreateOwnEvent)="handleToggleIsCreateOwn()"
+            ($createDeliveryPointEvent)="handleCreateDeliveryPoint($event)"
+        ></app-delivery-form>
+    </ng-template>
+
+    <!-- #endregion -->
+</div>

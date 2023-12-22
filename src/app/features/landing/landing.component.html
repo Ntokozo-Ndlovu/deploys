@@ -1,0 +1,20 @@
+<div class="g-app-dimensions">
+    <div class="l-landing-container">
+        <div class="l-landing-content">
+            <img class="l-img" src="assets/images/MX-landing.svg" alt="Match Exchange" />
+            <h1 class="g-text-h1-dark mb-4">What is Match Exchange?</h1>
+            <p class="g-text-p-dark mb-3">
+                Match Exchange is the best way for farmers to sell their crop, deal directly with buyers and shorten the
+                chain.
+            </p>
+            <p class="g-text-p-dark mb-3">For the buyers, MX is the shortest path to farmers.</p>
+            <p class="g-text-p-dark mb-3">Unlocking new markets for farmers and many more suppliers for buyers.</p>
+        </div>
+        <button mat-flat-button class="g-primary-button mb-2" (click)="handleNavigateToTransactionalRisk()">
+            Let's get started
+        </button>
+        <button *ngIf="!fromSupport" mat-flat-button class="g-secondary-button" (click)="handleNavigateCreateScout()">
+            Skip Tutorial
+        </button>
+    </div>
+</div>

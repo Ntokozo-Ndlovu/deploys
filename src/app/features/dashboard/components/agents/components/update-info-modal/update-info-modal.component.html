@@ -1,0 +1,82 @@
+<div class="g-app-dimensions l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleBack()"
+        />
+        <p class="g-text-h2-dark text-left ml-5">Update Info</p>
+    </div>
+
+    <!-- #endregion -->
+    <!-- #region Content -->
+
+    <div class="l-content">
+        <p>We noticed you don't have some information set. To find the best broker please update your info below.</p>
+        <div class="g-form-input-group mt-2">
+            <label class="g-form-label">Location</label>
+            <div class="g-text-input-container">
+                <img class="g-input-text-icon" src="./assets/icons/location-blue-icon.svg" alt="" />
+                <input
+                    class="g-input-text"
+                    type="location"
+                    name="location"
+                    [(ngModel)]="userInfo.location"
+                    ngx-gp-autocomplete
+                    [options]="options"
+                    (onAddressChange)="handleSelectLocation($event)"
+                    placeholder="location"
+                    autocomplete="off"
+                    required
+                />
+            </div>
+        </div>
+        <div class="g-form-input-group mt-2">
+            <label class="g-form-label">Mobile Number</label>
+            <div class="g-text-input-container">
+                <img class="g-input-text-icon" src="./assets/icons/phone-blue-icon.svg" alt="" />
+                <input
+                    class="g-input-text"
+                    type="text"
+                    placeholder="Cell"
+                    [(ngModel)]="userInfo.phone"
+                    #phone="ngModel"
+                    name="phone"
+                    pattern="^(\+27|0)[6-8][0-9]{8}$"
+                    required
+                />
+            </div>
+            <p *ngIf="phone.touched && !phone.valid" class="g-input-validation-text-error pt-1 text-left">
+                Enter a valid phone number.
+            </p>
+        </div>
+    </div>
+    <!-- #region Buttons -->
+
+    <div class="mt-4">
+        <button
+            class="mb-2"
+            [ngClass]="{
+                'g-primary-button': locationSet && phone.valid,
+                'g-disabled-button': !locationSet || !phone.valid
+            }"
+            [disabled]="!locationSet && !phone.valid"
+            (click)="handleUpdateInfo()"
+        >
+            <mat-progress-spinner
+                *ngIf="isUpdateLocationLoading; else showButtonText"
+                class="g-mat-progress-spinner-white mx-auto"
+                mode="indeterminate"
+                [diameter]="30"
+            ></mat-progress-spinner>
+            <ng-template #showButtonText>Update Info</ng-template>
+        </button>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #endregion -->
+</div>

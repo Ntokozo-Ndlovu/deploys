@@ -1,0 +1,80 @@
+<div
+    class="l-container"
+    [ngClass]="{ 'g-card-border-sell': _lotCard.lotType === 'Sell', 'g-card-border-buy': _lotCard.lotType === 'Buy' }"
+>
+    <!-- #region Header -->
+
+    <div
+        class="l-header"
+        [ngClass]="{ 'l-banner-sell': _lotCard.lotType === 'Sell', 'l-banner-buy': _lotCard.lotType === 'Buy' }"
+    >
+        <h2
+            [ngClass]="{ 'l-sell-text': _lotCard.lotType === 'Sell', 'l-buy-text': _lotCard.lotType === 'Buy' }"
+            class="g-text-h2"
+        >
+            <b>{{ _lotCard.lotType.toLocaleUpperCase() }}</b>
+        </h2>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Lot Name / Edit -->
+
+    <div class="l-edit-container" (click)="handleCardClick('edit')">
+        <h2 class="g-text-h2-dark l-lot-name">
+            {{ usableLotName }}
+        </h2>
+        <p class="l-edit-text g-clickable">Edit</p>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content (Details) -->
+
+    <div class="l-detail-container" (click)="handleCardClick('view')">
+        <span class="l-type">{{ _lotCard.isPublic ? 'Public' : 'Private' }}</span>
+        <div class="l-content-holder">
+            <img class="l-detail-icon" src="./assets/icons/location-icon.svg" alt="delivery-point-icon" />
+            <p class="g-text-card-prop text-left">{{ usableLotDeliveryPointName }}</p>
+        </div>
+        <div class="l-content-holder">
+            <img class="l-detail-icon" src="./assets/icons/crop-icon.svg" alt="crop-icon" />
+            <p class="g-text-card-prop">{{ _lotCard.crop.name }}</p>
+        </div>
+        <div class="l-content-holder">
+            <img class="l-detail-icon" src="./assets/icons/delivery-box.svg" alt="location-icon" />
+            <p class="g-text-card-prop">
+                {{ _lotCard.quantity }} {{ _lotCard.unitOfMeasure == 'MT' ? 'Tonnes' : 'Bales' }}
+            </p>
+            <p class="g-text-card-prop ml-2">- R{{ _lotCard.price }}/MT</p>
+        </div>
+        <div class="l-content-holder">
+            <img
+                class="l-detail-icon"
+                [src]="_lotCard.isExpired ? './assets/icons/warning-icon.svg' : './assets/icons/calendar.svg'"
+                alt="location-icon"
+            />
+            <p class="g-text-card-prop">
+                {{ _lotCard.dateFrom | date: 'd/MM/yy' }} - {{ _lotCard.dateTo | date: 'd/MM/yy' }}
+            </p>
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Footer -->
+
+    <div class="l-card-footer g-text-h2" (click)="handleCardClick('view')">
+        <div class="d-flex align-items-center">
+            <p class="l-card-footer-content">Match Count</p>
+            <p class="l-count">{{ _lotCard.matchCount }}</p>
+        </div>
+        <div class="d-flex">
+            <div class="d-flex justify-content-centre align-items-centre">
+                <img class="l-matches-arrow" src="./assets/icons/arrow-next-icon.svg" alt="arrow-next-icon" />
+            </div>
+        </div>
+    </div>
+
+    <!-- #endregion -->
+</div>

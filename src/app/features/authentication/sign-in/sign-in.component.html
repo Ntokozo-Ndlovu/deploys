@@ -1,0 +1,123 @@
+<div class="l-container">
+    <div class="l-centered-content">
+        <img src="../../../assets/images/MX-logo.png" alt="Match Exchange" class="g-clickable l-logo" />
+        <h1 class="g-text-h1-dark pt-4">Welcome Back</h1>
+        <p class="g-text-p-dark pt-3">Sign in to Match Exchange below</p>
+
+        <div class="pt-3 l-form-container">
+            <button class="g-google-button" (click)="googleLogin()">
+                <img src="../../../assets/icons/google-icon-dark.svg" class="mr-2" />
+                <p class="g-text-p-dark">Sign in with Google</p>
+            </button>
+
+            <div class="d-flex justify-content-center my-4">
+                <h5 class="l-or">
+                    <span class="g-text-p-dark"> Or Sign in with </span>
+                </h5>
+            </div>
+
+            <form #loginForm="ngForm">
+                <div [class.l-validation-error]="email.touched && !email.valid" class="g-text-input-container">
+                    <img
+                        class="g-input-text-icon"
+                        [src]="
+                            email.touched && !email.valid
+                                ? '../../../assets/icons/mail-red-icon.svg'
+                                : '../../../assets/icons/mail-icon.svg'
+                        "
+                        alt=""
+                    />
+                    <input
+                        class="g-input-text"
+                        type="email"
+                        placeholder="Your Email"
+                        [(ngModel)]="emailInput"
+                        #email="ngModel"
+                        name="email"
+                        [pattern]="emailPattern"
+                        required
+                    />
+                </div>
+                <p *ngIf="email.touched && !email.valid" class="g-input-validation-text-error pt-1 text-left">
+                    Enter a valid email address....
+                </p>
+
+                <div class="g-text-input-container mt-3">
+                    <img class="g-input-text-icon" src="../../../assets/icons/lock-icon.svg" alt="" />
+                    <input
+                        class="g-input-text pr-5"
+                        [type]="passwordIsHidden ? 'text' : 'password'"
+                        placeholder="******"
+                        [(ngModel)]="password"
+                        name="password"
+                        required
+                        (keydown.enter)="handleLogin(loginForm)"
+                    />
+                    <img
+                        class="l-password-visible-icon"
+                        *ngIf="passwordIsHidden; else showPassword"
+                        (click)="togglePassword()"
+                        src="../../../assets/icons/eye-icon.svg"
+                        alt="View"
+                    />
+                    <ng-template #showPassword>
+                        <img
+                            class="l-password-visible-icon"
+                            (click)="togglePassword()"
+                            src="../../../assets/icons/eye-closed-icon.svg"
+                            alt="Hide"
+                        />
+                    </ng-template>
+                </div>
+            </form>
+
+            <p class="g-text-p-dark g-text-blue text-right pt-2">
+                <span (click)="handleRouteToPasswordManagement()">Forgot Password?</span>
+            </p>
+
+            <button
+                [ngClass]="{
+                    'g-primary-button': loginForm.valid,
+                    'g-disabled-button': loginForm.invalid
+                }"
+                [disabled]="loginForm.invalid"
+                class="g-primary-button mt-5"
+                mat-flat-button
+                (click)="handleLogin(loginForm)"
+            >
+                Sign In
+            </button>
+            <button class="g-secondary-button mt-2" mat-flat-button (click)="handleRouteToSignUp()">
+                Create Account
+            </button>
+
+            <p class="g-text-p-small-dark pt-5 l-terms">
+                By using our site, you agree to the
+                <span class="g-text-blue"
+                    ><a (click)="handleRouteToDocumentViewer('ToS.pdf')" target="_blank" class="terms clickable" id="TermsOfServiceLink">
+                        Terms Of Service</a
+                    >,
+                    <a
+                        (click)="handleRouteToDocumentViewer('privacyPolicy.pdf')"
+                        class="terms clickable"
+                        id="PrivacyPolicyLink"
+                        target="_blank"
+                    >
+                        Privacy Policy
+                    </a></span
+                >
+                and
+                <span class="g-text-blue"
+                    ><a
+                        (click)="handleRouteToDocumentViewer('Skudu_Acceptable.pdf')"
+                        class="terms clickable"
+                        id="WebsiteTermsofUseLink"
+                        target="_blank"
+                    >
+                        Website Terms of Use
+                    </a></span
+                >
+            </p>
+        </div>
+    </div>
+</div>

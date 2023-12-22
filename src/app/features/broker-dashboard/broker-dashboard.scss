@@ -1,0 +1,60 @@
+@import 'src/variables.scss';
+
+.l-header-container {
+  background: $app-bg-color;
+  height: fit-content;
+  z-index: 1;
+}
+
+.l-card-container {
+  background-color: $background-color;
+  padding: 12px;
+  border-radius: 4px;
+  margin: 8px 16px;
+  height: fit-content;
+}
+
+.l-list-container {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 576px;
+  overflow-y: scroll !important;
+  background: $app-bg-color;
+}
+
+.l-buttons {
+  gap: 10px;
+}
+
+.l-delete {
+  width: fit-content;
+}
+
+.l-secondary-button {
+  padding: 0 !important;
+}
+
+.l-btn-red-dot {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: normal;
+  color: $app-secondary-button-bg-color;
+  background-color: $app-delete-button-red;
+  outline: none !important;
+  transition: ease-in-out 0.3s;
+}
+
+

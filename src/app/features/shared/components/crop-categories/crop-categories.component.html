@@ -1,0 +1,46 @@
+<div class="l-container" [class.l-container-scout]="isScoutCreate">
+    <!-- #region Card -->
+
+    <div
+        *ngFor="let cropCategoryCard of _cropCategoryCards"
+        class="l-card"
+        [class.l-coming-soon]="!cropCategoryCard.isAvailable"
+        (click)="handleChooseCropCategory(cropCategoryCard.id, cropCategoryCard.isAvailable)"
+        matRipple
+    >
+        <div class="l-card-img-container">
+            <img class="l-card-img" [src]="cropCategoryCard.source" [alt]="cropCategoryCard.sourceAlt" />
+        </div>
+        <div class="l-card-title-container">
+            <h2 class="g-text-h2 m-0">{{ cropCategoryCard.name }}</h2>
+        </div>
+        <!-- #region Info Icon -->
+
+        <ng-container
+            *ngIf="
+                cropCategoryCard.name == 'Grains & Oilseeds' ||
+                cropCategoryCard.name == 'Roughage (Bales)' ||
+                cropCategoryCard.name == 'Legumes & Pulses' ||
+                cropCategoryCard.name == 'Byproducts' ||
+                cropCategoryCard.name == 'SAFEX Forward Hedging'
+            "
+        >
+            <img
+                class="g-card-info-icon"
+                src="./assets/icons/info-icon-blue.svg"
+                alt="info icon"
+                (click)="handleInfoModal(cropCategoryCard.id, cropCategoryCard.source, cropCategoryCard.name, $event)"
+            />
+        </ng-container>
+
+        <!-- #endregion -->
+        <img
+            *ngIf="!cropCategoryCard.isAvailable"
+            class="l-coming-soon-banner-img"
+            src="./assets/images/coming-soon-banner.png"
+            alt="Green banner thats reads 'coming soon'"
+        />
+    </div>
+
+    <!-- #endregion -->
+</div>

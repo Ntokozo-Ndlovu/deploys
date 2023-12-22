@@ -1,0 +1,78 @@
+<div class="g-app-dimensions l-container">
+    <!-- #region Header -->
+
+    <div class="l-header">
+        <img
+            class="l-back-icon"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleBack()"
+        />
+        <p class="g-text-h2-dark text-left ml-5">MX Brokers</p>
+        <mat-icon class="l-terms-menu-toggle" (click)="handleToggleTermsMenu($event)">more_vert</mat-icon>
+        <div class="l-terms-menu l-fade-in-top" *ngIf="showTermsMenu">
+            <a
+                class="g-text-p-dark"
+                mat-ripple
+                [href]="
+                    isWeb
+                        ? './assets/files/Sales Agt specifics 07.02.2023_C.pdf'
+                        : 'https://match.skudu.co.za/assets/files/Sales Agt specifics 07.02.2023_C.pdf'
+                "
+                download="The Match Exchange - Client Subscription Form"
+                ><strong>T's & C's</strong></a
+            >
+        </div>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Content -->
+
+    <div class="l-content">
+        <div *ngIf="isLoading; else showBrokers">
+            <div class="l-loading-container">
+                <mat-progress-spinner
+                    class="g-mat-progress-spinner-blue mx-auto"
+                    mode="indeterminate"
+                    [diameter]="40"
+                ></mat-progress-spinner>
+                <h1 class="g-text-h1-dark">Fetching Brokers...</h1>
+            </div>
+        </div>
+        <ng-template #showBrokers>
+            <div *ngIf="activeBroker; else showBrokerList">
+                <div class="l-card-container">
+                    <app-broker-info-card
+                        [showToggle]=true
+                        [toggleInputValue]="toggleValue"
+                        (toggleOutputValueEvent)="handleToggleSwitch($event)"
+                        [data]="activeBroker"
+                        showMap="true"
+                        showAccepted="true"
+                        [validUntil]="brokerExpiryDate"
+                    ></app-broker-info-card>
+                </div>
+            </div>
+            <ng-template #showBrokerList>
+                <a class="g-secondary-button pt-2" mat-flat-button href="https://matchmx.com/find-your-broker/"
+                    >Visit the MX Website</a
+                >
+                <div class="l-my-requests-container">
+                    <button class="g-primary-button my-2" (click)="handleRouteToRequests()" mat-flat-button>
+                        My Requests
+                    </button>
+                    <div *ngIf="notificationUids?.length" class="g-notification-dot-protrude l-notification-dot">
+                        {{ notificationUids?.length }}
+                    </div>
+                </div>
+                <div *ngFor="let broker of brokers" class="l-card-container">
+                    <app-broker-info-card [data]="broker" textLeft="true"></app-broker-info-card>
+                    <button class="g-primary-button" (click)="handleRequestBroker(broker)">Request Broker</button>
+                </div>
+            </ng-template>
+        </ng-template>
+    </div>
+
+    <!-- #endregion -->
+</div>

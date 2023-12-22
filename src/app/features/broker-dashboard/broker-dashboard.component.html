@@ -1,0 +1,79 @@
+<div class="d-flex flex-column g-app-dimensions">
+    <div class="l-header-container d-flex flex-column g-fade-in">
+        <app-broker-main-nav ($handleNotificationNavigate)="handleGetToggleOption($event)"></app-broker-main-nav>
+        <app-broker-toolbar
+            ($searchInputEvent)="handleClientSearch($event)"
+            ($changeToggleEvent)="handleGetToggleOption($event)"
+            ($addNewClientEvent)="handleAddNewClient()"
+            [tabIndex]="tabIndex"
+        ></app-broker-toolbar>
+    </div>
+
+    <!-- #Region Clients Tab-->
+    <div *ngIf="tabIndex === 0" class="l-list-container d-flex flex-column">
+        <div *ngIf="filteredActiveClients.length; else noActiveClients">
+            <div class="l-card-container" *ngFor="let client of filteredActiveClients">
+                <app-broker-info-card [data]="client"></app-broker-info-card>
+                <div class="d-flex flex-column">
+                    <div class="l-buttons d-flex flex-row">
+                        <button
+                            mat-flat-button
+                            class="g-secondary-button l-secondary-button mt-0"
+                            (click)="handleViewLots(client.uid)"
+                        >
+                            View Client
+                            <div class="l-btn-red-dot" *ngIf="this.clientNotificationsCount[client.uid]">
+                                {{ this.clientNotificationsCount[client.uid] }}
+                            </div>
+                        </button>
+                        <button
+                            mat-flat-button
+                            class="g-secondary-button mt-0 w-auto"
+                            (click)="handleOpenDeleteClientConfirmation(client)"
+                        >
+                            <img src="assets/icons/delete-icon-black.svg" alt="delete" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #noActiveClients>
+            <div class="d-flex flex-column g-text-h1-dark justify-content-center align-content-center h-50 p-2">
+                You currently have no active clients
+            </div>
+        </ng-template>
+    </div>
+    <!--  #endregion-->
+
+    <!--  #Region Pending Tab-->
+    <div *ngIf="tabIndex === 1" class="l-list-container d-flex flex-column">
+        <div *ngIf="filteredPendingClients.length; else noPendingClients">
+            <div class="l-card-container" *ngFor="let client of filteredPendingClients">
+                <app-broker-info-card [data]="client"></app-broker-info-card>
+                <div class="d-flex flex-column">
+                    <button
+                        *ngIf="!pendingRequestsByBroker.includes(client.uid); else showOutGoingRequest"
+                        mat-flat-button
+                        class="g-primary-button mt-0"
+                        (click)="handleViewRequest(client)"
+                    >
+                        View
+                    </button>
+                    <ng-template #showOutGoingRequest>
+                        <button mat-flat-button class="g-secondary-button mt-0" (click)="handleCancelRequest(client)">
+                            Cancel
+                        </button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #noPendingClients>
+            <div class="d-flex flex-column g-text-h1-dark justify-content-center align-content-center h-50 p-2">
+                You currently have no Pending Client Requests
+            </div>
+        </ng-template>
+    </div>
+    <!--  #endregion-->
+</div>

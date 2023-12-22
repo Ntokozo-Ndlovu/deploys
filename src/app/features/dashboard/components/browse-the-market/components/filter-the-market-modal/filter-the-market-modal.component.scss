@@ -1,0 +1,71 @@
+@import 'src/variables.scss';
+
+.l-container {
+    height: 100%;
+    background-color: $background-color-grey;
+    overflow: auto;
+}
+
+.l-header {
+    position: relative;
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.l-back-icon {
+    position: absolute;
+    left: 0;
+    width: 20.24px;
+    height: 13.5px;
+    margin-left: 16px;
+}
+
+.l-loading-container {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.l-form {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.l-option {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: $border-radius;
+    padding: 16px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.l-active-buy {
+    color: $primary-red;
+    border: 1px solid $primary-red;
+}
+
+.l-active-sell {
+    color: $primary-green;
+    border: 1px solid $primary-green;
+}
+
+.l-location-input {
+    margin-top: 24px;
+    cursor: pointer !important;
+}
+
+.l-period-error {
+    font-size: small;
+    font-weight: 500;
+}

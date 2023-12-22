@@ -1,0 +1,130 @@
+<div class="l-container">
+    <div class="l-header">
+        <img
+            class="l-back-icon ml-4"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="handleNavigateToDashboard()"
+        />
+        <h2 class="g-text-h2-dark">Your Scout</h2>
+        <h2 class="g-text-h2 l-edit-text g-text-blue pr-3" (click)="handleEditButtonClick()">Edit</h2>
+    </div>
+    <!-- #region Content -->
+
+    <div class="l-content" [ngClass]="isLoading ? 'h-100' : 'g-fade-in'">
+        <!-- #region Loading Spinner -->
+
+        <div *ngIf="isLoading; else showCard" class="l-spinner-container">
+            <mat-progress-spinner
+                class="g-mat-progress-spinner"
+                mode="indeterminate"
+                [diameter]="40"
+            ></mat-progress-spinner>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Results Card -->
+
+        <ng-template #showCard>
+            <div class="l-search-tabs">
+                <div
+                    *ngFor="let pill of pills"
+                    class="l-tab"
+                    [ngClass]="scoutResult?.scoutType === 'Sell' ? 'l-tab-sell' : 'l-tab-buy'"
+                >
+                    {{ pill }}
+                </div>
+            </div>
+
+            <button
+                mat-flat-button
+                *ngIf="scoutResult?.scoutType === 'Buy'"
+                class="w-100 l-fine-tune-button l-h2 mb-3"
+                (click)="handleNavigateToFineTune()"
+            >
+                Fine Tune Your Scout
+            </button>
+
+            <div
+                class="l-results-card"
+                [ngClass]="scoutResult?.scoutType === 'Sell' ? 'l-results-card-sell' : 'l-results-card-buy'"
+            >
+                <div class="l-results-card-content">
+                    <h1 class="g-text-label mt-4">You are now matched to</h1>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex"
+                            [ngClass]="scoutResult?.scoutType === 'Sell' ? 'l-match-count-sell' : 'l-match-count-buy'"
+                        >
+                            {{ scoutResult?.matchCount }}
+                            <div *ngIf="hasLots" class="l-sub-num">
+                                {{ scoutResult?.scoutType === 'Sell' ? 'Buyers' : 'Sellers' }}
+                            </div>
+                        </div>
+
+                        <div *ngIf="hasLots" class="l-match-count-buy ml-2">
+                            <div class="d-flex align-items-center">
+                                {{ scoutResult?.lotCount }}
+                                <div class="l-sub-num">Lots</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h1 class="g-text-p-dark text-center">
+                        {{
+                            scoutResult?.scoutType === 'Sell'
+                                ? 'Buyers that are interested in buying your crop'
+                                : 'Suppliers that have the crop you are scouting for'
+                        }}
+                    </h1>
+                    <p class="g-text-p-small-dark mt-4 mx-3">
+                        Would you like to tell the Market what you are planning to {{ scoutResult?.scoutType }}?
+                    </p>
+                    <div class="l-public-toggle">
+                        <button
+                            mat-flat-button
+                            [ngClass]="{
+                                'l-public-card-sell': scoutResult?.scoutType === 'Sell',
+                                'l-public-card-buy': scoutResult?.scoutType === 'Buy',
+                                'l-active': scoutResult?.scoutType && !scoutResult.isPublic
+                            }"
+                            (click)="handlePublicToggle(false)"
+                        >
+                            Private
+                        </button>
+                        <button
+                            mat-flat-button
+                            [ngClass]="{
+                                'l-public-card-sell': scoutResult?.scoutType === 'Sell',
+                                'l-public-card-buy': scoutResult?.scoutType === 'Buy',
+                                'l-active': scoutResult?.scoutType && scoutResult.isPublic
+                            }"
+                            (click)="handlePublicToggle(true)"
+                        >
+                            Available to Market
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <!-- #endregion -->
+
+        <!-- #region Save Button -->
+
+        <button mat-flat-button *ngIf="!isLoading" class="g-primary-button mb-5" (click)="handleSaveScout()">
+            <ng-container *ngIf="!isActionLoading; else showLoadingSpinner"> Save Scout </ng-container>
+            <ng-template #showLoadingSpinner>
+                <mat-progress-spinner
+                    class="g-mat-progress-spinner-white mx-auto"
+                    mode="indeterminate"
+                    [diameter]="30"
+                ></mat-progress-spinner>
+            </ng-template>
+        </button>
+
+        <!-- #endregion -->
+    </div>
+
+    <!-- #endregion -->
+</div>

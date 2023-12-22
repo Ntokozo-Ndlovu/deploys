@@ -1,0 +1,29 @@
+@import 'src/variables.scss';
+
+.l-container {
+    overflow: hidden;
+    width: auto;
+    background-color: white;
+    margin: 8px 6px;
+    position: relative;
+}
+
+.l-close-icon {
+    width: 18px;
+    height: auto;
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    z-index: 1;
+}
+
+.l-card-container {
+    background-color: white;
+    padding: 12px;
+    border-radius: 4px;
+    margin: 8px 0;
+}
+
+.l-content {
+    padding: 12px;
+}

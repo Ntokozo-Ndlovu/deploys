@@ -1,0 +1,42 @@
+@import 'src/variables.scss';
+
+.l-container {
+    width: 100%;
+    height: 100%;
+    background-color: $background-color-grey;
+    overflow-y: auto;
+}
+
+.l-content {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.l-header {
+    position: relative;
+    width: 100%;
+    min-height: 56px;
+    background-color: white;
+}
+
+.l-back-icon {
+    position: absolute;
+    left: 16px;
+    top: 20px;
+    width: 20.24px;
+    height: 13.5px;
+}
+
+.l-map-holder {
+    border-radius: $border-radius;
+    overflow: hidden;
+}
+
+.l-info-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: flex-start;
+    margin: 16px 0 8px 0;
+}

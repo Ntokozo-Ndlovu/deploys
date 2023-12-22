@@ -1,0 +1,117 @@
+<div class="l-container g-fade-in-right">
+    <div class="l-header">
+        <img
+            class="l-back-icon ml-4"
+            src="./assets/icons/back-arrow-icon.svg"
+            alt="back-arrow-icon"
+            (click)="navigateToSearchResultsHelper()"
+        />
+        <p class="g-text-h2-dark">Fine-tune Scout</p>
+    </div>
+
+    <div class="l-content">
+        <!-- #region ExFarm  -->
+
+        <div class="l-input-container">
+            <label class="w-100 mt-4 g-form-label">Scout farmers that can deliver crop Ex Farm</label>
+            <div class="l-select-container">
+                <button
+                    mat-flat-button
+                    class="l-option"
+                    [class.l-active-option]="fineTune.exFarm"
+                    (click)="handleToggleExFarm(true)"
+                >
+                    Yes<img
+                        class="l-icon"
+                        src="./assets/icons/unselected-icon.svg"
+                        [src]="
+                            fineTune.exFarm
+                                ? './assets/icons/selected-blue-icon.svg'
+                                : './assets/icons/unselected-icon.svg'
+                        "
+                        alt="selected-icon"
+                    />
+                </button>
+                <button
+                    mat-flat-button
+                    class="l-option"
+                    [class.l-active-not-option]="!fineTune.exFarm"
+                    (click)="handleToggleExFarm(false)"
+                >
+                    No
+                    <img
+                        class="l-icon"
+                        [src]="
+                            !fineTune.exFarm
+                                ? './assets/icons/selected-blue-icon.svg'
+                                : './assets/icons/unselected-icon.svg'
+                        "
+                        alt="selected-icon"
+                    />
+                </button>
+            </div>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region selector -->
+        <div class="d-flex l-input-container flex-column my-3">
+            <label class="g-form-label">Scout for farmers that have a B-BBEE rating better than:</label>
+            <mat-select class="g-form-select" name="bbbeeRating" [(ngModel)]="fineTune.rating">
+                <mat-option *ngFor="let rating of ratingData" [value]="ratingData.indexOf(rating)">
+                    {{ rating }}
+                </mat-option>
+            </mat-select>
+        </div>
+
+        <!-- #endregion -->
+
+        <!-- #region Lots -->
+
+        <div class="l-input-container">
+            <label class="w-100 mt-4 g-form-label">Include Lots in my Scout</label>
+            <div class="l-select-container">
+                <button
+                    mat-flat-button
+                    class="l-option"
+                    [class.l-active-option]="fineTune.hasLots"
+                    (click)="handleToggleIncludeLots(true)"
+                >
+                    Yes<img
+                        class="l-icon"
+                        src="./assets/icons/unselected-icon.svg"
+                        [src]="
+                            fineTune.hasLots
+                                ? './assets/icons/selected-blue-icon.svg'
+                                : './assets/icons/unselected-icon.svg'
+                        "
+                        alt="selected-icon"
+                    />
+                </button>
+                <button
+                    mat-flat-button
+                    class="l-option"
+                    [class.l-active-not-option]="!fineTune.hasLots"
+                    (click)="handleToggleIncludeLots(false)"
+                >
+                    No
+                    <img
+                        class="l-icon"
+                        [src]="
+                            !fineTune.hasLots
+                                ? './assets/icons/selected-blue-icon.svg'
+                                : './assets/icons/unselected-icon.svg'
+                        "
+                        alt="selected-icon"
+                    />
+                </button>
+            </div>
+        </div>
+
+        <button mat-flat-button class="g-primary-button mt-5" (click)="navigateToSearchResultsHelper()">
+            Scout the Market
+        </button>
+    </div>
+
+    <!-- #endregion -->
+</div>

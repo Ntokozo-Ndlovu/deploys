@@ -1,0 +1,77 @@
+// Text
+$app-font: 'Montserrat', sans-serif;
+$app-input-font: 'Mulish', sans-serif;
+$app-font-black: #343434;
+$app-text-grey: #707070;
+$app-font-input-placeholder: rgba(30, 48, 37, 0.56);
+$app-form-info-color: #afafaf;
+
+// Colors
+$app-bg-color: #f9f9fc;
+$app-buying-red: #e76f51;
+$app-selling-green: #7fa995;
+$app-input-bg-color: #e6e6e6;
+$app-bottom-nav-item-bg: #e5efe9;
+$app-tabs-marketplace-green: #285d60;
+$app-tabs-negotiations-blue: #4f9ebd;
+$app-notification-red: #a53a4a;
+
+// Gradients
+$app-selling-gradient: linear-gradient(to bottom right, #98b4a7, #4a6e5e);
+$app-buying-gradient: linear-gradient(to bottom right, #df8a75, #a2533f);
+$app-selling-card-gradient: linear-gradient(to bottom right, #85ae9b, #739e8a);
+$app-buying-card-gradient: linear-gradient(to bottom right, $app-buying-red, #c75d43);
+
+// Buttons
+$app-primary-button-bg-color: #31a05f;
+$app-secondary-button-bg-color: #e5e5e5;
+$app-delete-button-red: #d3455b;
+
+// Other
+$app-border-radius: 8px;
+$app-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08) !important;
+
+// #region Match Exchange
+
+// #region Colors
+
+$background-color: #ffffff;
+$background-color-grey: #f5f5f5;
+$text-dark: #404040;
+$text-placeholder: #8c8c8c;
+$primary-color: #407ef8;
+$secondary-color: #e5edfd;
+$medium-blue: #8d9ec5;
+$primary-green: #1caf7e;
+$secondary-green: #e7f7f0;
+$primary-red: #d2303d;
+$secondary-red: #f7e8e7;
+$input-border: #e2e8f0;
+$error-message: #b1150a;
+$disabled-color: #cbcbcb;
+
+// #endregion
+
+// #region Text
+
+$text-font: 'Montserrat', sans-serif;
+$font-weight-bold: 700;
+$font-weight-semi-bold: 600;
+$font-weight-regular: 500;
+$font-weight-light: 400;
+
+// #endregion
+
+// #region Buttons
+
+$button-font-weight: 600;
+
+// #endregion
+
+// #region Other
+
+$border-radius: 4px;
+
+// #endregion
+
+// #endregion

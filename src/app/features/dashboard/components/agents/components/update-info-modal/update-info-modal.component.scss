@@ -1,0 +1,21 @@
+@import 'src/variables.scss';
+
+.l-container {
+    padding: 16px;
+    overflow: hidden;
+    width: auto;
+    background-color: $app-bg-color;
+}
+
+.l-header {
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+.l-back-icon {
+    position: absolute;
+    left: 16px;
+    top: 22px;
+    width: 20.24px;
+    height: 13.5px;
+}

@@ -1,0 +1,93 @@
+@import '../../../../variables.scss';
+
+.l-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.l-centered-content {
+    padding-bottom: 16px;
+    padding-top: 16px;
+    overflow: auto;
+}
+
+.l-logo {
+    display: block;
+    margin: 0 auto;
+}
+
+.l-form-container {
+    margin: 0 16px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.l-or {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid $input-border;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+    & span {
+        background: #fff;
+        padding: 0 16px;
+    }
+}
+
+.l-additional-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 20px;
+}
+
+.l-validation-error {
+    border: solid 1px $error-message !important;
+    .g-input-text::-webkit-input-placeholder {
+        color: $error-message;
+    }
+}
+
+.l-stepper {
+    .mat-horizontal-stepper-header-container {
+        display: none !important;
+    }
+}
+
+.l-validation-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.l-terms {
+    line-height: 24px;
+}
+
+.l-optional {
+    display: none;
+}
+
+.l-overflow {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 42px;
+}
+
+// #region Responsive Media Queries
+
+@media only screen and (max-width: 346px) {
+    .l-optional {
+        display: flex;
+    }
+}
+
+// #endregion

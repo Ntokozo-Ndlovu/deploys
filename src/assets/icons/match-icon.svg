@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="65" height="22" viewBox="0 0 65 22">
+  <g id="Group_32034" data-name="Group 32034" transform="translate(-156 -335)">
+    <g id="Group_29903" data-name="Group 29903" transform="translate(157.368 328) rotate(-90)">
+      <rect id="Rectangle_10907" data-name="Rectangle 10907" width="22" height="65" rx="8" transform="translate(-29 -1.368)" fill="#31a05f"/>
+    </g>
+    <g id="Group_32033" data-name="Group 32033" transform="translate(3.5)">
+      <text id="Match" transform="translate(165.5 350.5)" fill="#fafafa" font-size="14" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Match</tspan></text>
+    </g>
+  </g>
+</svg>

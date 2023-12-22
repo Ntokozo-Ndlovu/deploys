@@ -1,0 +1,57 @@
+<div class="l-container" >
+    <!-- #region Ng-Content -->
+
+    <div class="l-content" [class.h-100]="hideNav">
+        <ng-content content></ng-content>
+    </div>
+
+    <!-- #endregion -->
+
+    <!-- #region Navigation Bar -->
+
+    <div class="l-nav-container" *ngIf="!hideNav">
+        <div
+            *ngFor="let iconDetail of iconDetails | keyvalue: maintainOrderHelper"
+            matRipple
+            [matRippleColor]="matRippleColor"
+            class="l-item-container g-mat-ripple"
+            [class.l-active]="activeRoute === iconDetail.value.name"
+            (click)="handleToggleActiveRoute(iconDetail.value.name)"
+        >
+            <!-- #region Notification Dot -->
+
+            <ng-container
+                *ngIf="
+                    (iconDetail.value.name === 'negotiations' && notificationCounts.negotiations) ||
+                    (iconDetail.value.name === 'completed' && notificationCounts.completedNegotiations) ||
+                    (iconDetail.value.name === 'profile' && notificationCounts.profile)
+                "
+            >
+                <div class="g-notification-dot">
+                    {{
+                        iconDetail.value.name === 'negotiations'
+                            ? notificationCounts.negotiations
+                            : iconDetail.value.name === 'completed'
+                            ? notificationCounts.completedNegotiations
+                            : notificationCounts.profile
+                    }}
+                </div>
+            </ng-container>
+
+            <!-- #endregion -->
+
+            <img
+                class="l-icon"
+                [src]="
+                    activeRoute === iconDetail.value.name ? iconDetail.value.sourceBlue : iconDetail.value.sourceGrey
+                "
+                [alt]="iconDetail.value.name"
+            />
+            <p class="l-p">
+                {{ iconDetail.key }}
+            </p>
+        </div>
+    </div>
+
+    <!-- #endregion -->
+</div>
