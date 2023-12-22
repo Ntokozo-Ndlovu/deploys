@@ -631,6 +631,7 @@ body {
         max-height: 90vh !important;
         overflow: auto !important;
         padding: 24px;
+        background-color: $background-color !important;
     }
 }
 
@@ -642,6 +643,7 @@ body {
         max-width: 518px !important;
         height: fit-content;
         padding: 8px !important;
+        background-color: $background-color !important;
     }
 }
 
@@ -903,6 +905,7 @@ body {
     .g-modal-container {
         .mat-dialog-container {
             width: 518px;
+            background-color: $background-color !important;
         }
     }
 }
