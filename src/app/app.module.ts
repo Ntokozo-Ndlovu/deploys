@@ -57,7 +57,7 @@ export function playerFactory() {
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponentG,
         LandingComponent,
         TransactionalRisksComponent,
         SubscribeComponent,

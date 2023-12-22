@@ -1,0 +1,13 @@
+<div class="w-100 h-100 bg-white" *ngIf="appState$ | async as appData">
+    <app-loading-spinner *ngIf="appData.isLoading || appData.persist"></app-loading-spinner>
+
+    <!-- #region Notification Dropdown -->
+
+    <app-notification></app-notification>
+
+    <!-- #endregion -->
+
+    <div class="w-100 h-100" *ngIf="!appData.isLoading && !appData.persist">
+        <router-outlet></router-outlet>
+    </div>
+</div>
